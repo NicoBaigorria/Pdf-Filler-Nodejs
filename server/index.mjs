@@ -1,7 +1,7 @@
 import express from "express";
 import fs from 'fs';
 import path from 'path';
-import { pdfjsLib } from 'pdf-lib';
+import { pdfLib } from 'pdf-lib/dist';
 
 const app = express();
 const port = 3000;
@@ -38,7 +38,7 @@ const pdfUrl = 'https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/P
 app.get('/', async (req, res) => {
   try {
     // Asynchronous download of PDF
-    const pdf = await pdfjsLib.getDocument({ url: pdfUrl, enableXfa: true });
+    const pdf = await pdfLib.getDocument({ url: pdfUrl, enableXfa: true });
     const pdfData = await pdf.saveDocument();
 
     console.log('PDF saved:');
