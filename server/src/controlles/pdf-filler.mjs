@@ -1,10 +1,8 @@
-import express from "express";
 import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
+import getTicket from "../services/hubspot.mjs";
 
-const app = express();
-const port = 3000;
 
 function buscarPropiedad(json, targetName) {
   const resultados = [];
@@ -31,23 +29,22 @@ function buscarPropiedad(json, targetName) {
   return resultados.length > 0 ? resultados : null;
 }
 
-// Set the path to the PDF file
-const pdfUrl =
-  "https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/PDF-Gobierno_de_Canada/imm1294e.pdf";
+const procesarPdf = async (pdfInput) => {
 
-app.get("/", async (req, res) => {
   try {
     // Asynchronous download of PDF
-    const pdf = await pdfjs.getDocument({ url: pdfUrl, enableXfa: true });
+    const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/"+ pdfInput, enableXfa: true });
 
+    
     pdf.promise.then(function (pdfdata) {
       console.log("PDF loaded");
 
       const xfa = pdfdata.allXfaHtml;
 
+      if(xfa){
       console.log(xfa);
 
-      // Uso de la función
+      // Busco Propiedades
       const resultadoSelect = buscarPropiedad(xfa, "select");
       console.log("Resultado para 'select':", resultadoSelect);
 
@@ -57,18 +54,18 @@ app.get("/", async (req, res) => {
       const resultadotextarea = buscarPropiedad(xfa, "textarea");
       console.log("Resultado para 'textarea':", resultadotextarea);
 
-      pdfdata.annotationStorage.setValue("FamilyName31585", {
-        value: "asdsadas",
-      });
+
+      // Relleno campos
+      pdfdata.annotationStorage.setValue("FamilyName31585", { value: "asdsadas" });
 
       pdfdata.annotationStorage.setValue("Sex31593", { value: "Male" });
 
       //pdfdata.getData().then(res =>{
       pdfdata.saveDocument().then((newpdf) => {
         console.log(newpdf);
-        
+
         // Write to file
-        const outputPath = path.join("./output.pdf");
+        const outputPath = path.join("./src/OutputFiles/Pdf/"+ pdfInput +".pdf");
         fs.writeFile(outputPath, Buffer.from(newpdf), (err) => {
           if (err) {
             console.error("Error writing PDF:", err);
@@ -77,16 +74,33 @@ app.get("/", async (req, res) => {
           }
           console.log("PDF saved successfully!");
         });
-
-        res.send("PDF generated and saved successfully!");
       });
+    }else{
+    }
+      console.log("not have xfa")
     });
   } catch (error) {
     console.error("Error generating PDF:", error);
     res.status(500).send("Internal Server Error");
   }
-});
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+}
+
+const postPdf = async (req, res) => {
+
+  console.log(req.body.objectId)
+
+  const idTicket = req.body.objectId;
+
+  await getTicket(idTicket)
+
+  await fs.readdir('./src/InputFiles', (err, files) => {
+    files.forEach(async file => {
+      //await procesarPdf(file)
+    });
+  });
+
+  res.send("PDF generated and saved successfully!");
+}
+
+export default postPdf;

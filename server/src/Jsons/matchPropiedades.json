@@ -1,0 +1,134 @@
+{
+  "age": {
+    "internalName": "edad_"
+  },
+  "FamilyName": {
+    "internalName": "familyname"
+  },
+  "Edad..*": {
+    "internalName": "edad_"
+  },
+  "FamilyName": {
+    "internalName": "lastname"
+  },
+  "AliasNameIndicator": {
+    "internalName": "firstname"
+  },
+  "DOBYear": {
+    "internalName": "fecha_de_nacimiento_"
+  },
+  "DOBMonth": {
+    "internalName": "fecha_de_nacimiento_"
+  },
+  "DOBDay": {
+    "internalName": "fecha_de_nacimiento_"
+  },
+  "PlaceBirthCity": {
+    "internalName": "ciudad_de_nacimiento_"
+  },
+  "PMFamilyName": {
+    "internalName": "spouse_last_name__c"
+  },
+  "PMGivenName": {
+    "internalName": "spouse_first_name__c"
+  },
+  "PassportNum": {
+    "internalName": "numero_de_pasaporte_"
+  },
+  "IssueYYYY": {
+    "internalName": "fecha_de_emision_del_pasaporte_"
+  },
+  "IssueDD": {
+    "internalName": "fecha_de_emision_del_pasaporte_"
+  },
+  "IssueMM": {
+    "internalName": "fecha_de_emision_del_pasaporte_"
+  },
+  "expiryYYYY": {
+    "internalName": "fecha_de_expiracion_del_pasaporte_"
+  },
+  "expiryMM": {
+    "internalName": "fecha_de_expiracion_del_pasaporte_"
+  },
+  "expiryDD": {
+    "internalName": "fecha_de_expiracion_del_pasaporte_"
+  },
+  "DocNum": {
+    "internalName": "identificacion_"
+  },
+  "AptUnit": {
+    "internalName": "direccion_"
+  },
+  "StreetNum": {
+    "internalName": "direccion_"
+  },
+  "Streetname": {
+    "internalName": "direccion_"
+  },
+  "CityTown": {
+    "internalName": "ciudad_de_residencia_"
+  },
+  "PostalCode": {
+    "internalName": "codigo_postal_"
+  },
+  "ActualNumber": {
+    "internalName": "phone"
+  },
+  "AreaCode": {
+    "internalName": "phone"
+  },
+  "FirstThree": {
+    "internalName": "phone"
+  },
+  "LastFive": {
+    "internalName": "phone"
+  },
+  "IntlNumber": {
+    "internalName": "phone"
+  },
+  "Email": {
+    "internalName": "email"
+  },
+  "MedicalDetails": {
+    "internalName": "detalle_situacion_medica_"
+  },
+  "SpouseName": {
+    "internalName": "spouse_last_name__c"
+  },
+  "SpouseName": {
+    "internalName": "spouse_first_name__c"
+  },
+  "SpouseDOB": {
+    "internalName": "pareja_fecha_de_nacimiento_"
+  },
+  "SpouseAddress": {
+    "internalName": "pareja_direccion_"
+  },
+  "SpouseOccupation": {
+    "internalName": "ocupacion_actual_de_tu_pareja"
+  },
+  "MotherName": {
+    "internalName": "madre___apellido"
+  },
+  "MotherName": {
+    "internalName": "madre___nombre"
+  },
+  "MotherDOB": {
+    "internalName": "madre___fecha_de_nacimiento"
+  },
+  "MotherAddress": {
+    "internalName": "madre___direccion"
+  },
+  "FatherName": {
+    "internalName": "padre___apellido"
+  },
+  "FatherName": {
+    "internalName": "madre___nombre"
+  },
+  "FatherDOB": {
+    "internalName": "padre___fecha_de_nacimiento"
+  },
+  "FatherAddress": {
+    "internalName": "padre___direccion"
+  }
+}
