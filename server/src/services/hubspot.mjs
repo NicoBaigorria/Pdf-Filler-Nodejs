@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const getTicket = async (id) => {
+export const getTicket = async (id) => {
     const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
 
     let properties = "";
@@ -12,14 +12,14 @@ const getTicket = async (id) => {
     try {
         const fileProps = fs.readFileSync("./src/Jsons/ticketProps.json", 'utf8');
         const jsonProps = JSON.parse(fileProps).props;
-        
+
         console.log(jsonProps);
 
         jsonProps.forEach(element => {
-            properties += "properties=" + element + "&"; 
+            properties += "properties=" + element + "&";
         });
 
-        const url = `https://api.hubapi.com/crm/v3/objects/tickets/${id}?${ properties }archived=false`;
+        const url = `https://api.hubapi.com/crm/v3/objects/tickets/${id}?${properties}archived=false`;
 
         const response = await fetch(url, {
             method: 'GET',
@@ -39,4 +39,64 @@ const getTicket = async (id) => {
     }
 };
 
-export default getTicket;
+export const createFolder = async (name) => {
+    const myHeaders = new Headers();
+    myHeaders.append("content-type", "application/json");
+    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+
+    const raw = JSON.stringify({
+        "parentFolderId": "145506339115",
+        "name": name
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+    const idNewFolder = await fetch("https://api.hubapi.com/files/v3/folders", requestOptions)
+        .then((response) => response.text())
+        .then((result) => { return (JSON.parse(result).id) })
+        .catch((error) => console.error(error));
+
+    return idNewFolder;
+}
+
+export const createFile = async (fileUrl, folderId) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+
+  const fileBuffer = await fs.promises.readFile(fileUrl);
+
+  const blob = new Blob([fileBuffer], { type: 'application/octet-stream' });
+
+  const formdata = new FormData();
+  formdata.append("file", blob, fileUrl);
+  formdata.append("folderId", folderId);
+  formdata.append("options", JSON.stringify({
+    "access": "PRIVATE",
+    "ttl": "P2W",
+    "overwrite": false,
+    "duplicateValidationStrategy": "NONE",
+    "duplicateValidationScope": "EXACT_FOLDER"
+  }));
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow"
+  };
+
+  try {
+    const response = await fetch("https://api.hubapi.com/files/v3/files", requestOptions);
+    const result = await response.text();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+

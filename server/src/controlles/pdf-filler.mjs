@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
-import getTicket from "../services/hubspot.mjs";
+import { getTicket, createFolder, createFile } from "../services/hubspot.mjs";
 
 
 function buscarPropiedad(json, targetName) {
@@ -65,8 +65,8 @@ const procesarPdf = async (pdfInput, folder) => {
           console.log(newpdf);
 
           // Write to file
-          const outputPath = path.join(folder);
-          fs.writeFile(outputPath, Buffer.from(newpdf), (err) => {
+          const outputPath = path.join(folder, pdfInput);
+          fs.writeFileSync(outputPath, Buffer.from(newpdf), (err) => {
             if (err) {
               console.error("Error writing PDF:", err);
               return;
@@ -92,13 +92,34 @@ const postPdf = async (req, res) => {
 
   const folder = "./src/OutputFiles/Pdf/" + idTicket;
 
-  await fs.mkdirSync(folder)
+  if(!fs.existsSync(folder)){
+    try{
+      await fs.mkdirSync(folder)
+    }catch(e){
+      console.log("Error al crear carpeta")
+    }
+  }
   
   await getTicket(idTicket)
-
+/*
   await fs.readdir('./src/InputFiles', (err, files) => {
     files.forEach(async file => {
       await procesarPdf(file, folder)
+    });
+  });
+  */
+
+  const urlFolder = await createFolder(idTicket);
+
+  console.log(urlFolder)
+
+  await fs.readdir(folder, (err, files) => {
+    files.forEach(async file => {
+
+      console.log(folder+ "/" +file)
+
+      await createFile(folder+ "/" +file, urlFolder);
+
     });
   });
 
