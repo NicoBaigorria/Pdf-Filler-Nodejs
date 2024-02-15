@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
-import { getTicket, createFolder, createFile } from "../services/hubspot.mjs";
-
+import { getTicket, createFolder, createFile, deleteFolder } from "../services/hubspot.mjs";
 
 function buscarPropiedad(json, targetName) {
   const resultados = [];
@@ -11,7 +10,7 @@ function buscarPropiedad(json, targetName) {
     if (elemento.name === targetName) {
       if (elemento.name === "select") {
         resultados.push(elemento.children);
-      } else if (elemento.name === targetName) {
+      } else {
         resultados.push(elemento.attributes.dataId);
         elemento.attributes.textContent = "asdsad";
       }
@@ -30,19 +29,16 @@ function buscarPropiedad(json, targetName) {
 }
 
 const procesarPdf = async (pdfInput, folder) => {
-
   try {
-    // Asynchronous download of PDF
     const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/" + pdfInput, enableXfa: true });
 
-
-    pdf.promise.then(function (pdfdata) {
+    pdf.promise.then(async function (pdfdata) {
       console.log("PDF loaded");
 
       const xfa = pdfdata.allXfaHtml;
 
       if (xfa) {
-        console.log(xfa);
+        //console.log(xfa);
 
         // Busco Propiedades
         const resultadoSelect = buscarPropiedad(xfa, "select");
@@ -54,79 +50,66 @@ const procesarPdf = async (pdfInput, folder) => {
         const resultadotextarea = buscarPropiedad(xfa, "textarea");
         console.log("Resultado para 'textarea':", resultadotextarea);
 
-
         // Relleno campos
         pdfdata.annotationStorage.setValue("FamilyName31585", { value: "asdsadas" });
-
         pdfdata.annotationStorage.setValue("Sex31593", { value: "Male" });
 
-        //pdfdata.getData().then(res =>{
-        pdfdata.saveDocument().then((newpdf) => {
-          console.log(newpdf);
+        try {
+          const newpdf = await pdfdata.saveDocument();
+          //console.log(newpdf);
 
           // Write to file
           const outputPath = path.join(folder, pdfInput);
-          fs.writeFileSync(outputPath, Buffer.from(newpdf), (err) => {
-            if (err) {
-              console.error("Error writing PDF:", err);
-              return;
-            }
-            console.log("PDF saved successfully!");
-          });
-        });
+          await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
+          //console.log("PDF saved successfully!");
+        } catch (writeError) {
+          console.error("Error writing PDF:", writeError);
+        }
       } else {
+        console.log("Not have xfa");
       }
-      console.log("not have xfa")
     });
   } catch (error) {
     console.error("Error generating PDF:", error);
   }
-
-}
+};
 
 const postPdf = async (req, res) => {
+  try {
+    console.log(req.body.objectId);
 
-  console.log(req.body.objectId)
+    const idTicket = req.body.objectId;
+    const folder = "./src/OutputFiles/Pdf/" + idTicket;
 
-  const idTicket = req.body.objectId;
-
-  const folder = "./src/OutputFiles/Pdf/" + idTicket;
-
-  if(!fs.existsSync(folder)){
-    try{
-      await fs.mkdirSync(folder)
-    }catch(e){
-      console.log("Error al crear carpeta")
+    if (!fs.existsSync(folder)) {
+      await fs.mkdirSync(folder, { recursive: true });
     }
+
+    await getTicket(idTicket);
+
+    const files = await fs.promises.readdir('./src/InputFiles');
+    for (const file of files) {
+      await procesarPdf(file, folder);
+    }
+
+    const urlFolder = await createFolder(idTicket);
+    console.log(urlFolder);
+
+    await deleteFolder();
+
+    const subirPdfs = await fs.promises.readdir(folder);
+    for (const file of subirPdfs) {
+      console.log(folder + "/" + file);
+      await createFile(path.join(folder, file), urlFolder);
+    }
+
+    await fs.promises.rmdir(folder, { recursive: true });
+
+    res.send("PDF generated and saved successfully!");
+  } catch (postPdfError) {
+    console.error("Error in postPdf:", postPdfError);
+    res.status(500).send("Internal Server Error");
   }
-  
-  await getTicket(idTicket)
-/*
-  await fs.readdir('./src/InputFiles', (err, files) => {
-    files.forEach(async file => {
-      await procesarPdf(file, folder)
-    });
-  });
-  */
-
-  const urlFolder = await createFolder(idTicket);
-
-  console.log(urlFolder)
-
-  await fs.readdir(folder, (err, files) => {
-    files.forEach(async file => {
-
-      console.log(folder+ "/" +file)
-
-      await createFile(folder+ "/" +file, urlFolder);
-
-    });
-  });
-
-  //fs.rmdirSync(folder)
-
-  res.send("PDF generated and saved successfully!");
-
-}
+};
 
 export default postPdf;

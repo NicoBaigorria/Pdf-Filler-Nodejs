@@ -65,38 +65,55 @@ export const createFolder = async (name) => {
 }
 
 export const createFile = async (fileUrl, folderId) => {
-  const myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
 
-  const fileBuffer = await fs.promises.readFile(fileUrl);
+    const fileBuffer = await fs.promises.readFile(fileUrl);
 
-  const blob = new Blob([fileBuffer], { type: 'application/octet-stream' });
+    const blob = new Blob([fileBuffer], { type: 'application/octet-stream' });
 
-  const formdata = new FormData();
-  formdata.append("file", blob, fileUrl);
-  formdata.append("folderId", folderId);
-  formdata.append("options", JSON.stringify({
-    "access": "PRIVATE",
-    "ttl": "P2W",
-    "overwrite": false,
-    "duplicateValidationStrategy": "NONE",
-    "duplicateValidationScope": "EXACT_FOLDER"
-  }));
+    const formdata = new FormData();
+    formdata.append("file", blob, fileUrl);
+    formdata.append("folderId", folderId);
+    formdata.append("options", JSON.stringify({
+        "access": "PRIVATE",
+        "ttl": "P2W",
+        "overwrite": false,
+        "duplicateValidationStrategy": "NONE",
+        "duplicateValidationScope": "EXACT_FOLDER"
+    }));
 
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: formdata,
-    redirect: "follow"
-  };
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: formdata,
+        redirect: "follow"
+    };
 
-  try {
-    const response = await fetch("https://api.hubapi.com/files/v3/files", requestOptions);
-    const result = await response.text();
-    console.log(result);
-  } catch (error) {
-    console.error(error);
-  }
+    try {
+        const response = await fetch("https://api.hubapi.com/files/v3/files", requestOptions);
+        const result = await response.text();
+        console.log(result);
+    } catch (error) {
+        console.error(error);
+    }
 };
 
+export const deleteFolder = (idFolder) => {
+
+    const myHeaders = new Headers();
+    myHeaders.append("authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+
+    fetch("https://api.hubapi.com/files/v3/folders/"+idFolder, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+
+}
 
