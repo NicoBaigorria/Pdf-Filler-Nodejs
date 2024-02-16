@@ -1,12 +1,7 @@
 import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
-import {
-  getTicket,
-  createFolder,
-  createFile,
-  deleteFolder,
-} from "../services/hubspot.mjs";
+import { getTicket, createFolder, createFile, deleteFolder } from "../services/hubspot.mjs";
 
 function buscarPropiedad(json, targetName) {
   const resultados = [];
@@ -35,10 +30,7 @@ function buscarPropiedad(json, targetName) {
 
 const procesarPdf = async (pdfInput, folder) => {
   try {
-    const pdf = await pdfjs.getDocument({
-      url: "./src/InputFiles/" + pdfInput,
-      enableXfa: true,
-    });
+    const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/" + pdfInput, enableXfa: true });
 
     pdf.promise.then(async function (pdfdata) {
       console.log("PDF loaded");
@@ -59,9 +51,7 @@ const procesarPdf = async (pdfInput, folder) => {
         console.log("Resultado para 'textarea':", resultadotextarea);
 
         // Relleno campos
-        pdfdata.annotationStorage.setValue("FamilyName31585", {
-          value: "asdsadas",
-        });
+        pdfdata.annotationStorage.setValue("FamilyName31585", { value: "asdsadas" });
         pdfdata.annotationStorage.setValue("Sex31593", { value: "Male" });
 
         try {
@@ -97,7 +87,7 @@ const postPdf = async (req, res) => {
 
     await getTicket(idTicket);
 
-    const files = await fs.promises.readdir("./src/InputFiles");
+    const files = await fs.promises.readdir('./src/InputFiles');
     for (const file of files) {
       await procesarPdf(file, folder);
     }
@@ -105,14 +95,15 @@ const postPdf = async (req, res) => {
     const urlFolder = await createFolder(idTicket);
     console.log(urlFolder);
 
-    //await deleteFolder(urlFolder);
+    await deleteFolder();
 
     const subirPdfs = await fs.promises.readdir(folder);
-    const uploadPromises = subirPdfs.map(
-      async (file) => await createFile(path.join(folder, file), urlFolder)
-    );
-    await Promise.all(uploadPromises)//.then(async()=> await fs.promises.rmdir(folder, { recursive: true }));
-    //await fs.promises.rmdir(folder, { recursive: true });
+    for (const file of subirPdfs) {
+      console.log(folder + "/" + file);
+      await createFile(path.join(folder, file), urlFolder);
+    }
+
+    await fs.promises.rmdir(folder, { recursive: true });
 
     res.send("PDF generated and saved successfully!");
   } catch (postPdfError) {
