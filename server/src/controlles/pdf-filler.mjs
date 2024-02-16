@@ -95,15 +95,13 @@ const postPdf = async (req, res) => {
     const urlFolder = await createFolder(idTicket);
     console.log(urlFolder);
 
-    await deleteFolder();
+    //await deleteFolder();
 
     const subirPdfs = await fs.promises.readdir(folder);
-    for (const file of subirPdfs) {
-      console.log(folder + "/" + file);
-      await createFile(path.join(folder, file), urlFolder);
-    }
+    const uploadPromises = await subirPdfs.map(file => createFile(path.join(folder, file), urlFolder));
+    await Promise.all(uploadPromises)//.then(async()=> await fs.promises.rmdir(folder, { recursive: true }));
 
-    await fs.promises.rmdir(folder, { recursive: true });
+    //await fs.promises.rmdir(folder, { recursive: true });
 
     res.send("PDF generated and saved successfully!");
   } catch (postPdfError) {
