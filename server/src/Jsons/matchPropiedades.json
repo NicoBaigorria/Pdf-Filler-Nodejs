@@ -8,9 +8,6 @@
   "Edad..*": {
     "internalName": "edad_"
   },
-  "FamilyName": {
-    "internalName": "lastname"
-  },
   "AliasNameIndicator": {
     "internalName": "firstname"
   },
@@ -95,9 +92,6 @@
   "SpouseName": {
     "internalName": "spouse_last_name__c"
   },
-  "SpouseName": {
-    "internalName": "spouse_first_name__c"
-  },
   "SpouseDOB": {
     "internalName": "pareja_fecha_de_nacimiento_"
   },
@@ -110,9 +104,6 @@
   "MotherName": {
     "internalName": "madre___apellido"
   },
-  "MotherName": {
-    "internalName": "madre___nombre"
-  },
   "MotherDOB": {
     "internalName": "madre___fecha_de_nacimiento"
   },
@@ -122,13 +113,13 @@
   "FatherName": {
     "internalName": "padre___apellido"
   },
-  "FatherName": {
-    "internalName": "madre___nombre"
-  },
   "FatherDOB": {
     "internalName": "padre___fecha_de_nacimiento"
   },
   "FatherAddress": {
     "internalName": "padre___direccion"
+  },
+  "Sex":{
+    "internalName": "sexo"
   }
 }

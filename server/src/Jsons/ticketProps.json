@@ -37,6 +37,7 @@
     "padre___apellido",
     "madre___nombre",
     "padre___fecha_de_nacimiento",
-    "padre___direccion"
+    "padre___direccion",
+    "sexo"
   ]
 }

@@ -7,13 +7,19 @@ function buscarPropiedad(json, targetName) {
   const resultados = [];
 
   function buscarRecursivamente(elemento) {
+    //if(select == "select") console.log(elemento)
     if (elemento.name === targetName) {
+
+      resultados.push(elemento.attributes.dataId);
+
+      /*
       if (elemento.name === "select") {
-        resultados.push(elemento.children);
+        resultados.push(elemento.attributes.dataId);
       } else {
         resultados.push(elemento.attributes.dataId);
-        elemento.attributes.textContent = "asdsad";
+        //console.log(elemento.attributes)
       }
+      */
     }
 
     if (elemento.children && elemento.children.length > 0) {
@@ -28,7 +34,7 @@ function buscarPropiedad(json, targetName) {
   return resultados.length > 0 ? resultados : null;
 }
 
-const procesarPdf = async (pdfInput, folder) => {
+const procesarPdf = async (pdfInput, folder, tickeProperties) => {
   try {
     const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/" + pdfInput, enableXfa: true });
 
@@ -42,17 +48,95 @@ const procesarPdf = async (pdfInput, folder) => {
 
         // Busco Propiedades
         const resultadoSelect = buscarPropiedad(xfa, "select");
-        console.log("Resultado para 'select':", resultadoSelect);
+        //console.log("Resultado para 'select':", resultadoSelect);
 
         const resultadoInput = buscarPropiedad(xfa, "input");
-        console.log("Resultado para 'input':", resultadoInput);
+        //console.log("Resultado para 'input':", resultadoInput);
 
         const resultadotextarea = buscarPropiedad(xfa, "textarea");
-        console.log("Resultado para 'textarea':", resultadotextarea);
+        //console.log("Resultado para 'textarea':", resultadotextarea);
 
         // Relleno campos
-        pdfdata.annotationStorage.setValue("FamilyName31585", { value: "asdsadas" });
-        pdfdata.annotationStorage.setValue("Sex31593", { value: "Male" });
+        //pdfdata.annotationStorage.setValue("FamilyName31585", { value: "asdsadas" });
+        //pdfdata.annotationStorage.setValue("Sex31593", { value: "Male" });
+
+        const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
+
+       // console.log(matchPropiedades)
+
+
+          for(let campo in resultadotextarea){
+            for(let property in matchPropiedades){
+              //console.log(resultadotextarea[campo], property)
+              if(resultadotextarea[campo].includes(property)){
+
+                const InternalName = matchPropiedades[property].internalName;
+
+                const value = tickeProperties[InternalName];
+
+                //console.log(resultadotextarea[campo]+ " contiene: "+ property+ " value: "+value)
+
+                await pdfdata.annotationStorage.setValue(resultadotextarea[campo], { value: value });
+              }
+            }
+          }
+
+          for(let campo in resultadoInput){
+            for(let property in matchPropiedades){
+
+              if(resultadoInput[campo].includes(property)){
+
+                const InternalName = matchPropiedades[property].internalName;
+
+                const value = tickeProperties[InternalName];
+
+                //console.log(resultadoInput[campo]+ " contiene: "+ property+ " value: "+value)
+
+                await pdfdata.annotationStorage.setValue(resultadoInput[campo], { value: value });
+              }
+            }
+          }
+
+          for(let campo in resultadoSelect){
+            for(let property in matchPropiedades){
+
+              if(resultadoSelect[campo].includes(property)){
+
+                const InternalName = matchPropiedades[property].internalName;
+
+                const value = tickeProperties[InternalName];
+
+                console.log(resultadoSelect[campo]+ " contiene: "+ property+ " value: "+value)
+
+                await pdfdata.annotationStorage.setValue(resultadoSelect[campo], { value: value });
+              }
+            }
+          }
+
+          //await pdfdata.annotationStorage.setValue(InternalName, { value: value });
+
+
+        /*
+        for (let key in tickeProperties) {
+          try {
+            const value = tickeProperties[key];
+            const InternalName = matchPropiedades[key].internalName;
+
+           // console.log(key + " / " + InternalName + ": " + value)
+
+            for(let campo in resultadotextarea){
+              console.log(resultadotextarea[campo], key)
+              if(resultadotextarea[campo].includes(key)){
+                console.log(resultadotextarea[campo]+ "contine: "+ key)
+              }
+            }
+
+            //await pdfdata.annotationStorage.setValue(InternalName, { value: value });
+          } catch (e) {
+            console.log("error al rellenar campo")
+          }
+        }
+        */
 
         try {
           const newpdf = await pdfdata.saveDocument();
@@ -85,11 +169,15 @@ const postPdf = async (req, res) => {
       await fs.mkdirSync(folder, { recursive: true });
     }
 
-    await getTicket(idTicket);
+    const ticketData = await getTicket(idTicket);
+
+    const tickeProperties = ticketData.properties;
+
+    console.log(tickeProperties)
 
     const files = await fs.promises.readdir('./src/InputFiles');
     for (const file of files) {
-      await procesarPdf(file, folder);
+      await procesarPdf(file, folder, tickeProperties);
     }
 
     const urlFolder = await createFolder(idTicket);
