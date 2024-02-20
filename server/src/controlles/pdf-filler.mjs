@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
-import { getTicket, createFolder, createFile, deleteFolder } from "../services/hubspot.mjs";
+import { getTicket, createFolder, createFile, deleteFolder, updateProperty } from "../services/hubspot.mjs";
 
 function buscarPropiedad(json, targetName) {
   const resultados = [];
@@ -180,13 +180,19 @@ const postPdf = async (req, res) => {
       await procesarPdf(file, folder, tickeProperties);
     }
 
-    const urlFolder = await createFolder(idTicket);
-    console.log(urlFolder);
+    const folderId = await createFolder(idTicket);
+    console.log(folderId);
 
     //await deleteFolder();
 
+    const jsonPropsTicket = {
+      "id_folder": folderId
+    }
+
+    await updateProperty(idTicket, jsonPropsTicket)
+
     const subirPdfs = await fs.promises.readdir(folder);
-    const uploadPromises = await subirPdfs.map(file => createFile(path.join(folder, file), urlFolder));
+    const uploadPromises = await subirPdfs.map(file => createFile(path.join(folder, file), folderId));
     await Promise.all(uploadPromises)//.then(async()=> await fs.promises.rmdir(folder, { recursive: true }));
 
     //await fs.promises.rmdir(folder, { recursive: true });

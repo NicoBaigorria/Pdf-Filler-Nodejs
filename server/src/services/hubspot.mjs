@@ -117,3 +117,33 @@ export const deleteFolder = (idFolder) => {
 
 }
 
+export const updateProperty = async (id, properties) => {
+    const url = 'https://api.hubapi.com/crm/v3/objects/tickets/' + id;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff'
+    };
+
+    const body = JSON.stringify({
+        properties: properties
+    });
+
+    try {
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: headers,
+            body: body
+        });
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log(responseData);
+        console.log('Propiedades actualizadas//', body);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
