@@ -44,108 +44,48 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
       const xfa = pdfdata.allXfaHtml;
 
       if (xfa) {
-        //console.log(xfa);
-
-        // Busco Propiedades
         const resultadoSelect = buscarPropiedad(xfa, "select");
-        //console.log("Resultado para 'select':", resultadoSelect);
-
         const resultadoInput = buscarPropiedad(xfa, "input");
-        //console.log("Resultado para 'input':", resultadoInput);
-
         const resultadotextarea = buscarPropiedad(xfa, "textarea");
-        //console.log("Resultado para 'textarea':", resultadotextarea);
-
-        // Relleno campos
-        //pdfdata.annotationStorage.setValue("FamilyName31585", { value: "asdsadas" });
-        //pdfdata.annotationStorage.setValue("Sex31593", { value: "Male" });
 
         const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
 
-       // console.log(matchPropiedades)
-
-
-          for(let campo in resultadotextarea){
-            for(let property in matchPropiedades){
-              //console.log(resultadotextarea[campo], property)
-              if(resultadotextarea[campo].includes(property)){
-
-                const InternalName = matchPropiedades[property].internalName;
-
-                const value = tickeProperties[InternalName];
-
-                //console.log(resultadotextarea[campo]+ " contiene: "+ property+ " value: "+value)
-
-                await pdfdata.annotationStorage.setValue(resultadotextarea[campo], { value: value });
-              }
+        for (let campo in resultadotextarea) {
+          for (let property in matchPropiedades) {
+            if (resultadotextarea[campo].includes(property)) {
+              const InternalName = matchPropiedades[property].internalName;
+              const value = tickeProperties[InternalName];
+              await pdfdata.annotationStorage.setValue(resultadotextarea[campo], { value: value });
             }
-          }
-
-          for(let campo in resultadoInput){
-            for(let property in matchPropiedades){
-
-              if(resultadoInput[campo].includes(property)){
-
-                const InternalName = matchPropiedades[property].internalName;
-
-                const value = tickeProperties[InternalName];
-
-                //console.log(resultadoInput[campo]+ " contiene: "+ property+ " value: "+value)
-
-                await pdfdata.annotationStorage.setValue(resultadoInput[campo], { value: value });
-              }
-            }
-          }
-
-          for(let campo in resultadoSelect){
-            for(let property in matchPropiedades){
-
-              if(resultadoSelect[campo].includes(property)){
-
-                const InternalName = matchPropiedades[property].internalName;
-
-                const value = tickeProperties[InternalName];
-
-                console.log(resultadoSelect[campo]+ " contiene: "+ property+ " value: "+value)
-
-                await pdfdata.annotationStorage.setValue(resultadoSelect[campo], { value: value });
-              }
-            }
-          }
-
-          //await pdfdata.annotationStorage.setValue(InternalName, { value: value });
-
-
-        /*
-        for (let key in tickeProperties) {
-          try {
-            const value = tickeProperties[key];
-            const InternalName = matchPropiedades[key].internalName;
-
-           // console.log(key + " / " + InternalName + ": " + value)
-
-            for(let campo in resultadotextarea){
-              console.log(resultadotextarea[campo], key)
-              if(resultadotextarea[campo].includes(key)){
-                console.log(resultadotextarea[campo]+ "contine: "+ key)
-              }
-            }
-
-            //await pdfdata.annotationStorage.setValue(InternalName, { value: value });
-          } catch (e) {
-            console.log("error al rellenar campo")
           }
         }
-        */
+
+        for (let campo in resultadoInput) {
+          for (let property in matchPropiedades) {
+            if (resultadoInput[campo].includes(property)) {
+              const InternalName = matchPropiedades[property].internalName;
+              const value = tickeProperties[InternalName];
+              await pdfdata.annotationStorage.setValue(resultadoInput[campo], { value: value });
+            }
+          }
+        }
+
+        for (let campo in resultadoSelect) {
+          for (let property in matchPropiedades) {
+            if (resultadoSelect[campo].includes(property)) {
+              const InternalName = matchPropiedades[property].internalName;
+              const value = tickeProperties[InternalName];
+              console.log(resultadoSelect[campo] + " contiene: " + property + " value: " + value)
+              await pdfdata.annotationStorage.setValue(resultadoSelect[campo], { value: value });
+            }
+          }
+        }
 
         try {
           const newpdf = await pdfdata.saveDocument();
-          //console.log(newpdf);
-
-          // Write to file
           const outputPath = path.join(folder, pdfInput);
           await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
-          //console.log("PDF saved successfully!");
+          console.log("PDF saved successfully!");
         } catch (writeError) {
           console.error("Error writing PDF:", writeError);
         }
@@ -157,6 +97,7 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
     console.error("Error generating PDF:", error);
   }
 };
+
 
 const postPdf = async (req, res) => {
   try {
@@ -176,14 +117,19 @@ const postPdf = async (req, res) => {
     console.log(tickeProperties)
 
     const files = await fs.promises.readdir('./src/InputFiles');
+    const processingPromises = [];
+
     for (const file of files) {
-      await procesarPdf(file, folder, tickeProperties);
+      const processingPromise = procesarPdf(file, folder, tickeProperties);
+      processingPromises.push(processingPromise);
     }
+
+    await Promise.all(processingPromises);
+
+    await deleteFolder(tickeProperties.id_folder);
 
     const folderId = await createFolder(idTicket);
     console.log(folderId);
-
-    //await deleteFolder();
 
     const jsonPropsTicket = {
       "id_folder": folderId
@@ -192,10 +138,15 @@ const postPdf = async (req, res) => {
     await updateProperty(idTicket, jsonPropsTicket)
 
     const subirPdfs = await fs.promises.readdir(folder);
-    const uploadPromises = await subirPdfs.map(file => createFile(path.join(folder, file), folderId));
-    await Promise.all(uploadPromises)//.then(async()=> await fs.promises.rmdir(folder, { recursive: true }));
 
-    //await fs.promises.rmdir(folder, { recursive: true });
+    console.group("cantidad de archivos: "+ subirPdfs.length)
+
+    const uploadPromises = subirPdfs.map(async file => {
+      await createFile(path.join(folder, file), folderId)
+    });
+    await Promise.all(uploadPromises);
+
+    await fs.promises.rmdir(folder, { recursive: true });
 
     res.send("PDF generated and saved successfully!");
   } catch (postPdfError) {
@@ -205,3 +156,4 @@ const postPdf = async (req, res) => {
 };
 
 export default postPdf;
+
