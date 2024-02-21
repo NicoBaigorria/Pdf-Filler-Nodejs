@@ -38,7 +38,7 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
   try {
     const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/" + pdfInput, enableXfa: true });
 
-    pdf.promise.then(async function (pdfdata) {
+    await pdf.promise.then(async function (pdfdata) {
       console.log("PDF loaded");
 
       const xfa = pdfdata.allXfaHtml;
