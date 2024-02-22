@@ -1,25 +1,31 @@
+/**
+ * @module PdfProcessing
+ */
+
 import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
 import { getTicket, createFolder, createFile, deleteFolder, updateProperty } from "../services/hubspot.mjs";
 
+/**
+ * Mapea el xfa y devuelve la lista de campos que coincidan con el tipo del segundo parametro.
+ *
+ * @param {Object} json - The JSON object to search.
+ * @param {string} targetName - Tipo de campo.
+ * @returns {Array|null} - Lista de campos
+ * .
+ */
 function buscarPropiedad(json, targetName) {
   const resultados = [];
 
+  /**
+   * Fucion para buscar campos.
+   *
+   * @param {Object} elemento - Xfa para revisar.
+   */
   function buscarRecursivamente(elemento) {
-    //if(select == "select") console.log(elemento)
     if (elemento.name === targetName) {
-
       resultados.push(elemento.attributes.dataId);
-
-      /*
-      if (elemento.name === "select") {
-        resultados.push(elemento.attributes.dataId);
-      } else {
-        resultados.push(elemento.attributes.dataId);
-        //console.log(elemento.attributes)
-      }
-      */
     }
 
     if (elemento.children && elemento.children.length > 0) {
@@ -34,6 +40,37 @@ function buscarPropiedad(json, targetName) {
   return resultados.length > 0 ? resultados : null;
 }
 
+/**
+ * Procesar lista de campos busca su equivalente en hubspot y lo rellena.
+ *
+ * @param {Object} objeto - Lista de campos que se va a procesar.
+ * @param {Object} pdfdata - La información del PDF.
+ * @param {Object} matchPropiedades - Las propiedades de coincidencia para buscar.
+ * @param {Object} tickeProperties - Las propiedades del ticket para obtener los valores.
+ * @returns {Promise<void>} - Una promesa que se resuelve cuando se completa el procesamiento.
+ */
+async function procesarCampo(objeto, pdfdata, matchPropiedades, tickeProperties) {
+  for (let campo in objeto) {
+    for (let property in matchPropiedades) {
+      if (objeto[campo].includes(property)) {
+        const InternalName = matchPropiedades[property].internalName;
+        const value = tickeProperties[InternalName];
+        console.log(objeto[campo] + " contains: " + property + " value: " + value);
+        await pdfdata.annotationStorage.setValue(objeto[campo], { value: value });
+      }
+    }
+  }
+}
+
+
+/**
+ * Procesar pdf para rellenar.
+ *
+ * @param {string} pdfInput - Nombre del Pdf.
+ * @param {string} folder - Url de salida del Pdf.
+ * @param {Object} tickeProperties - Propiedades de Ticket.
+ * @returns {Promise<void>} - Promesa de que el archivo sera escrito.
+ */
 const procesarPdf = async (pdfInput, folder, tickeProperties) => {
   try {
     const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/" + pdfInput, enableXfa: true });
@@ -44,43 +81,19 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
       const xfa = pdfdata.allXfaHtml;
 
       if (xfa) {
+        // Extraer todos los campos para rellenar.
         const resultadoSelect = buscarPropiedad(xfa, "select");
         const resultadoInput = buscarPropiedad(xfa, "input");
         const resultadotextarea = buscarPropiedad(xfa, "textarea");
 
         const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
 
-        for (let campo in resultadotextarea) {
-          for (let property in matchPropiedades) {
-            if (resultadotextarea[campo].includes(property)) {
-              const InternalName = matchPropiedades[property].internalName;
-              const value = tickeProperties[InternalName];
-              await pdfdata.annotationStorage.setValue(resultadotextarea[campo], { value: value });
-            }
-          }
-        }
+        // Rellenar campos con datos de Hubpost.
+        await procesarCampo(resultadotextarea, pdfdata, matchPropiedades, tickeProperties);
+        await procesarCampo(resultadoInput, pdfdata, matchPropiedades, tickeProperties);
+        await procesarCampo(resultadoSelect, pdfdata, matchPropiedades, tickeProperties);
 
-        for (let campo in resultadoInput) {
-          for (let property in matchPropiedades) {
-            if (resultadoInput[campo].includes(property)) {
-              const InternalName = matchPropiedades[property].internalName;
-              const value = tickeProperties[InternalName];
-              await pdfdata.annotationStorage.setValue(resultadoInput[campo], { value: value });
-            }
-          }
-        }
-
-        for (let campo in resultadoSelect) {
-          for (let property in matchPropiedades) {
-            if (resultadoSelect[campo].includes(property)) {
-              const InternalName = matchPropiedades[property].internalName;
-              const value = tickeProperties[InternalName];
-              console.log(resultadoSelect[campo] + " contiene: " + property + " value: " + value)
-              await pdfdata.annotationStorage.setValue(resultadoSelect[campo], { value: value });
-            }
-          }
-        }
-
+        // Guardar PDF.
         try {
           const newpdf = await pdfdata.saveDocument();
           const outputPath = path.join(folder, pdfInput);
@@ -98,7 +111,13 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
   }
 };
 
-
+/**
+ * Process a POST request to generate and save PDF files.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A Promise that resolves when the PDF processing and saving is complete.
+ */
 const postPdf = async (req, res) => {
   try {
     console.log(req.body.objectId);
@@ -111,14 +130,15 @@ const postPdf = async (req, res) => {
     }
 
     const ticketData = await getTicket(idTicket);
-
     const tickeProperties = ticketData.properties;
 
-    console.log(tickeProperties)
+    console.log(tickeProperties);
 
     const files = await fs.promises.readdir('./src/InputFiles');
     const processingPromises = [];
 
+    // Procesar, llenar cada PDF y guardarlo en una carpeta dentro de la app.
+  
     for (const file of files) {
       const processingPromise = procesarPdf(file, folder, tickeProperties);
       processingPromises.push(processingPromise);
@@ -126,25 +146,34 @@ const postPdf = async (req, res) => {
 
     await Promise.all(processingPromises);
 
+
+    // Borrar carpeta en Hubpsot si existe.
     await deleteFolder(tickeProperties.id_folder);
+
+
+    // Crear una carpeta en Hubspot.
 
     const folderId = await createFolder(idTicket);
     console.log(folderId);
 
     const jsonPropsTicket = {
       "id_folder": folderId
-    }
+    };
 
-    await updateProperty(idTicket, jsonPropsTicket)
 
+    // Actualizar propiedad folder_id del Ticket.
+    await updateProperty(idTicket, jsonPropsTicket);
+
+
+    // Subir los PDFs a la nueva carpeta.
     const subirPdfs = await fs.promises.readdir(folder);
 
-    console.group("cantidad de archivos: "+ subirPdfs.length)
-
     const uploadPromises = subirPdfs.map(async file => {
-      await createFile(path.join(folder, file), folderId)
+      await createFile(folder, file, folderId);
     });
     await Promise.all(uploadPromises);
+
+    // Borrar carpeta en la app.
 
     await fs.promises.rmdir(folder, { recursive: true });
 
@@ -156,4 +185,3 @@ const postPdf = async (req, res) => {
 };
 
 export default postPdf;
-

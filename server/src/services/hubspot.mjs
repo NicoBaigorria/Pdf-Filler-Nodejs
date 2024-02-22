@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path';
 
 export const getTicket = async (id) => {
     const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
@@ -64,7 +65,8 @@ export const createFolder = async (name) => {
     return idNewFolder;
 }
 
-export const createFile = async (fileUrl, folderId) => {
+export const createFile = async (folder, name, folderId) => {
+    const fileUrl = path.join(folder, name);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
 
@@ -73,7 +75,7 @@ export const createFile = async (fileUrl, folderId) => {
     const blob = new Blob([fileBuffer], { type: 'application/octet-stream' });
 
     const formdata = new FormData();
-    formdata.append("file", blob, fileUrl);
+    formdata.append("file", blob, name);
     formdata.append("folderId", folderId);
     formdata.append("options", JSON.stringify({
         "access": "PRIVATE",
