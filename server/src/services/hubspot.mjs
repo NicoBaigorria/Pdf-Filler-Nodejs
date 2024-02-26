@@ -1,15 +1,14 @@
 import fs from 'fs'
 import path from 'path';
-import {Blob} from 'node:buffer';
-import fetch from "node-fetch";
-
 
 export const getTicket = async (id) => {
+    const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
+
     let properties = "";
 
-    const headers = {
-        'Authorization': 'Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff'
-    };
+    const headers = new Headers({
+        'Authorization': `Bearer ${accessToken}`
+    });
 
     try {
         const fileProps = fs.readFileSync("./src/Jsons/ticketProps.json", 'utf8');
@@ -42,10 +41,9 @@ export const getTicket = async (id) => {
 };
 
 export const createFolder = async (name) => {
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff'
-    };
+    const myHeaders = new Headers();
+    myHeaders.append("content-type", "application/json");
+    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
 
     const raw = JSON.stringify({
         "parentFolderId": "145506339115",
@@ -54,7 +52,7 @@ export const createFolder = async (name) => {
 
     const requestOptions = {
         method: "POST",
-        headers: headers,
+        headers: myHeaders,
         body: raw,
         redirect: "follow"
     };
@@ -69,9 +67,8 @@ export const createFolder = async (name) => {
 
 export const createFile = async (folder, name, folderId) => {
     const fileUrl = path.join(folder, name);
-    const headers = {
-        'Authorization': 'Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff'
-    };
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
 
     const fileBuffer = await fs.promises.readFile(fileUrl);
 
@@ -90,7 +87,7 @@ export const createFile = async (folder, name, folderId) => {
 
     const requestOptions = {
         method: "POST",
-        headers: headers,
+        headers: myHeaders,
         body: formdata,
         redirect: "follow"
     };
@@ -106,13 +103,12 @@ export const createFile = async (folder, name, folderId) => {
 
 export const deleteFolder = (idFolder) => {
 
-    const headers = {
-        'Authorization': 'Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff'
-    };
+    const myHeaders = new Headers();
+    myHeaders.append("authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
 
     const requestOptions = {
         method: "DELETE",
-        headers: headers,
+        headers: myHeaders,
         redirect: "follow"
     };
 
