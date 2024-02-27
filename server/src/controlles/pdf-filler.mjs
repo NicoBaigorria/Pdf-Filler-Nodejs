@@ -105,6 +105,9 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
       } else {
         console.log("Not have xfa");
       }
+
+        // Close the PDF document
+  await pdfdata.destroy();
     });
   } catch (error) {
     console.error("Error generating PDF:", error);

@@ -3,7 +3,7 @@ import routePdf from './routes/pdf-filler.mjs';
 import routeLink from "./routes/link.mjs";
 
 const app = express(),
-port = process.env.PORT || 3300;
+port = process.env.PORT || 3600;
 
 app.use(express.json());
 
