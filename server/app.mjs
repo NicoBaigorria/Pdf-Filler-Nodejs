@@ -1,6 +1,6 @@
 import express from "express";
-import routePdf from './routes/pdf-filler.mjs';
-import routeLink from "./routes/link.mjs";
+import routePdf from './src/routes/pdf-filler.mjs';
+import routeLink from "./src/routes/link.mjs";
 
 const app = express(),
 port = process.env.PORT || 3600;
