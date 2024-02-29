@@ -1,0 +1,103 @@
+{
+  "studypermit": [
+    "IMM1294E",
+    "IMM5645E",
+    "imm5257e",
+    "IMM5713E",
+    "IMM5476",
+"IMM1295E",
+"IMM5257E"
+  ],
+  "openworkpermit": [
+    "IMM1295E",
+    "IMM5710E",
+"IMM5476",
+"IMM5713e",
+"IMM5645E"
+  ],
+  "postgraduationworkpermit": [
+    "IMM5709e",
+"IMM5476",
+"IMM5713e",
+"IMM5710e",
+"IMM5708e"
+  ],
+  "extensiones": [
+    "IMM5709e",
+"IMM5476",
+"IMM5713e",
+"IMM5710e",
+"IMM5708e"
+  ],
+  "visitorvisa": [
+    "IMM5257e",
+"IMM5713e",
+"IMM5645E",
+"IMM5476"
+  ],
+  "programadenominacionprovincial": [
+    "ON00240E",
+"0233E",
+"NBPNP-004",
+"NB-005",
+"NB-007",
+"NB-008",
+"NSNP 200",
+"NSNP 50",
+"PEIW-02",
+"PEIW-03"
+  ],
+  "spousesponsorship": [
+    "IMM0008",
+"IMM5406",
+"IMM5476",
+"IMM5532",
+"IMM5533",
+"IMM1283",
+"IMM5669",
+"IMM1344",
+"IMM5562"
+  ],
+  "parentsandgranparentssponsorship": [
+    "IMM5771E",
+"IMM1344",
+"IMM5768",
+"IMM5409",
+"IMM0008",
+"IMM5406",
+"IMM5669",
+"IMM5562",
+"IMM5476"
+  ],
+  "expressentry": [
+    "IMM5476",
+"IMM5409"
+  ],
+  "temporaryresidentvisa": [
+    "IMM5257e",
+"IMM5476",
+"IMM5645E"
+  ],
+  "federalpermanentresedence": [
+    "IMM0008",
+"IMM0008 SCH4",
+"IMM5669",
+"IMM5562",
+"IMM5406",
+"IMM5476"
+  ],
+  "supervisa": [
+    "IMM5713e",
+"IMM5257e",
+"IMM5645E",
+"IMM5476"
+  ]
+  ,
+  "electronictravelauthorization(eta)": [
+
+  ],
+  "visitorrecord": [
+    "IMM5708e",
+    "IMM5476"
+  ]
+}

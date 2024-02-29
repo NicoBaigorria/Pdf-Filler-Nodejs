@@ -8,25 +8,8 @@
     "imm5708e-Visitor Record",
     "imm5709e Student",
     "imm5710e-Application to change conditions or entend my stay as a worker",
-    "imm5713e",
+    "imm5713e"
   ],
-  /*
-  "studypermit": [
-    "IMM1294ApplicationforaStudyPermitfromOutsideofCanada",
-    "IMM5645E-FamilyInformationForm",
-    "IMM5713eUseofaFamilyMember(soloconfamilia)",
-    "IMM5476-UseofrepresentativeFormulario-PreguntasdeSeguridad(PlanB)",
-    "IMM1295E-ApplicationforaWorkPermitfromOutsideofCanada",
-    "IMM5645E-FamilyInformationForm",
-    "IMM5476-Useofrepresentative",
-    "IMM5257E-ApplicationforTemporaryResidentVisa",
-    "IMM1294E-ApplicationforaStudyPermitfromOutsideofCanadasieldependientevaaestudiar.",
-    "IMM5257E-ApplicationforTemporaryResidentVisasieldependientevacomovisitante.",
-    "IMM5645E-FamilyInformationForm",
-    "IMM5476-Useofrepresentative",
-    "imm1294e"
-  ],
-  */
   "visitorvisa": [
     "IMM5713eUseofaFamilyMember",
     "IMM5257eTRV",

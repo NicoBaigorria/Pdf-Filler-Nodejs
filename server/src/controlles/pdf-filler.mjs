@@ -132,15 +132,33 @@ const postPdf = async (req, res) => {
       await fs.mkdirSync(folder, { recursive: true });
     }
 
+// Traer informacion del ticket para llenar formularios
+
     const ticketData = await getTicket(idTicket);
     const tickeProperties = ticketData.properties;
 
     console.log(tickeProperties);
 
+
+    // Selecciono los Formularios segun el plan
+
+    const listaProgramas = await JSON.parse(fs.readFileSync("./src/Jsons/planesForm.json", "utf8"));
+
+    const programa = tickeProperties.programa_formularios
+
     const files = await fs.promises.readdir('./src/InputFiles');
+    
+    if(listaProgramas.hasOwnProperty(programa)){
+      listaProgramas = listaProgramas.filter(function(elemento) {
+        return listaProgramas.programa.includes(elemento);
+      });
+    }
+
     const processingPromises = [];
 
     // Procesar, llenar cada PDF y guardarlo en una carpeta dentro de la app.
+
+    //reemplazar files por listaProgramas
   
     for (const file of files) {
       const processingPromise = procesarPdf(file, folder, tickeProperties);
@@ -169,9 +187,9 @@ const postPdf = async (req, res) => {
 
 
     // Subir los PDFs a la nueva carpeta.
-    const subirPdfs = await fs.promises.readdir(folder);
+    const pdfsListos = await fs.promises.readdir(folder);
 
-    const uploadPromises = subirPdfs.map(async file => {
+    const uploadPromises = pdfsListos.map(async file => {
       await createFile(folder, file, folderId);
     });
     await Promise.all(uploadPromises);
