@@ -24,7 +24,8 @@ function buscarPropiedad(json, targetName) {
 
             const inputDetail = {
                 "dataId": elemento.attributes.dataId,
-                "seccion": elemento.attributes["aria-label"]
+                "seccion": elemento.attributes["aria-label"],
+                "hubspotProperty": ""
             }
 
             resultados.push(inputDetail);
@@ -79,6 +80,9 @@ const procesarPdf = async (pdfInput) => {
             } catch (e) {
                 console.log(e)
             }
+        }else{
+            console.log("El pdf "+ pdfInput + " no es un pdf")
+            //console.log(pdfdata.getDocument().getDocument())
         }
     })
 }
@@ -90,6 +94,8 @@ const getEstructura = async (req, res) => {
         const files = await fs.promises.readdir('./src/InputFiles');
 
         const processingPromises = [];
+
+        console.log("cantidad de archivos: "+ files.length)
 
         for (const file of files) {
             const processingPromise = procesarPdf(file);
