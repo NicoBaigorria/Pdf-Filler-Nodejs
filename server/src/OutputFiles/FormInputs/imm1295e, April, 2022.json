@@ -1,0 +1,1016 @@
+{
+    "selects": [
+        {
+            "dataId": "ServiceIn144762",
+            "seccion": "Question 2 I want service in [language]"
+        },
+        {
+            "dataId": "VisaType144764",
+            "seccion": null
+        },
+        {
+            "dataId": "Sex144776",
+            "seccion": "Question 3 What is your sex?"
+        },
+        {
+            "dataId": "PlaceBirthCountry144781",
+            "seccion": "Question 5 B Place of Birth Country or Territory"
+        },
+        {
+            "dataId": "Citizenship144783",
+            "seccion": "Question 6 Citizenship"
+        },
+        {
+            "dataId": "Country144787",
+            "seccion": "Question 7 A Your current country or territory of residence"
+        },
+        {
+            "dataId": "Status144788",
+            "seccion": "Question 7 B Your immigration status in your current country of residence"
+        },
+        {
+            "dataId": "Country144803",
+            "seccion": "Question 8 B Row 1 Country or Territory.  If you replied Yes to question 8 A, please give your previous country or territory of residence."
+        },
+        {
+            "dataId": "Status144804",
+            "seccion": "Question 8 B Row 1 Status.  Your immigration status in your previous country of residence"
+        },
+        {
+            "dataId": "Country144809",
+            "seccion": "Question 8 B Row 2 Country or Territory.  If you have more than one previous country of residence, please give your other previous country or territory of residence."
+        },
+        {
+            "dataId": "Status144810",
+            "seccion": "Question 8 B Row 2 Status.  Your immigration status in your previous country of residence"
+        },
+        {
+            "dataId": "Country144832",
+            "seccion": "Question 9 B Country or Territory.  If you replied No to question 9 A, please give the country or territory from where you are applying."
+        },
+        {
+            "dataId": "Status144833",
+            "seccion": "Question 9 B Status.  Your immigration status in the country from where you are applying."
+        },
+        {
+            "dataId": "MaritalStatus144847",
+            "seccion": "Question 10 A.  Your current marital status"
+        },
+        {
+            "dataId": "TypeOfRelationship144872",
+            "seccion": "Question 11 C Type of Relationship.  If you replied Yes to question 11 A, please indicate if your status was married or common-law."
+        },
+        {
+            "dataId": "nativeLang144887",
+            "seccion": "Languages Section Question 1 A : Native language/Mother Tongue. Please provide your native language."
+        },
+        {
+            "dataId": "ableToCommunicate144889",
+            "seccion": "Languages Section Question 1 B : Are you able to communicate in English and/or French?"
+        },
+        {
+            "dataId": "lov144890",
+            "seccion": "Languages Section Question 1 C :  In which language are you most at ease?"
+        },
+        {
+            "dataId": "CountryofIssue144897",
+            "seccion": "Question 2. The country or territory that issued your passport"
+        },
+        {
+            "dataId": "CountryofIssue144917",
+            "seccion": "Question 3.  The country or territory that issued your National Identity document"
+        },
+        {
+            "dataId": "Country144945",
+            "seccion": "Question 1 Current mailing address Country or Territory"
+        },
+        {
+            "dataId": "ProvinceState144947",
+            "seccion": "Question 1 Current mailing address province or state only if the country is Canada or the United States"
+        },
+        {
+            "dataId": "Country144963",
+            "seccion": "Question 2 Residential address Country or Territory"
+        },
+        {
+            "dataId": "ProvinceState144965",
+            "seccion": "Question 2 Residential address province or state only if country is Canada or the United States"
+        },
+        {
+            "dataId": "Type144971",
+            "seccion": "Question 3 Type of telephone"
+        },
+        {
+            "dataId": "Type144984",
+            "seccion": "Question 4 Alternate Telephone Type"
+        },
+        {
+            "dataId": "WorkPermitType145014",
+            "seccion": "Details of Intended Work in Canada Section Question 1.  What type of work permit are you applying for?"
+        },
+        {
+            "dataId": "ProvinceState145023",
+            "seccion": "Question 3 Province. The province in Canada of your intended location of employment"
+        },
+        {
+            "dataId": "CityTown145025",
+            "seccion": "Question 3 City/Town.  The City/Town of your intended location of employment"
+        },
+        {
+            "dataId": "Country145058",
+            "seccion": "Question 1 Country or Territory"
+        },
+        {
+            "dataId": "ProvState145059",
+            "seccion": "Question 1 Province or State. Please give the Province or State if the Country is Canada or United States."
+        },
+        {
+            "dataId": "Country145074",
+            "seccion": "Employment Record 1 Country or Territory"
+        },
+        {
+            "dataId": "ProvState145075",
+            "seccion": "Employment Record 1 Province or State if Country is Canada or United States"
+        },
+        {
+            "dataId": "Country145087",
+            "seccion": "Employment Record 2 Country or Territory"
+        },
+        {
+            "dataId": "ProvState145088",
+            "seccion": "Employment Record 2 Province or State if Country is Canada or United States"
+        },
+        {
+            "dataId": "Country145100",
+            "seccion": "Employment Record 3 Country or Territory"
+        },
+        {
+            "dataId": "ProvState145101",
+            "seccion": "Employment Record 3 Province or State if Country is Canada or United States"
+        }
+    ],
+    "inputs": [
+        {
+            "dataId": "CRCNum144755",
+            "seccion": null
+        },
+        {
+            "dataId": "Age144756",
+            "seccion": null
+        },
+        {
+            "dataId": "AdultFlag144757",
+            "seccion": null
+        },
+        {
+            "dataId": "FormVersion144758",
+            "seccion": null
+        },
+        {
+            "dataId": "PrevSpouseAge144759",
+            "seccion": null
+        },
+        {
+            "dataId": "UCIClientID144765",
+            "seccion": "Question 1 UCI"
+        },
+        {
+            "dataId": "AliasNameIndicator144774",
+            "seccion": "Indicate No to the Question 2 A: Have you ever used any other name such as a nickname, maiden name or alias?"
+        },
+        {
+            "dataId": "AliasNameIndicator144774",
+            "seccion": "Indicate Yes to the Question 2 A: Have you ever used any other name such as a nickname, maiden name or alias?"
+        },
+        {
+            "dataId": "DOBYear144777",
+            "seccion": "Question 4 Date of Birth Year in YYYY format"
+        },
+        {
+            "dataId": "DOBMonth144778",
+            "seccion": "Question 4 Date of Birth Month in MM format"
+        },
+        {
+            "dataId": "DOBDay144779",
+            "seccion": "Question 4 Date of Birth Day in DD format"
+        },
+        {
+            "dataId": "FromDate144790",
+            "seccion": "Question 7 C If your immigration status is other, please give details."
+        },
+        {
+            "dataId": "ToDate144791",
+            "seccion": "Question 7 E The end date of your immigration status in your current country of residence in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "FromYr144793",
+            "seccion": null
+        },
+        {
+            "dataId": "FromMM144794",
+            "seccion": null
+        },
+        {
+            "dataId": "FromDD144795",
+            "seccion": null
+        },
+        {
+            "dataId": "ToYr144796",
+            "seccion": null
+        },
+        {
+            "dataId": "ToMM144797",
+            "seccion": null
+        },
+        {
+            "dataId": "ToDD144798",
+            "seccion": null
+        },
+        {
+            "dataId": "PCRIndicator144799",
+            "seccion": "Indicate NO to Question 8 A.  During the past 5 years have you lived in any country or territory other than your country of citizenship or your current country of residence for more than 6 months?"
+        },
+        {
+            "dataId": "PCRIndicator144799",
+            "seccion": "Indicate YES to Question 8 A.  During the past 5 years have you lived in any country or territory other than your country of citizenship or your current country or territory of residence for more than 6 months?"
+        },
+        {
+            "dataId": "FromDate144806",
+            "seccion": "Question 8 B Row 1 Status From Date.  The start date of your immigration status in your previous country of residence in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "ToDate144807",
+            "seccion": "Question 8 B Row 1 Status To Date. The end date of your immigration status in your previous country of residence in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "FromDate144812",
+            "seccion": "Question 8 B Row 2 Status From Date.    The start date of your immigration status in your previous country of residence in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "ToDate144813",
+            "seccion": "Question 8 B Row 2 Status To Date. The end date of your immigration status in your previous country of residence in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "FromYr144815",
+            "seccion": null
+        },
+        {
+            "dataId": "FromMM144816",
+            "seccion": null
+        },
+        {
+            "dataId": "FromDD144817",
+            "seccion": null
+        },
+        {
+            "dataId": "ToYr144818",
+            "seccion": null
+        },
+        {
+            "dataId": "ToMM144819",
+            "seccion": null
+        },
+        {
+            "dataId": "ToDD144820",
+            "seccion": null
+        },
+        {
+            "dataId": "FromYr144822",
+            "seccion": null
+        },
+        {
+            "dataId": "FromMM144823",
+            "seccion": null
+        },
+        {
+            "dataId": "FromDD144824",
+            "seccion": null
+        },
+        {
+            "dataId": "ToYr144825",
+            "seccion": null
+        },
+        {
+            "dataId": "ToMM144826",
+            "seccion": null
+        },
+        {
+            "dataId": "ToDD144827",
+            "seccion": null
+        },
+        {
+            "dataId": "SameAsCORIndicator144828",
+            "seccion": "Indicate NO to Question 9 A. Is the country or territory from where you are applying the same as your current country or territory of residence?"
+        },
+        {
+            "dataId": "SameAsCORIndicator144828",
+            "seccion": "Indicate YES to Question 9 A. Is the country or territory from where you are applying the same as your current country or territory of residence?"
+        },
+        {
+            "dataId": "FromDate144835",
+            "seccion": "Question 9 B. Status From Date. The start date of your immigration status in the country from where you are applying in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "ToDate144836",
+            "seccion": "Question 9 B Status To Date. The end date of your immigration status in the country from where you are applying in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "FromYr144838",
+            "seccion": null
+        },
+        {
+            "dataId": "FromMM144839",
+            "seccion": null
+        },
+        {
+            "dataId": "FromDD144840",
+            "seccion": null
+        },
+        {
+            "dataId": "ToYr144841",
+            "seccion": null
+        },
+        {
+            "dataId": "ToMM144842",
+            "seccion": null
+        },
+        {
+            "dataId": "ToDD144843",
+            "seccion": null
+        },
+        {
+            "dataId": "ApplicationValidatedFlag144844",
+            "seccion": null
+        },
+        {
+            "dataId": "DateOfMarriage144848",
+            "seccion": "Question 10 B. If you are married or in a common law relationship, please give the date on which you were married or entered into the common law relationship in YYYY-MM-DD format."
+        },
+        {
+            "dataId": "FromYr144850",
+            "seccion": null
+        },
+        {
+            "dataId": "FromMM144851",
+            "seccion": null
+        },
+        {
+            "dataId": "FromDD144852",
+            "seccion": null
+        },
+        {
+            "dataId": "PrevMarriedIndicator144859",
+            "seccion": "Indicate NO to Question 11 A.  Have you previously been married or in a common law relationship?"
+        },
+        {
+            "dataId": "PrevMarriedIndicator144859",
+            "seccion": "Indicate YES to Question 11 A.  Have you previously been married or in a common law relationship?"
+        },
+        {
+            "dataId": "DateCalc144861",
+            "seccion": null
+        },
+        {
+            "dataId": "Year144862",
+            "seccion": null
+        },
+        {
+            "dataId": "Month144863",
+            "seccion": null
+        },
+        {
+            "dataId": "Day144864",
+            "seccion": null
+        },
+        {
+            "dataId": "DOBYear144869",
+            "seccion": "Question 4 Date of Birth Year in YYYY format"
+        },
+        {
+            "dataId": "DOBMonth144870",
+            "seccion": "Question 4 Date of Birth Month in MM format"
+        },
+        {
+            "dataId": "DOBDay144871",
+            "seccion": "Question 4 Date of Birth Day in DD format"
+        },
+        {
+            "dataId": "FromDate144873",
+            "seccion": "Question 11 D From Date. The start date of your previous marriage or common law relationship in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "ToDate144875",
+            "seccion": "Question 11 D To Date.  The end date of your previous marriage or common law relationship in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "FromYr144877",
+            "seccion": null
+        },
+        {
+            "dataId": "FromMM144878",
+            "seccion": null
+        },
+        {
+            "dataId": "FromDD144879",
+            "seccion": null
+        },
+        {
+            "dataId": "ToYr144880",
+            "seccion": null
+        },
+        {
+            "dataId": "ToMM144881",
+            "seccion": null
+        },
+        {
+            "dataId": "ToDD144882",
+            "seccion": null
+        },
+        {
+            "dataId": "LanguageTest144891",
+            "seccion": "Indicate NO to Question 1 D.  Have you taken a test form a designated testing agency to assess your proficiency in English or French?"
+        },
+        {
+            "dataId": "LanguageTest144891",
+            "seccion": "Indicate Yes to Question 1 D.  Have you taken a test form a designated testing agency to assess your proficiency in English or French?"
+        },
+        {
+            "dataId": "IssueDate144899",
+            "seccion": "Question 3. The issue date of your passport in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "ExpiryDate144900",
+            "seccion": "Question 4. The expiry date of passport in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "IssueYYYY144901",
+            "seccion": null
+        },
+        {
+            "dataId": "IssueMM144902",
+            "seccion": null
+        },
+        {
+            "dataId": "IssueDD144903",
+            "seccion": null
+        },
+        {
+            "dataId": "expiryYYYY144904",
+            "seccion": null
+        },
+        {
+            "dataId": "expiryMM144905",
+            "seccion": null
+        },
+        {
+            "dataId": "expiryDD144906",
+            "seccion": null
+        },
+        {
+            "dataId": "TaiwanPIN144907",
+            "seccion": "Indicate NO to Question 5.  For this trip, will you use a passport issued by the Ministry of Foreign Affairs in Taiwan that includes your personal identification number?"
+        },
+        {
+            "dataId": "TaiwanPIN144907",
+            "seccion": "Indicate Yes to Question 5.  For this trip, will you use a passport issued by the Ministry of Foreign Affairs in Taiwan that includes your personal identification number?"
+        },
+        {
+            "dataId": "IsraelPassportIndicator144908",
+            "seccion": "Indicate NO to Question 6 :  For this trip, will you use a National Israeli passport?"
+        },
+        {
+            "dataId": "IsraelPassportIndicator144908",
+            "seccion": "Indicate Yes to Question 6 :  For this trip, will you use a National Israeli passport?"
+        },
+        {
+            "dataId": "natIDIndicator144912",
+            "seccion": "Indicate No to the National Identity Document Section Question 1:  Do you have a national identity document?"
+        },
+        {
+            "dataId": "natIDIndicator144912",
+            "seccion": "Indicate Yes to the National Identity Document Section Question 1:  Do you have a national identity document?"
+        },
+        {
+            "dataId": "IssueDate144919",
+            "seccion": "Question 4.  The issue date of your National Identity Document in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "ExpiryDate144920",
+            "seccion": "Question 5.  The Expiry date of your National Identity Document in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "usCardIndicator144924",
+            "seccion": "Indicate No to the US PR Card Section Question 1:  Are you a lawful permanent resident of the United States?"
+        },
+        {
+            "dataId": "usCardIndicator144924",
+            "seccion": "Indicate Yes to the US PR Card Section Question 1:  Are you a lawful permanent resident of the United States?"
+        },
+        {
+            "dataId": "ExpiryDate144928",
+            "seccion": "Question 3.  The Expiry date of your US PR card in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "SameAsMailingIndicator144951",
+            "seccion": "Indicate NO to Question 2  Is your residential address the same as your mailing address?"
+        },
+        {
+            "dataId": "SameAsMailingIndicator144951",
+            "seccion": "Indicate YES to Question 2  Is your residential address the same as your mailing address?"
+        },
+        {
+            "dataId": "CanadaUS144972",
+            "seccion": "Question 3 Is your telephone number in Canada / U S format?"
+        },
+        {
+            "dataId": "Other144973",
+            "seccion": "Question 3 Is your telephone number in Other format?"
+        },
+        {
+            "dataId": "NumberExt144974",
+            "seccion": "Question 3 Telephone number extension"
+        },
+        {
+            "dataId": "NumberCountry144975",
+            "seccion": "Question 3 Country code"
+        },
+        {
+            "dataId": "ActualNumber144976",
+            "seccion": null
+        },
+        {
+            "dataId": "AreaCode144978",
+            "seccion": "Question 3 : 3 digit Area Code"
+        },
+        {
+            "dataId": "FirstThree144979",
+            "seccion": "Question 3 :3 digit Exchange Number"
+        },
+        {
+            "dataId": "LastFive144980",
+            "seccion": "Question 3 : 4 digit Subscriber Number"
+        },
+        {
+            "dataId": "IntlNumber144982",
+            "seccion": "Question 3 Telephone number"
+        },
+        {
+            "dataId": "CanadaUS144985",
+            "seccion": "Question 4 Is your Alternate Telephone number in Canada / U S format?"
+        },
+        {
+            "dataId": "Other144986",
+            "seccion": "Question 4 Is your Alternate Telephone number in Other format?"
+        },
+        {
+            "dataId": "NumberExt144987",
+            "seccion": "Question 4 Alternate telephone number Extension"
+        },
+        {
+            "dataId": "NumberCountry144988",
+            "seccion": "Question 4 Alternate telephone number Country Code"
+        },
+        {
+            "dataId": "ActualNumber144989",
+            "seccion": null
+        },
+        {
+            "dataId": "AreaCode144991",
+            "seccion": "Question 4 : 3 digit Area Code"
+        },
+        {
+            "dataId": "FirstThree144992",
+            "seccion": "Question 4 : 3 digit Exchange Number"
+        },
+        {
+            "dataId": "LastFive144993",
+            "seccion": "Question 4 : 4 digit Subscriber Number"
+        },
+        {
+            "dataId": "IntlNumber144995",
+            "seccion": "Question 4 Alternate telephone number"
+        },
+        {
+            "dataId": "CanadaUS144999",
+            "seccion": "Question 5 Is your Fax number in Canada / U S format?"
+        },
+        {
+            "dataId": "Other145000",
+            "seccion": "Question 5 Is your Fax number in Other format?"
+        },
+        {
+            "dataId": "NumberExt145001",
+            "seccion": "Question 5 Fax number extension"
+        },
+        {
+            "dataId": "NumberCountry145002",
+            "seccion": "Question 5 Fax number Country Code"
+        },
+        {
+            "dataId": "ActualNumber145003",
+            "seccion": null
+        },
+        {
+            "dataId": "AreaCode145005",
+            "seccion": "Question 5 : 3 digit Area Code"
+        },
+        {
+            "dataId": "FirstThree145006",
+            "seccion": "Question 5 : 3 digit Exchange Number"
+        },
+        {
+            "dataId": "LastFive145007",
+            "seccion": "Question 5 : 4 digit Subscriber Number"
+        },
+        {
+            "dataId": "IntlNumber145009",
+            "seccion": "Question 5 Fax number"
+        },
+        {
+            "dataId": "Address145026",
+            "seccion": "Question 3 Address.  The street address of your intended location of employment"
+        },
+        {
+            "dataId": "jobTitle145029",
+            "seccion": "Question 4 Job title"
+        },
+        {
+            "dataId": "posDesc145030",
+            "seccion": "Question 4 Brief description of duties"
+        },
+        {
+            "dataId": "FromDate145032",
+            "seccion": "Question 5 Duration of Work From Date.  The start date of your intended work in Canada in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "ToDate145033",
+            "seccion": "Question 5 Duration of Work To Date.  The end date of your intended work in Canada in YYYY-MM-DD format"
+        },
+        {
+            "dataId": "LMO145035",
+            "seccion": "Question 6 Labour Market Impact Assessment (LMIA) No. or Offer of Employment (LMIA Exempt) No."
+        },
+        {
+            "dataId": "EducationIndicator145048",
+            "seccion": "Indicate NO to Question 1.  Have you had any post secondary education including university, college or apprenticeship training?"
+        },
+        {
+            "dataId": "EducationIndicator145048",
+            "seccion": "Indicate YES to Question 1.  Have you had any post secondary education including university, college or apprenticeship training?"
+        },
+        {
+            "dataId": "FromYear145050",
+            "seccion": "Question 1 From Date Year. If you answered yes to the previous question, please give the year that you started your highest level of post secondary education in YYYY format."
+        },
+        {
+            "dataId": "FromMonth145051",
+            "seccion": "Question 1 From Date Month. The month that you started your highest level of post secondary education in MM format"
+        },
+        {
+            "dataId": "ToYear145052",
+            "seccion": "Question 1 To Date Year.  Please give the year that you completed your highest level of post secondary education in YYYY format."
+        },
+        {
+            "dataId": "ToMonth145053",
+            "seccion": "Question 1 To Date Month. The month that you completed your highest level of post secondary education in MM format"
+        },
+        {
+            "dataId": "FromYear145064",
+            "seccion": "Employment Section. Please give details of your employment for the past 10 years, including if you have held any government positions such as civil servant, judge, police officer, mayor, member of parliament, hospital administrator. Record 1 From Date Year. The year of the start of your current employment or other activity in YYYY format"
+        },
+        {
+            "dataId": "FromMonth145065",
+            "seccion": "Employment Record 1 From Date Month.  The month of the start of your current employment or other activity in MM format"
+        },
+        {
+            "dataId": "ToYear145066",
+            "seccion": "Employment Record 1 To Date Year. The year that you will complete your current employment or other activity in YYYY format"
+        },
+        {
+            "dataId": "ToMonth145067",
+            "seccion": "Employment Record 1 To Date Month The month that you will complete your current employment or other activity in MM format"
+        },
+        {
+            "dataId": "FromYear145077",
+            "seccion": "Employment Record 2 From Date Year. The year of the start of your previous employment or other activity in YYYY format, if applicable"
+        },
+        {
+            "dataId": "FromMonth145078",
+            "seccion": "Employment Record 2 From Date Month. The month of the start of your previous employment or other activity in MM format"
+        },
+        {
+            "dataId": "ToYear145079",
+            "seccion": "Employment Record 2 To Date Year. The year that you completed your previous employment or other activity in YYYY format"
+        },
+        {
+            "dataId": "ToMonth145080",
+            "seccion": "Employment Record 2 To Date Month. The month that you completed your previous employment or other activity in MM format"
+        },
+        {
+            "dataId": "FromYear145090",
+            "seccion": "Employment Record 3 From Date Year. The year of the start of your previous employment or other activity in YYYY format, if applicable"
+        },
+        {
+            "dataId": "FromMonth145091",
+            "seccion": "Employment Record 3 From Date Month. The month of the start of your previous employment or other activity in MM format"
+        },
+        {
+            "dataId": "ToYear145092",
+            "seccion": "Employment Record 3 To Date Year. The year that you completed your previous employment or other activity in YYYY format"
+        },
+        {
+            "dataId": "ToMonth145093",
+            "seccion": "Employment Record 3 To Date Month. The month that you completed your previous employment or other activity in MM format"
+        },
+        {
+            "dataId": "Choice145107",
+            "seccion": "Indicate NO to Question 1 A. Within the past two years, have you or a family member ever had tuberculosis of the lungs or been in close contact with a person with tuberculosis?"
+        },
+        {
+            "dataId": "Choice145107",
+            "seccion": "Indicate YES to Question 1 A. Within the past two years, have you or a family member ever had tuberculosis of the lungs or been in close contact with a person with tuberculosis?"
+        },
+        {
+            "dataId": "Choice145108",
+            "seccion": "Indicate NO to Question 1 B Do you have any physical or mental disorder that would require social or health services, other than medication, during a stay in Canada?"
+        },
+        {
+            "dataId": "Choice145108",
+            "seccion": "Indicate YES to Question 1 B Do you have any physical or mental disorder that would require social or health services, other than medication, during a stay in Canada?"
+        },
+        {
+            "dataId": "backgroundInfoCalc145109",
+            "seccion": null
+        },
+        {
+            "dataId": "VisaChoice1145111",
+            "seccion": "Indicate NO to Question 2 A. Have you ever remained beyond the validity of your status, attended school without authorization or worked without authorization in Canada?"
+        },
+        {
+            "dataId": "VisaChoice1145111",
+            "seccion": "Indicate YES to Question 2 A. Have you ever remained beyond the validity of your status, attended school without authorization or worked without authorization in Canada?"
+        },
+        {
+            "dataId": "VisaChoice2145112",
+            "seccion": "Indicate NO to Question 2 B. Have you ever been refused a visa or permit, denied entry or ordered to leave Canada or any other country or territory?"
+        },
+        {
+            "dataId": "VisaChoice2145112",
+            "seccion": "Indicate YES to Question 2 B.Have you ever been refused a visa or permit, denied entry or ordered to leave Canada or any other country or territory?"
+        },
+        {
+            "dataId": "VisaChoice3145115",
+            "seccion": "Indicate NO to Question 2 C. Have you previously applied to enter or remain in Canada?"
+        },
+        {
+            "dataId": "VisaChoice3145115",
+            "seccion": "Indicate YES to Question 2 C.  Have you previously applied to enter or remain in Canada?"
+        },
+        {
+            "dataId": "Choice145118",
+            "seccion": "Indicate NO to Question 3 A. Have you ever committed, been arrested for, been charged with or convicted of any criminal offence in any country or territory?"
+        },
+        {
+            "dataId": "Choice145118",
+            "seccion": "Indicate YES to Question 3 A. Have you ever committed, been arrested for, been charged with or convicted of any criminal offence in any country or territory?"
+        },
+        {
+            "dataId": "Choice145121",
+            "seccion": "Indicate NO to Question 4 A. Did you serve in any military, militia, or civil defence unit or serve in a security organization or police force (including non obligatory national service, reserve or volunteer units)?"
+        },
+        {
+            "dataId": "Choice145121",
+            "seccion": "Indicate YES to Question 4 A. Did you serve in any military, militia, or civil defence unit or serve in a security organization or police force (including non obligatory national service, reserve or volunteer units)?"
+        },
+        {
+            "dataId": "Choice145124",
+            "seccion": "Indicate NO to Question 5.  Are you, or have you ever been a member or associated with any political party, or other group or organization which has engaged in or advocated violence as a means to achieving a political or religious objective, or which has been associated with criminal activity at any time?"
+        },
+        {
+            "dataId": "Choice145124",
+            "seccion": "Indicate YES to Question 5.  Are you, or have you ever been a member or associated with any political party, or other group or organization which has engaged in or advocated violence as a means to achieving a political or religious objective, or which has been associated with criminal activity at any time?"
+        },
+        {
+            "dataId": "Choice145126",
+            "seccion": "Indicate NO to Question 6.  Have you ever witnessed or participated in the ill treatment of prisoners or civilians, looting or desecration of religious buildings?"
+        },
+        {
+            "dataId": "Choice145126",
+            "seccion": "Indicate YES to Question 6.  Have you ever witnessed or participated in the ill treatment of prisoners or civilians, looting or desecration of religious buildings?"
+        },
+        {
+            "dataId": "Choice145128",
+            "seccion": "Indicate NO to Consent.  Do you consent to be contacted by IRCC, or an organization at IRCC’s request, in the future?"
+        },
+        {
+            "dataId": "Choice145128",
+            "seccion": "Indicate YES to Consent.  Do you consent to be contacted by IRCC, or an organization at IRCC’s request, in the future?"
+        },
+        {
+            "dataId": "TextField2145129",
+            "seccion": "Signature of applicant or parent / legal guardian for a person under 18 years of age."
+        },
+        {
+            "dataId": "C1CertificateIssueDate145130",
+            "seccion": "Signature date"
+        },
+        {
+            "dataId": "ReaderInfo145134",
+            "seccion": null
+        }
+    ],
+    "textareas": [
+        {
+            "dataId": "FamilyName144768",
+            "seccion": "Personal Details Section Question 1 Family name as shown on your passport or travel document"
+        },
+        {
+            "dataId": "GivenName144769",
+            "seccion": "Question 1 Given name or names as shown on your passport or travel document"
+        },
+        {
+            "dataId": "AliasFamilyName144771",
+            "seccion": "Question 2 B If you answered yes to question 2 A, please give the family name."
+        },
+        {
+            "dataId": "AliasGivenName144772",
+            "seccion": "Question 2 B If you answered yes to question 2 A, please give the given name."
+        },
+        {
+            "dataId": "PlaceBirthCity144780",
+            "seccion": "Question 5 A Place of Birth City or Town"
+        },
+        {
+            "dataId": "Other144789",
+            "seccion": null
+        },
+        {
+            "dataId": "Other144805",
+            "seccion": "Question 8 B Row 1 Other Details.  If your immigration status was other, please give details."
+        },
+        {
+            "dataId": "Other144811",
+            "seccion": "Question 8 B Row 2 Other Details.   If your immigration status was other, please give details."
+        },
+        {
+            "dataId": "Other144834",
+            "seccion": "Question 9 B Other Details.  If your immigration status is other, please give details."
+        },
+        {
+            "dataId": "FamilyName144853",
+            "seccion": "Question 10 C Family Name.  If you are married or in a common law relationship, please give the family name of your current spouse or common law partner."
+        },
+        {
+            "dataId": "GivenName144854",
+            "seccion": "Question 10 C Given Name.  If you are married or in a common law relationship, please give the given name of your current spouse or common law partner."
+        },
+        {
+            "dataId": "PMFamilyName144865",
+            "seccion": "Question 11 B Family Name .  If you replied Yes to question 11 A, please give the family name of your previous spouse or common law partner."
+        },
+        {
+            "dataId": "PMGivenName144867",
+            "seccion": "Question 11 B Given Name.  If you replied Yes to question 11 A, please give the given name of your previous spouse or common law partner."
+        },
+        {
+            "dataId": "PassportNum144895",
+            "seccion": "Passport Section Question 1. Your current passport number"
+        },
+        {
+            "dataId": "DocNum144915",
+            "seccion": "Question 2. Your National Identity Document Number"
+        },
+        {
+            "dataId": "DocNum144927",
+            "seccion": "Question 2. Your U.S. Citizenship and Immigration Services (USCIS) number"
+        },
+        {
+            "dataId": "POBox144934",
+            "seccion": "Contact Information Section Question 1 Current mailing address PO box"
+        },
+        {
+            "dataId": "AptUnit144936",
+            "seccion": "Question 1 Current mailing address apartment or unit number"
+        },
+        {
+            "dataId": "StreetNum144938",
+            "seccion": "Question 1 Current mailing address street number"
+        },
+        {
+            "dataId": "Streetname144940",
+            "seccion": "Question 1 Current mailing address street name"
+        },
+        {
+            "dataId": "CityTown144943",
+            "seccion": "Question 1 Current mailing address city or town"
+        },
+        {
+            "dataId": "PostalCode144949",
+            "seccion": "Question 1 Current mailing address postal code"
+        },
+        {
+            "dataId": "District144950",
+            "seccion": "Question 1 Current mailing address district"
+        },
+        {
+            "dataId": "AptUnit144954",
+            "seccion": "Question 2  If you replied No to the previous question, please give your residential address apartment or unit number."
+        },
+        {
+            "dataId": "StreetNum144956",
+            "seccion": "Question 2 Residential address street number"
+        },
+        {
+            "dataId": "Streetname144958",
+            "seccion": "Question 2 Residential address street name"
+        },
+        {
+            "dataId": "CityTown144960",
+            "seccion": "Question 2 Residential address city or town"
+        },
+        {
+            "dataId": "PostalCode144967",
+            "seccion": "Question 2 Residential address postal code"
+        },
+        {
+            "dataId": "District144968",
+            "seccion": "Question 2 Residential address district"
+        },
+        {
+            "dataId": "Email145010",
+            "seccion": "Question 6 Email address"
+        },
+        {
+            "dataId": "EmployerName145017",
+            "seccion": "Question 2 A Name of employer.  If you are employed by a foreign employer who has been awarded a contract to provide services to a Canadian entity, please identify the foreign employer here."
+        },
+        {
+            "dataId": "Address145019",
+            "seccion": "Question 2 B.  What is the complete address of your employer (Canadian or Foreign)?"
+        },
+        {
+            "dataId": "FieldOfStudy145054",
+            "seccion": "Question 1 Field of Study"
+        },
+        {
+            "dataId": "School145055",
+            "seccion": "Question 1 School/Facility Name"
+        },
+        {
+            "dataId": "CityTown145056",
+            "seccion": "Question 1 City/Town"
+        },
+        {
+            "dataId": "Occupation145069",
+            "seccion": "Employment Record 1 Current Activity/Occupation. Your current employment or other activity"
+        },
+        {
+            "dataId": "Employer145070",
+            "seccion": "Employment Record 1 Company/Employer/Facility Name. Your current employer, company or other facility"
+        },
+        {
+            "dataId": "CityTown145072",
+            "seccion": "Employment Record 1 City/Town"
+        },
+        {
+            "dataId": "Occupation145082",
+            "seccion": "Employment Record 2 Previous Activity/Occupation. Your previous employment or other activity"
+        },
+        {
+            "dataId": "Employer145083",
+            "seccion": "Employment Record 2 Company/Employer/Facility Name. Your previous employer, company or other facility"
+        },
+        {
+            "dataId": "CityTown145085",
+            "seccion": "Employment Record 2 City/Town"
+        },
+        {
+            "dataId": "Occupation145095",
+            "seccion": "Employment Record 3 Previous Activity/Occupation. Your previous employment or other activity"
+        },
+        {
+            "dataId": "Employer145096",
+            "seccion": "Employment Record 3 Company/Employer/Facility Name. Your previous employer, company or other facility"
+        },
+        {
+            "dataId": "CityTown145098",
+            "seccion": "Employment Record 3 City/Town"
+        },
+        {
+            "dataId": "MedicalDetails145106",
+            "seccion": "Question 1 C. If you answered yes to question 1 A or 1 B please give details and the name of the family member, if applicable."
+        },
+        {
+            "dataId": "refusedDetails145114",
+            "seccion": "Question 2 D.  If you answered yes to Question 2 A , 2 B or 2 C, please give details."
+        },
+        {
+            "dataId": "militaryServiceDetails145119",
+            "seccion": "Question 3 B. If you answered yes to question 3A above, please give details."
+        },
+        {
+            "dataId": "militaryServiceDetails145122",
+            "seccion": "Question 4 B. If you answered yes to question 4 A, please give dates of service and countries or territories where you served."
+        }
+    ]
+}
