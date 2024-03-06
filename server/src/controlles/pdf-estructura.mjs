@@ -72,17 +72,50 @@ const procesarPdf = async (pdfInput) => {
             try {
                 fs.writeFile("./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json", jsonString, 'utf-8', (err) => {
                     if (err) {
-                      console.error('Error writing JSON file:', err);
+                        console.error('Error writing JSON file:', err);
                     } else {
-                      console.log('JSON file has been written successfully!');
+                        console.log('JSON file has been written successfully!');
                     }
                 })
             } catch (e) {
                 console.log(e)
             }
-        }else{
-            console.log("El pdf "+ pdfInput + " no es un pdf")
-            //console.log(pdfdata.getDocument().getDocument())
+        } else {
+            console.log("El pdf " + pdfInput + " no es un xfa")
+            // Get the AcroForm (fillable form) fields
+            await pdfdata.getFieldObjects().then(async inputs => {
+
+                let jsonFields = [];
+
+                for (let input in inputs) {
+                    console.log("dfgfdg",inputs[input][0].type)
+
+                    let campo = {
+                        "dataId": inputs[input][0].id,
+                        "seccion": inputs[input][0].name,
+                        "hubspotProperty": ""
+                    }
+
+                    jsonFields.push(campo);
+                }
+                
+
+                console.log(jsonFields)
+
+                jsonFields = JSON.stringify(jsonFields)
+
+                try {
+                    fs.writeFile("./src/OutputFiles/FormInputs/" + pdfInput + ".json", jsonFields, 'utf-8', (err) => {
+                        if (err) {
+                            console.error('Error writing JSON file:', err);
+                        } else {
+                            console.log('JSON file has been written successfully!');
+                        }
+                    })
+                } catch (e) {
+                    console.log(e)
+                }
+            })
         }
     })
 }
@@ -95,7 +128,7 @@ const getEstructura = async (req, res) => {
 
         const processingPromises = [];
 
-        console.log("cantidad de archivos: "+ files.length)
+        console.log("cantidad de archivos: " + files.length)
 
         for (const file of files) {
             const processingPromise = procesarPdf(file);
