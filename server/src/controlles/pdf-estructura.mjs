@@ -88,7 +88,7 @@ const procesarPdf = async (pdfInput) => {
                 let jsonFields = [];
 
                 for (let input in inputs) {
-                    console.log("dfgfdg",inputs[input][0].type)
+                    console.log("dfgfdg",inputs[input])
 
                     let campo = {
                         "dataId": inputs[input][0].id,
@@ -99,8 +99,7 @@ const procesarPdf = async (pdfInput) => {
                     jsonFields.push(campo);
                 }
                 
-
-                console.log(jsonFields)
+                //console.log(jsonFields)
 
                 jsonFields = JSON.stringify(jsonFields)
 
@@ -115,6 +114,19 @@ const procesarPdf = async (pdfInput) => {
                 } catch (e) {
                     console.log(e)
                 }
+
+                // Guardar PDF.
+        try {
+
+            const folder = "./src/OutputFiles/NoXfa"
+
+            const newpdf = await pdfdata.saveDocument();
+            const outputPath = path.join(folder, pdfInput);
+            await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
+            console.log("PDF saved successfully!");
+          } catch (writeError) {
+            console.error("Error writing PDF:", writeError);
+          }
             })
         }
     })

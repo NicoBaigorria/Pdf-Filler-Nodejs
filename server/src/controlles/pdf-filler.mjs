@@ -104,13 +104,50 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
         }
       } else {
         console.log("Not have xfa");
+
+        // Get the AcroForm (fillable form) fields
+        await pdfdata.getFieldObjects().then(async inputs => {
+
+          for (let input in inputs) {
+
+            if (inputs[input][0].type == "text") {
+              await pdfdata.annotationStorage.setValue(inputs[input][0].id, { value: "value" });
+            }
+          }
+
+          // Guardar PDF.
+          try {
+
+            const newpdf = await pdfdata.saveDocument();
+            const outputPath = path.join(folder, pdfInput);
+            await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
+            console.log("PDF saved successfully!");
+          } catch (writeError) {
+            console.error("Error writing PDF:", writeError);
+          }
+        })
       }
 
-        // Close the PDF document
-  await pdfdata.destroy();
+      // Close the PDF document
+      await pdfdata.destroy();
     });
   } catch (error) {
-    console.error("Error generating PDF:", error);
+    await pdfdata.getFieldObjects().then(async inputs => {
+      for (let input in inputs) {
+        await pdfdata.annotationStorage.setValue(inputs[input][0].id, { value: "value" });
+      }
+
+      // Guardar PDF.
+      try {
+        const newpdf = await pdfdata.saveDocument();
+        const outputPath = path.join(folder, pdfInput);
+        await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
+        console.log("PDF saved successfully!");
+      } catch (writeError) {
+        console.error("Error writing PDF:", writeError);
+      }
+    })
+
   }
 };
 
@@ -132,7 +169,7 @@ const postPdf = async (req, res) => {
       await fs.mkdirSync(folder, { recursive: true });
     }
 
-// Traer informacion del ticket para llenar formularios
+    // Traer informacion del ticket para llenar formularios
 
     const ticketData = await getTicket(idTicket);
     const tickeProperties = ticketData.properties;
@@ -147,9 +184,9 @@ const postPdf = async (req, res) => {
     const programa = tickeProperties.programa_formularios
 
     const files = await fs.promises.readdir('./src/InputFiles');
-    
-    if(listaProgramas.hasOwnProperty(programa)){
-      listaProgramas = listaProgramas.filter(function(elemento) {
+
+    if (listaProgramas.hasOwnProperty(programa)) {
+      listaProgramas = listaProgramas.filter(function (elemento) {
         return listaProgramas.programa.includes(elemento);
       });
     }
@@ -159,7 +196,7 @@ const postPdf = async (req, res) => {
     // Procesar, llenar cada PDF y guardarlo en una carpeta dentro de la app.
 
     //reemplazar files por listaProgramas
-  
+
     for (const file of files) {
       const processingPromise = procesarPdf(file, folder, tickeProperties);
       processingPromises.push(processingPromise);
@@ -196,7 +233,7 @@ const postPdf = async (req, res) => {
 
     // Borrar carpeta en la app.
 
-    await fs.promises.rmdir(folder, { recursive: true });
+    //await fs.promises.rmdir(folder, { recursive: true });
 
     res.send("PDF generated and saved successfully!");
   } catch (postPdfError) {
