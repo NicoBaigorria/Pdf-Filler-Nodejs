@@ -107,25 +107,26 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
 
         // Get the AcroForm (fillable form) fields
         await pdfdata.getFieldObjects().then(async inputs => {
-
           for (let input in inputs) {
+
+            console.log("asdasdas", inputs[input][0].id)
 
             if (inputs[input][0].type == "text") {
               await pdfdata.annotationStorage.setValue(inputs[input][0].id, { value: "value" });
             }
           }
-
-          // Guardar PDF.
-          try {
-
-            const newpdf = await pdfdata.saveDocument();
-            const outputPath = path.join(folder, pdfInput);
-            await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
-            console.log("PDF saved successfully!");
-          } catch (writeError) {
-            console.error("Error writing PDF:", writeError);
-          }
         })
+
+         // Guardar PDF.
+         try {
+
+          const newpdf = await pdfdata.saveDocument();
+          const outputPath = path.join(folder, pdfInput);
+          await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
+          console.log("PDF saved successfully!" +pdfInput);
+        } catch (writeError) {
+          console.error("Error writing PDF:", writeError);
+        }
       }
 
       // Close the PDF document
