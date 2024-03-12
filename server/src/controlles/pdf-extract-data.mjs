@@ -27,7 +27,7 @@ function buscarPropiedad(json, targetName) {
             const inputDetail = {
                 "dataId": elemento.attributes.dataId,
                 "seccion": elemento.attributes["aria-label"],
-                "value": elemento.attributes.value,
+                "value": targetName == "textareas"? elemento.attributes.textContent : elemento.attributes.value,
                 "hubspotProperty": ""
             }
 
@@ -75,7 +75,7 @@ const procesarPdf = async (pdfInput) => {
             console.log(fileNameWithoutExtension)
 
             try {
-                fs.writeFile("./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json", JSON.stringify( xfa), 'utf-8', (err) => {
+                fs.writeFile("./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json", jsonString, 'utf-8', (err) => {
                     if (err) {
                         console.error('Error writing JSON file:', err);
                     } else {
