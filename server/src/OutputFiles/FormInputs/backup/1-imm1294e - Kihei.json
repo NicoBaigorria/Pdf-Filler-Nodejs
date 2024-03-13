@@ -92,7 +92,7 @@
             "dataId": "ableToCommunicate31706",
             "seccion": "Languages Section Question 1 B :  Are you able to communicate in English and/or French?",
             "value": "English",
-            "hubspotProperty": ""
+            "hubspotProperty": "idiomaparacomunicarse"
         },
         {
             "dataId": "lov31707",
@@ -170,7 +170,7 @@
             "dataId": "expensesPaidBy31856",
             "seccion": "Question 6 A. Your expenses in Canada will be paid by",
             "value": "Parents",
-            "hubspotProperty": ""
+            "hubspotProperty": "expensas_pagadas_por"
         },
         {
             "dataId": "Country31869",
@@ -733,7 +733,7 @@
             "dataId": "NumberCountry31792",
             "seccion": "Question 3 Country code",
             "value": "511",
-            "hubspotProperty": ""
+            "hubspotProperty": "codigo_postal"
         },
         {
             "dataId": "ActualNumber31793",
@@ -872,7 +872,7 @@
             "dataId": "amount31848",
             "seccion": "Question 4. The cost of tuition for your studies",
             "value": "17500",
-            "hubspotProperty": ""
+            "hubspotProperty": "cost_of_studies"
         },
         {
             "dataId": "amount31850",
@@ -899,7 +899,7 @@
             "dataId": "EducationIndicator31859",
             "seccion": "Indicate NO to  Question 1.  Have you had any post secondary education including university, college or apprenticeship training?",
             "value": "N",
-            "hubspotProperty": ""
+            "hubspotProperty": "educationindicator"
         },
         {
             "dataId": "EducationIndicator31859",
@@ -1095,7 +1095,7 @@
             "dataId": "Choice31937",
             "seccion": "Indicate NO to Question 6.  Have you ever witnessed or participated in the ill treatment of prisoners or civilians, looting or desecration of religious buildings?",
             "value": "N",
-            "hubspotProperty": ""
+            "hubspotProperty": "crimenes_de_odio"
         },
         {
             "dataId": "Choice31937",
@@ -1125,7 +1125,7 @@
             "dataId": "C1CertificateIssueDate31942",
             "seccion": "Signature date",
             "value": "2023-11-15",
-            "hubspotProperty": ""
+            "hubspotProperty": "fecha_de_firma"
         },
         {
             "dataId": "ReaderInfo31944",
@@ -1139,7 +1139,7 @@
             "dataId": "FamilyName31585",
             "seccion": "Personal Details Section Question 1 Family name as shown on your passport or travel document",
             "value": "OKUMA WONG",
-            "hubspotProperty": ""
+            "hubspotProperty": "familyname"
         },
         {
             "dataId": "GivenName31586",
@@ -1213,7 +1213,7 @@
             "dataId": "DocNum31732",
             "seccion": "Question 2. Your National Identity Document Number",
             "value": "78302595",
-            "hubspotProperty": ""
+            "hubspotProperty": "doc_num"
         },
         {
             "dataId": "DocNum31744",
@@ -1259,7 +1259,7 @@
             "dataId": "District31766",
             "seccion": "Question 1 Current mailing address district",
             "value": "MAGDALENA DEL MAR",
-            "hubspotProperty": ""
+            "hubspotProperty": "distrito"
         },
         {
             "dataId": "AptUnit31770",

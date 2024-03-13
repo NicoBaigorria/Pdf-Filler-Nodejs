@@ -27,7 +27,7 @@ function buscarPropiedad(json, targetName) {
             const inputDetail = {
                 "dataId": elemento.attributes.dataId,
                 "seccion": elemento.attributes["aria-label"],
-                "value": targetName == "textareas"? elemento.attributes.textContent : elemento.attributes.value,
+                "value": targetName == "textarea"? elemento.attributes.textContent : elemento.attributes.value,
                 "hubspotProperty": ""
             }
 
@@ -65,7 +65,8 @@ const procesarPdf = async (pdfInput) => {
             const pdfInputStructure = {
                 "selects": resultadoSelect,
                 "inputs": resultadoInput,
-                "textareas": resultadotextarea
+                //"value": targetName == "textareas"? elemento.attributes.textContent : elemento.attributes.value,
+                "textarea": resultadotextarea
             }
 
             const jsonString = JSON.stringify(pdfInputStructure);
