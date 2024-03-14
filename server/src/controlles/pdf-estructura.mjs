@@ -25,8 +25,14 @@ function buscarPropiedad(json, targetName) {
             const inputDetail = {
                 "dataId": elemento.attributes.dataId,
                 "seccion": elemento.attributes["aria-label"],
-                "hubspotProperty": ""
+                "hubspotProperty": "",
+                "options":  targetName == "select" ? Array.from(elemento.children).map(option => (
+                    option.value
+                )) : null
             }
+
+
+            if(targetName == "select" && elemento.attributes.dataId.includes("Sex")) console.log(elemento.children)
 
             resultados.push(inputDetail);
         }
@@ -67,8 +73,6 @@ const procesarPdf = async (pdfInput) => {
 
             const fileNameWithoutExtension = path.parse(pdfInput).name;
 
-            console.log(fileNameWithoutExtension)
-
             try {
                 fs.writeFile("./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json", jsonString, 'utf-8', (err) => {
                     if (err) {
@@ -103,8 +107,10 @@ const procesarPdf = async (pdfInput) => {
 
                 jsonFields = JSON.stringify(jsonFields)
 
+                const fileNameWithoutExtension = path.parse(pdfInput).name;
+
                 try {
-                    fs.writeFile("./src/OutputFiles/FormInputs/" + pdfInput + ".json", jsonFields, 'utf-8', (err) => {
+                    fs.writeFile("./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json", jsonFields, 'utf-8', (err) => {
                         if (err) {
                             console.error('Error writing JSON file:', err);
                         } else {
@@ -114,19 +120,6 @@ const procesarPdf = async (pdfInput) => {
                 } catch (e) {
                     console.log(e)
                 }
-
-                // Guardar PDF.
-        try {
-
-            const folder = "./src/OutputFiles/NoXfa"
-
-            const newpdf = await pdfdata.saveDocument();
-            const outputPath = path.join(folder, pdfInput);
-            await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
-            console.log("PDF saved successfully!");
-          } catch (writeError) {
-            console.error("Error writing PDF:", writeError);
-          }
             })
         }
     })
