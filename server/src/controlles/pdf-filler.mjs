@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
 import { getTicket, createFolder, createFile, deleteFolder, updateProperty } from "../services/hubspot.mjs";
+import internal from "stream";
 
 /**
  * Mapea el xfa y devuelve la lista de campos que coincidan con el tipo del segundo parametro.
@@ -50,14 +51,19 @@ function buscarPropiedad(json, targetName) {
  * @returns {Promise<void>} - Una promesa que se resuelve cuando se completa el procesamiento.
  */
 async function procesarCampo(objeto, pdfdata, matchPropiedades, tickeProperties) {
-  for (let campo in objeto) {
-    for (let property in matchPropiedades) {
-      if (objeto[campo].includes(property)) {
-        const InternalName = matchPropiedades[property].internalName;
+console.log("nbmbnmbn",objeto);
+
+  for (let tipo in matchPropiedades) {
+    for (let campo in matchPropiedades[tipo]) {
+
+        console.log("iuouiouio",  campo)
+      
+        const InternalName = matchPropiedades[tipo][campo].hubspotProperty;
+        console.log("internal name ", InternalName)
         const value = tickeProperties[InternalName];
-        console.log(objeto[campo] + " contains: " + property + " value: " + value);
-        await pdfdata.annotationStorage.setValue(objeto[campo], { value: value });
-      }
+      //  console.log("familyname", tickeProperties.familyname)
+     //   console.log("campo: "+campo+ " llenado con " +value);
+        await pdfdata.annotationStorage.setValue(campo, { value: value });
     }
   }
 }
@@ -86,9 +92,14 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
         const resultadoInput = buscarPropiedad(xfa, "input");
         const resultadotextarea = buscarPropiedad(xfa, "textarea");
 
-        const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
-
         //const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
+        
+        const fileNameWithoutExtension = path.parse(pdfInput).name;
+
+        
+        console.log("qweqwe", "./src/Jsons/matchPropsForms/"+fileNameWithoutExtension+".json")
+
+        const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropsForms/"+fileNameWithoutExtension+".json", "utf8"));
 
         // Rellenar campos con datos de Hubpost.
         await procesarCampo(resultadotextarea, pdfdata, matchPropiedades, tickeProperties);

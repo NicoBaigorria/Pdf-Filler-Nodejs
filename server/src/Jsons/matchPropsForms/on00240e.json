@@ -1,1 +1,226 @@
-{"selects":[{"dataId":"month1279","seccion":"My date of birth is: Month. Select value from the drop down value.","hubspotProperty":"","options":[" ","January","February","March","April","May","June","July","August","September","October","November","December"]},{"dataId":"day1280","seccion":"My date of birth is: Day. Select value from the drop down value.","hubspotProperty":"","options":[" ","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]},{"dataId":"month1283","seccion":"My EOI was registered with the Ontario Immigrant Nominee Program electronically on: Month. Select value from the drop down value.","hubspotProperty":"","options":[" ","January","February","March","April","May","June","July","August","September","October","November","December"]},{"dataId":"day1284","seccion":"My EOI was registered with the Ontario Immigrant Nominee Program electronically on: Day. Select value from the drop down value.","hubspotProperty":"","options":[" ","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]},{"dataId":"streamName1292","seccion":"I met all the prescribed stream criteria necessary to be approved under the: Name of Stream. Select value from the drop down menu.","hubspotProperty":"","options":[]},{"dataId":"month1296","seccion":"Sign Date: Month. Select value from the drop down value.","hubspotProperty":"","options":[" ","January","February","March","April","May","June","July","August","September","October","November","December"]},{"dataId":"day1297","seccion":"Sign Date: Day. Select value from the drop down value.","hubspotProperty":"","options":[" ","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]}],"inputs":[{"dataId":"lastName1275","seccion":"My full legal name is: Last Name.","hubspotProperty":"","options":null},{"dataId":"firstName1276","seccion":"My full legal name is: First Name.","hubspotProperty":"","options":null},{"dataId":"middleIntial1277","seccion":"My full legal name is: Middle Initial.","hubspotProperty":"","options":null},{"dataId":"year1281","seccion":"My date of birth is: Year","hubspotProperty":"","options":null},{"dataId":"year1285","seccion":"My EOI was registered with the Ontario Immigrant Nominee Program electronically on: Year","hubspotProperty":"","options":null},{"dataId":"option1288","seccion":"Place a checkmark in the correct box. My EOI was registered electronically by me.","hubspotProperty":"","options":null},{"dataId":"field2302","seccion":"Place a checkmark in the correct box. My EOI was registered electronically by a representative that I appointed in accordance with OINP instructions.","hubspotProperty":"","options":null},{"dataId":"field2325","seccion":"Place a checkmark in the correct box. Other","hubspotProperty":"","options":null},{"dataId":"details1287","seccion":"Place a checkmark in the correct box. Other. Please specify","hubspotProperty":"","options":null},{"dataId":"option1299","seccion":"I confirm that the information provided on this form is true, complete and accurate to the best of my knowledge.","hubspotProperty":"","options":null},{"dataId":"year1298","seccion":"Sign Date: Year","hubspotProperty":"","options":null}],"textareas":[{"dataId":"signature1295","seccion":"Signature","hubspotProperty":"","options":null}]}
+{
+  "select": {
+    "month1279": {
+      "seccion": "My date of birth is: Month. Select value from the drop down value.",
+      "hubspotProperty": "",
+      "options": [
+        " ",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    "day1280": {
+      "seccion": "My date of birth is: Day. Select value from the drop down value.",
+      "hubspotProperty": "",
+      "options": [
+        " ",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31"
+      ]
+    },
+    "month1283": {
+      "seccion": "My EOI was registered with the Ontario Immigrant Nominee Program electronically on: Month. Select value from the drop down value.",
+      "hubspotProperty": "",
+      "options": [
+        " ",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    "day1284": {
+      "seccion": "My EOI was registered with the Ontario Immigrant Nominee Program electronically on: Day. Select value from the drop down value.",
+      "hubspotProperty": "",
+      "options": [
+        " ",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31"
+      ]
+    },
+    "streamName1292": {
+      "seccion": "I met all the prescribed stream criteria necessary to be approved under the: Name of Stream. Select value from the drop down menu.",
+      "hubspotProperty": "",
+      "options": []
+    },
+    "month1296": {
+      "seccion": "Sign Date: Month. Select value from the drop down value.",
+      "hubspotProperty": "",
+      "options": [
+        " ",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    "day1297": {
+      "seccion": "Sign Date: Day. Select value from the drop down value.",
+      "hubspotProperty": "",
+      "options": [
+        " ",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31"
+      ]
+    }
+  },
+  "input": {
+    "lastName1275": {
+      "seccion": "My full legal name is: Last Name.",
+      "hubspotProperty": "familyname"
+    },
+    "firstName1276": {
+      "seccion": "My full legal name is: First Name.",
+      "hubspotProperty": ""
+    },
+    "middleIntial1277": {
+      "seccion": "My full legal name is: Middle Initial.",
+      "hubspotProperty": ""
+    },
+    "year1281": {
+      "seccion": "My date of birth is: Year",
+      "hubspotProperty": ""
+    },
+    "year1285": {
+      "seccion": "My EOI was registered with the Ontario Immigrant Nominee Program electronically on: Year",
+      "hubspotProperty": ""
+    },
+    "option1288": {
+      "seccion": "Place a checkmark in the correct box. My EOI was registered electronically by me.",
+      "hubspotProperty": ""
+    },
+    "field2302": {
+      "seccion": "Place a checkmark in the correct box. My EOI was registered electronically by a representative that I appointed in accordance with OINP instructions.",
+      "hubspotProperty": ""
+    },
+    "field2325": {
+      "seccion": "Place a checkmark in the correct box. Other",
+      "hubspotProperty": ""
+    },
+    "details1287": {
+      "seccion": "Place a checkmark in the correct box. Other. Please specify",
+      "hubspotProperty": ""
+    },
+    "option1299": {
+      "seccion": "I confirm that the information provided on this form is true, complete and accurate to the best of my knowledge.",
+      "hubspotProperty": ""
+    },
+    "year1298": { "seccion": "Sign Date: Year", "hubspotProperty": "" }
+  },
+  "textarea": {
+    "signature1295": { "seccion": "Signature", "hubspotProperty": "" }
+  }
+}
