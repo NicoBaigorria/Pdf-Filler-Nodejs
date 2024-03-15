@@ -88,6 +88,8 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
 
         const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
 
+        //const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
+
         // Rellenar campos con datos de Hubpost.
         await procesarCampo(resultadotextarea, pdfdata, matchPropiedades, tickeProperties);
         await procesarCampo(resultadoInput, pdfdata, matchPropiedades, tickeProperties);

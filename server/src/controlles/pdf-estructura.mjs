@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
 
-
 /**
  * Mapea el xfa y devuelve la lista de campos que coincidan con el tipo del segundo parametro.
  *
@@ -12,141 +11,165 @@ import * as pdfjs from "pdfjs-dist/build/pdf.min.mjs";
  * .
  */
 function buscarPropiedad(json, targetName) {
-    const resultados = [];
+  const resultados = {};
 
-    /**
-     * Fucion para buscar campos.
-     *
-     * @param {Object} elemento - Xfa para revisar.
-     */
-    function buscarRecursivamente(elemento) {
-        if (elemento.name === targetName) {
+  /**
+   * Fucion para buscar campos.
+   *
+   * @param {Object} elemento - Xfa para revisar.
+   */
+  function buscarRecursivamente(elemento) {
+    if (elemento.name === targetName) {
+      let inputDetail = {};
+      const dataId = elemento.attributes.dataId;
 
-            const inputDetail = {
-                "dataId": elemento.attributes.dataId,
-                "seccion": elemento.attributes["aria-label"],
-                "hubspotProperty": "",
-                "options":  targetName == "select" ? Array.from(elemento.children).map(option => (
-                    option.value
-                )) : null
-            }
+      if (targetName == "select") {
+        inputDetail = {
+          seccion: elemento.attributes["aria-label"],
+          hubspotProperty: "",
+          options: Array.from(elemento.children).map((option) => option.value),
+        };
+      } else {
+        inputDetail = {
+          seccion: elemento.attributes["aria-label"],
+          hubspotProperty: "",
+        };
+      }
 
-
-            if(targetName == "select" && elemento.attributes.dataId.includes("Sex")) console.log(elemento.children)
-
-            resultados.push(inputDetail);
-        }
-
-        if (elemento.children && elemento.children.length > 0) {
-            for (const child of elemento.children) {
-                buscarRecursivamente(child);
-            }
-        }
+      resultados[dataId] = inputDetail;
     }
 
-    buscarRecursivamente(json);
+    if (elemento.children && elemento.children.length > 0) {
+      for (const child of elemento.children) {
+        buscarRecursivamente(child);
+      }
+    }
+  }
 
-    return resultados.length > 0 ? resultados : null;
+  buscarRecursivamente(json);
+
+  return resultados;
 }
 
 const procesarPdf = async (pdfInput) => {
-    const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/" + pdfInput, enableXfa: true });
+  const pdf = await pdfjs.getDocument({
+    url: "./src/InputFiles/" + pdfInput,
+    enableXfa: true,
+  });
 
-    await pdf.promise.then(async function (pdfdata) {
-        console.log("PDF loaded");
+  await pdf.promise.then(async function (pdfdata) {
+    console.log("PDF loaded");
 
-        const xfa = pdfdata.allXfaHtml;
+    const xfa = pdfdata.allXfaHtml;
 
-        if (xfa) {
-            // Extraer todos los campos para rellenar.
-            const resultadoSelect = buscarPropiedad(xfa, "select");
-            const resultadoInput = buscarPropiedad(xfa, "input");
-            const resultadotextarea = buscarPropiedad(xfa, "textarea");
+    if (xfa) {
+      // Extraer todos los campos para rellenar.
+      const resultadoSelect = buscarPropiedad(xfa, "select");
+      const resultadoInput = buscarPropiedad(xfa, "input");
+      const resultadotextarea = buscarPropiedad(xfa, "textarea");
 
-            const pdfInputStructure = {
-                "selects": resultadoSelect,
-                "inputs": resultadoInput,
-                "textareas": resultadotextarea
+      const pdfInputStructure = {
+        select: resultadoSelect,
+        input: resultadoInput,
+        textarea: resultadotextarea,
+      };
+
+      const jsonString = JSON.stringify(pdfInputStructure);
+
+      const fileNameWithoutExtension = path.parse(pdfInput).name;
+
+      try {
+        fs.writeFile(
+          "./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json",
+          jsonString,
+          "utf-8",
+          (err) => {
+            if (err) {
+              console.error("Error writing JSON file:", err);
+            } else {
+              console.log("JSON file has been written successfully!");
             }
+          }
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log("El pdf " + pdfInput + " no es un xfa");
+      // Get the AcroForm (fillable form) fields
+      await pdfdata.getFieldObjects().then(async (inputs) => {
+        let jsonFields = {};
 
-            const jsonString = JSON.stringify(pdfInputStructure);
+        for (let input in inputs) {
+          console.log("dfgfdg", inputs[input]);
 
-            const fileNameWithoutExtension = path.parse(pdfInput).name;
+          let campo = {};
 
-            try {
-                fs.writeFile("./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json", jsonString, 'utf-8', (err) => {
-                    if (err) {
-                        console.error('Error writing JSON file:', err);
-                    } else {
-                        console.log('JSON file has been written successfully!');
-                    }
-                })
-            } catch (e) {
-                console.log(e)
-            }
-        } else {
-            console.log("El pdf " + pdfInput + " no es un xfa")
-            // Get the AcroForm (fillable form) fields
-            await pdfdata.getFieldObjects().then(async inputs => {
+          const id = inputs[input][0].id;
 
-                let jsonFields = [];
+          if (inputs[input][0].type == "combobox") {
+            campo = {
+              seccion: inputs[input][0].name,
+              hubspotProperty: "",
+              options: inputs[input][0].items,
+            };
+          } else {
+            campo = {
+              seccion: inputs[input][0].name,
+              hubspotProperty: "",
+            };
+          }
 
-                for (let input in inputs) {
-                    console.log("dfgfdg",inputs[input])
-
-                    let campo = {
-                        "dataId": inputs[input][0].id,
-                        "seccion": inputs[input][0].name,
-                        "hubspotProperty": ""
-                    }
-
-                    jsonFields.push(campo);
-                }
-                
-                //console.log(jsonFields)
-
-                jsonFields = JSON.stringify(jsonFields)
-
-                const fileNameWithoutExtension = path.parse(pdfInput).name;
-
-                try {
-                    fs.writeFile("./src/OutputFiles/FormInputs/" + fileNameWithoutExtension + ".json", jsonFields, 'utf-8', (err) => {
-                        if (err) {
-                            console.error('Error writing JSON file:', err);
-                        } else {
-                            console.log('JSON file has been written successfully!');
-                        }
-                    })
-                } catch (e) {
-                    console.log(e)
-                }
-            })
+          jsonFields[id] = campo;
         }
-    })
-}
+
+        //console.log(jsonFields)
+
+        jsonFields = JSON.stringify(jsonFields);
+
+        const fileNameWithoutExtension = path.parse(pdfInput).name;
+
+        try {
+          fs.writeFile(
+            "./src/OutputFiles/FormInputs/" +
+              fileNameWithoutExtension +
+              ".json",
+            jsonFields,
+            "utf-8",
+            (err) => {
+              if (err) {
+                console.error("Error writing JSON file:", err);
+              } else {
+                console.log("JSON file has been written successfully!");
+              }
+            }
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    }
+  });
+};
 
 const getEstructura = async (req, res) => {
+  try {
+    const files = await fs.promises.readdir("./src/InputFiles");
 
-    try {
+    const processingPromises = [];
 
-        const files = await fs.promises.readdir('./src/InputFiles');
+    console.log("cantidad de archivos: " + files.length);
 
-        const processingPromises = [];
-
-        console.log("cantidad de archivos: " + files.length)
-
-        for (const file of files) {
-            const processingPromise = procesarPdf(file);
-            processingPromises.push(processingPromise);
-        }
-
-        await Promise.all(processingPromises)
-
-        res.status(200);
-        res.send("result");
-    } catch (e) {
-
+    for (const file of files) {
+      const processingPromise = procesarPdf(file);
+      processingPromises.push(processingPromise);
     }
-}
+
+    await Promise.all(processingPromises);
+
+    res.status(200);
+    res.send("result");
+  } catch (e) {}
+};
 
 export default getEstructura;
