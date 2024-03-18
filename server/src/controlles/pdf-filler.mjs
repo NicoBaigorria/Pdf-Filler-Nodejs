@@ -50,20 +50,21 @@ function buscarPropiedad(json, targetName) {
  * @param {Object} tickeProperties - Las propiedades del ticket para obtener los valores.
  * @returns {Promise<void>} - Una promesa que se resuelve cuando se completa el procesamiento.
  */
-async function procesarCampo(objeto, pdfdata, matchPropiedades, tickeProperties) {
-console.log("nbmbnmbn",objeto);
+async function procesarCampo(objeto, pdfdata, matchPropiedades, tickeProperties, logs) {
 
   for (let tipo in matchPropiedades) {
     for (let campo in matchPropiedades[tipo]) {
 
-        console.log("iuouiouio",  campo)
-      
-        const InternalName = matchPropiedades[tipo][campo].hubspotProperty;
-        console.log("internal name ", InternalName)
-        const value = tickeProperties[InternalName];
+      const InternalName = matchPropiedades[tipo][campo].hubspotProperty;
+      const value = tickeProperties[InternalName];
       //  console.log("familyname", tickeProperties.familyname)
-     //   console.log("campo: "+campo+ " llenado con " +value);
+      if (logs) console.log("campo: " + campo + " llenado con " + value);
+      try {
+        if (campo == "FamilyName240550") console.log("encontradooooooo")
         await pdfdata.annotationStorage.setValue(campo, { value: value });
+      } catch (e) {
+        console.log("Error al llenar campo: " + campo)
+      }
     }
   }
 }
@@ -82,7 +83,7 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
     const pdf = await pdfjs.getDocument({ url: "./src/InputFiles/" + pdfInput, enableXfa: true });
 
     await pdf.promise.then(async function (pdfdata) {
-      console.log("PDF loaded");
+      console.log("PDF loaded: " + pdfInput);
 
       const xfa = pdfdata.allXfaHtml;
 
@@ -93,36 +94,45 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
         const resultadotextarea = buscarPropiedad(xfa, "textarea");
 
         //const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropiedades.json", "utf8"));
-        
+
         const fileNameWithoutExtension = path.parse(pdfInput).name;
 
-        
-        console.log("qweqwe", "./src/Jsons/matchPropsForms/"+fileNameWithoutExtension+".json")
 
-        const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropsForms/"+fileNameWithoutExtension+".json", "utf8"));
+        console.log("qweqwe", "./src/Jsons/matchPropsForms/" + fileNameWithoutExtension + ".json")
+
+        const matchPropiedades = await JSON.parse(fs.readFileSync("./src/Jsons/matchPropsForms/" + fileNameWithoutExtension + ".json", "utf8"));
+
+        let logs = false;
+
+        if (fileNameWithoutExtension == "imm1294e") logs = true;
+
+        // Array para almacenar las promesas de procesamiento de campos
+        const promises = [];
 
         // Rellenar campos con datos de Hubpost.
-        await procesarCampo(resultadotextarea, pdfdata, matchPropiedades, tickeProperties);
-        await procesarCampo(resultadoInput, pdfdata, matchPropiedades, tickeProperties);
-        await procesarCampo(resultadoSelect, pdfdata, matchPropiedades, tickeProperties);
+        promises.push(procesarCampo(resultadotextarea, pdfdata, matchPropiedades, tickeProperties, logs));
+        promises.push(procesarCampo(resultadoInput, pdfdata, matchPropiedades, tickeProperties, logs));
+        promises.push(procesarCampo(resultadoSelect, pdfdata, matchPropiedades, tickeProperties, logs));
 
-        // Guardar PDF.
         try {
+          // Esperar a que todas las promesas se resuelvan
+          await Promise.all(promises);
+
+          // Guardar PDF.
           const newpdf = await pdfdata.saveDocument();
           const outputPath = path.join(folder, pdfInput);
           await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
           console.log("PDF saved successfully!");
-        } catch (writeError) {
-          console.error("Error writing PDF:", writeError);
+        } catch (error) {
+          console.error("Error:", error);
         }
+
       } else {
-        console.log("Not have xfa");
+        console.log("Not have xfa " + pdfInput);
 
         // Get the AcroForm (fillable form) fields
         await pdfdata.getFieldObjects().then(async inputs => {
           for (let input in inputs) {
-
-            console.log("asdasdas", inputs[input][0].id)
 
             if (inputs[input][0].type == "text") {
               await pdfdata.annotationStorage.setValue(inputs[input][0].id, { value: "value" });
@@ -130,13 +140,13 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
           }
         })
 
-         // Guardar PDF.
-         try {
+        // Guardar PDF.
+        try {
 
           const newpdf = await pdfdata.saveDocument();
           const outputPath = path.join(folder, pdfInput);
           await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
-          console.log("PDF saved successfully!" +pdfInput);
+          console.log("PDF saved successfully!" + pdfInput);
         } catch (writeError) {
           console.error("Error writing PDF:", writeError);
         }
@@ -146,21 +156,7 @@ const procesarPdf = async (pdfInput, folder, tickeProperties) => {
       await pdfdata.destroy();
     });
   } catch (error) {
-    await pdfdata.getFieldObjects().then(async inputs => {
-      for (let input in inputs) {
-        await pdfdata.annotationStorage.setValue(inputs[input][0].id, { value: "value" });
-      }
-
-      // Guardar PDF.
-      try {
-        const newpdf = await pdfdata.saveDocument();
-        const outputPath = path.join(folder, pdfInput);
-        await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
-        console.log("PDF saved successfully!");
-      } catch (writeError) {
-        console.error("Error writing PDF:", writeError);
-      }
-    })
+    console.log("ERROR READING PDF: " + pdfInput)
 
   }
 };

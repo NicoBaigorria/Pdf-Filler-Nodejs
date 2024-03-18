@@ -2,6 +2,10 @@
     "props": [
       "id_folder",
       "age",
+      "apellido",
+      "nombre",
+      "alias_family_name",
+      "alias_given_name",
       "programa_formularios",
       "identificacion_",
       "createdate",
@@ -39,6 +43,6 @@
       "madre___nombre",
       "padre___fecha_de_nacimiento",
       "padre___direccion",
-      "sexo"
+      "sex"
     ]
   }
