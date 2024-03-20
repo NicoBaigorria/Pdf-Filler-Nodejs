@@ -63,7 +63,7 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
       console.log("PDF loaded: " + pdfInput);
 
       const xfa = await pdfdata.allXfaHtml;
-
+      //-----------------SI NO ES XFA------------------
       if (xfa) {
         const fileNameWithoutExtension = path.parse(pdfInput).name;
 
@@ -91,17 +91,37 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
             ticketProperties,
             logs
           ).then(async () => {
-            // Guardar PDF.
-            if (fileNameWithoutExtension == "imm1294e") console.log("fghgfhgf", await pdfdata.annotationStorage.getAll());
-            const newpdf = await pdfdata.saveDocument();
-            const outputPath = path.join(folder, pdfInput);
-            await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
-            console.log("PDF saved successfully!");
+            try {
+              // Guardar PDF.
+              if (fileNameWithoutExtension == "imm1294e") console.log("fghgfhgf", await pdfdata.annotationStorage.getAll());
+              const newpdf = await pdfdata.saveDocument();
+              const outputPath = path.join(folder, pdfInput);
+              await fs.promises.writeFile(outputPath, Buffer.from(newpdf)).then(async () => {
+                if (fileNameWithoutExtension == "imm1294e") {
+                  try {
+                    const pdf = await pdfjs.getDocument({
+                      url: outputPath,
+                      enableXfa: true,
+                    });
+
+                    await pdf.promise.then(async function (pdfdataa) {
+                      console.log("cvbcvbcv", await pdfdataa.annotationStorage.getAll());
+                    })
+                  } catch (e) {
+                    console.log(e)
+                  }
+                }
+              });
+              console.log("PDF saved successfully!");
+            } catch (err) {
+              console.log("PDF Error!", err);
+            }
           });
         } catch (error) {
           console.error("Error:", error);
         }
       } else {
+        //-----------------SI NO ES UN XFA------------------
         console.log("Not have xfa " + pdfInput);
 
         // Get the AcroForm (fillable form) fields
