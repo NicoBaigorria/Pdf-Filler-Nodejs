@@ -40,13 +40,14 @@ const checkFiles = async (folder, programas) => {
 
   let pdfsPendientes = {}
 
+
   programasRequqeridos.map(programa => {
     pdfsPendientes[programa] = {}
     const pdfs = planesLista[programa]
-    pdfs.map(pdf => listaPdfs.includes(pdf) ?
-      pdfsPendientes[programa][pdf] = true
-      : pdfsPendientes[programa][pdf] = false
-    )
+      pdfs.map(pdf => listaPdfs.includes(pdf) ?
+        pdfsPendientes[programa][pdf] = true
+        : pdfsPendientes[programa][pdf] = false
+      )
   })
 
   //console.log(pdfsPendientes)
@@ -76,8 +77,6 @@ const createLinkPdfs = async (folder, programa) => {
     }
   }
 
-  console.log(cardFilesList)
-
   const bodyCard = `{
   "results": [
     {
@@ -97,6 +96,8 @@ const createLinkPdfs = async (folder, programa) => {
     }
   ]
 }`;
+
+  console.log(bodyCard)
 
   return bodyCard;
 }
