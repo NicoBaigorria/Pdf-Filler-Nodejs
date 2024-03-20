@@ -94,25 +94,27 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
             try {
               // Guardar PDF.
               if (fileNameWithoutExtension == "imm1294e") console.log("fghgfhgf", await pdfdata.annotationStorage.getAll());
-              const newpdf = await pdfdata.saveDocument();
-              const outputPath = path.join(folder, pdfInput);
-              await fs.promises.writeFile(outputPath, Buffer.from(newpdf)).then(async () => {
-                if (fileNameWithoutExtension == "imm1294e") {
-                  try {
-                    const pdf = await pdfjs.getDocument({
-                      url: outputPath,
-                      enableXfa: true,
-                    });
+              await pdfdata.saveDocument().then(async (newpdf) => {
+                const outputPath = path.join(folder, pdfInput);
+                await fs.promises.writeFile(outputPath, Buffer.from(newpdf)).then(async () => {
+                  if (fileNameWithoutExtension == "imm1294e") {
+                    try {
+                      const pdff = await pdfjs.getDocument({
+                        url: outputPath,
+                        enableXfa: true,
+                      });
 
-                    await pdf.promise.then(async function (pdfdataa) {
-                      console.log("cvbcvbcv", await pdfdataa.annotationStorage.getAll());
-                    })
-                  } catch (e) {
-                    console.log(e)
+                      await pdff.promise.then(async function (pdfdataa) {
+                        console.log("cvbcvbcv", await pdfdataa.annotationStorage.getAll());
+                      })
+                    } catch (e) {
+                      console.log(e)
+                    }
                   }
-                }
+                });
+                console.log("PDF saved successfully!");
               });
-              console.log("PDF saved successfully!");
+
             } catch (err) {
               console.log("PDF Error!", err);
             }
