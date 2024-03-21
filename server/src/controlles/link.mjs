@@ -70,19 +70,18 @@ const createLinkPdfs = async (folder, programa) => {
       const property = {
         "label": file,
         "dataType": "STATUS",
-        "value": checkList[programa][file] ? "completado" : "faltante",
+        "value": checkList[programa][file] ? "completado" : "No hay propiedades",
         "optionType": checkList[programa][file] ? "SUCCESS" : "DANGER"
       }
       cardFilesList.push(property)
     }
   }
 
-  const bodyCard = `{
+  const bodyCard = {
   "results": [
     {
       "objectId": 245,
-      "title": "Link a PDFS",
-      "link": "${url}",
+      "title": "Listado de formularios",
       "created": "2016-09-15",
       "priority": "HIGH",
       "project": "API",
@@ -92,10 +91,24 @@ const createLinkPdfs = async (folder, programa) => {
       "status": "In Progress",
       "ticket_type": "Bug",
       "updated": "2016-09-28",
-      "properties": ${JSON.stringify(cardFilesList)}
+      "properties": cardFilesList
+    },
+    {
+    "objectId": 245,
+      "title": "Link a carpeta",
+      "link": url,
+      "created": "2016-09-15",
+      "priority": "HIGH",
+      "project": "API",
+      "reported_by": "msmith@hubspot.com",
+      "description": "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+      "reporter_type": "Account Manager",
+      "status": "In Progress",
+      "ticket_type": "Bug",
+      "updated": "2016-09-28",
     }
   ]
-}`;
+};
 
   console.log(bodyCard)
 
@@ -103,12 +116,36 @@ const createLinkPdfs = async (folder, programa) => {
 }
 
 const getLinksPdfs = async (req, res) => {
-  const folderId = req.query.id_folder;
-  const programas = req.query.programa_formularios
-  const result = await createLinkPdfs(folderId, programas);
+  const folderId = req.query.id_folder? req.query.id_folder : null;
+  const programas = req.query.programa_formularios? req.query.programa_formularios : null;
+  if(folderId && programas){
+    const result = await createLinkPdfs(folderId, programas);
 
-  res.status(200);
-  res.send(result);
+    res.status(200);
+    res.send(JSON.stringify(result));
+  } else {
+
+    const result = {
+      "results": [
+        {
+          "objectId": 245,
+          "title": "Faltan Parametros",
+          "created": "2016-09-15",
+          "priority": "HIGH",
+          "project": "API",
+          "reported_by": "msmith@hubspot.com",
+          "description": "Faltan Parametros",
+          "reporter_type": "Account Manager",
+          "status": "In Progress",
+          "ticket_type": "Bug",
+          "updated": "2016-09-28",
+        }
+      ]
+      }
+ 
+    res.status(200)
+    res.send(result)
+  }
 }
 
 export default getLinksPdfs;
