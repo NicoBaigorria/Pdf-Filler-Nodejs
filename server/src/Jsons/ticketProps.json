@@ -43,6 +43,7 @@
       "madre___nombre",
       "padre___fecha_de_nacimiento",
       "padre___direccion",
-      "sex"
+      "sex",
+      "aplicantes_relacionados"
     ]
   }

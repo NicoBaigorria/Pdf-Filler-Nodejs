@@ -5,6 +5,11 @@ async function readAndEditXFAWithAnnotations(pdfInputPath, outputPath, newData) 
     try {
         const pdf = await pdfjs.getDocument({ url: pdfInputPath, enableXfa: true });
         const pdfData = await pdf.promise;
+
+        // Access XFA form data
+        const xfaData = await pdfData.getData();
+
+        console.log("Data IDs of XFA fields:", xfaData);
         
 
         // Modify the data or annotations as needed

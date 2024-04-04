@@ -187,15 +187,42 @@ const postPdf = async (req, res) => {
       fs.readFileSync("./src/Jsons/planesForm.json", "utf8")
     );
 
-    const programa = ticketProperties.programa_formularios;
+    const programas = ticketProperties.programa_formularios.split(";");
+
+    const aplicantes = ticketProperties.aplicantes_relacionados.split(";");
 
     const files = await fs.promises.readdir("./src/InputFiles");
 
+    /*
     if (listaProgramas.hasOwnProperty(programa)) {
       listaProgramas = listaProgramas.filter(function (elemento) {
         return listaProgramas.programa.includes(elemento);
       });
     }
+    */
+
+    console.log("lista formulariooos", listaProgramas["studypermit"], programas, aplicantes)
+
+    programas.map(programa => {
+
+      console.log(programa, listaProgramas[programa])
+
+      for (formulario in listaProgramas[programa]) {
+        if (aplicantes.includes("todos")) {
+          console.log("Processing principal application");
+        } else {
+          if (aplicantes.includes("principal")) {
+            console.log("Processing all applications");
+          }
+          if (aplicantes.includes("secundario") && aplicantes.includes("ESPOSA")) {
+            console.log("Processing secondary application");
+          }else if(aplicantes.includes("secundario") && aplicantes.includes("HIJO / HIJA 1")){
+            console.log("Processing secondary application");
+          }
+        }
+      }
+
+    })
 
     const processingPromises = [];
 
