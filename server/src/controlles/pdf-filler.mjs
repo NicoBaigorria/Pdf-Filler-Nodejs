@@ -203,6 +203,15 @@ const postPdf = async (req, res) => {
 
     console.log("lista formulariooos", listaProgramas["studypermit"], programas, aplicantes)
 
+    let ListaFamiliarForms = {
+      "principal":{
+        lista: [],
+        nombre: ""
+      },
+      "esposa":{},
+      "hija":{}
+    }
+
     programas.map(programa => {
 
       console.log(programa, listaProgramas[programa])
