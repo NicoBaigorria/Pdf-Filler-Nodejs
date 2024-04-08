@@ -207,6 +207,7 @@ const postPdf = async (req, res) => {
       "principal":{
         lista: [],
         nombre: ""
+        
       },
       "esposa":{},
       "hija":{}
@@ -238,6 +239,16 @@ const postPdf = async (req, res) => {
     // Procesar, llenar cada PDF y guardarlo en una carpeta dentro de la app.
 
     //reemplazar files por listaProgramas
+
+    /*
+      for(const aplicante of ListaFamiliarForms){
+
+        folder = "./src/OutputFiles/Pdf/"+ aplicante;
+
+        const processingPromise = procesarPdf(file, folder, ticketProperties);
+        processingPromises.push(processingPromise);
+      }
+    */
 
     for (const file of files) {
       const processingPromise = procesarPdf(file, folder, ticketProperties);
