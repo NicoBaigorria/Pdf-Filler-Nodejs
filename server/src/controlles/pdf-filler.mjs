@@ -187,9 +187,10 @@ const postPdf = async (req, res) => {
       fs.readFileSync("./src/Jsons/planesForm.json", "utf8")
     );
 
-    const programas = ticketProperties.programa_formularios.split(";");
 
-    const aplicantes = ticketProperties.aplicantes_relacionados.split(";");
+    //const programas = ticketProperties.programa_formularios.split(";");
+
+    //const aplicantes = ticketProperties.aplicantes_relacionados.split(";");
 
     const files = await fs.promises.readdir("./src/InputFiles");
 
@@ -201,6 +202,7 @@ const postPdf = async (req, res) => {
     }
     */
 
+    /*
     console.log("lista formulariooos", listaProgramas["studypermit"], programas, aplicantes)
 
     let ListaFamiliarForms = {
@@ -233,6 +235,8 @@ const postPdf = async (req, res) => {
       }
 
     })
+
+    */
 
     const processingPromises = [];
 
@@ -282,7 +286,7 @@ const postPdf = async (req, res) => {
 
     // Borrar carpeta en la app.
 
-    //await fs.promises.rmdir(folder, { recursive: true });
+    await fs.promises.rmdir(folder, { recursive: true });
 
     res.send("PDF generated and saved successfully!");
   } catch (postPdfError) {
