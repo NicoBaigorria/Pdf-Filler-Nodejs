@@ -1,90 +1,90 @@
 {
   "AMENDMENT": {
-    "IMM1436": {
+    "imm1436": {
       "aplicantes": [
         "AL QUE APLIQUE"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "AL QUE APLIQUE"
       ]
     }
   },
   "APPLICATION TO GET, RENEW OR REPLACE A PERMANENT RESIDENT CARD (PR CARD)": {
-    "IMM5444": {
+    "imm5444": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     }
   },
-  "ATLANTIC IMMIGRATION PROGRAM": {
-    "IMM0008": {
+  "ATLANTIC immIGRATION PROGRAM": {
+    "imm0008": {
       "aplicantes": [
         "PRINCIPAL (Información de todos los aplicantes)"
       ]
     },
-    "IMM5669": {
+    "imm5669": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5406": {
+    "imm5406": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM0157": {
+    "imm0157": {
       "aplicantes": [
         "EMPLEADOR"
       ]
     }
   },
   "CITIZENSHIP": {
-    "CIT0002": {
+    "cit0002": {
       "aplicantes": [
         "ADULTOS"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "CIT0003": {
+    "cit0003": {
       "aplicantes": [
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5409": {
+    "imm5409": {
       "aplicantes": [
         "PRINCIPAL (si tiene una pareja en common-law)"
       ]
@@ -92,39 +92,39 @@
   },
   "ELECTRONIC TRAVEL AUTHORIZATION (ETA)": {},
   "EXPRESS ENTRY": {
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5409": {
+    "imm5409": {
       "aplicantes": [
         "PRINCIPAL (si tiene una pareja en common-law)"
       ]
     }
   },
   "EXTENSIONES": {
-    "IMM5709e": {
+    "imm5709e": {
       "aplicantes": [
         "PRINCIPAL / DEPENDIENTES"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5713e": {
+    "imm5713e": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5710e": {
+    "imm5710e": {
       "aplicantes": [
         "PAREJA"
       ]
     },
-    "IMM5708e": {
+    "imm5708e": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
@@ -155,187 +155,187 @@
     }
   },
   "FEDERAL PERMANENT RESIDENCE": {
-    "IMM0008": {
+    "imm0008": {
       "aplicantes": [
         "PRINCIPAL (Información de todos los aplicantes)"
       ]
     },
-    "IMM0008 SCH4": {
+    "imm0008 SCH4": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5669": {
+    "imm5669": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5406": {
+    "imm5406": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     }
   },
   "HOME CHILD CARE PROVIDER (Gaining experience category)": {
-    "IMM0008": {
+    "imm0008": {
       "aplicantes": [
         "PRINCIPAL (Información de todos los aplicantes)"
       ]
     },
-    "IMM5669": {
+    "imm5669": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5982": {
+    "imm5982": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5406": {
+    "imm5406": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5710": {
+    "imm5710": {
       "aplicantes": [
         "PRINCIPAL (si está dentro de Canadá)"
       ]
     },
-    "IMM1295E": {
+    "imm1295E": {
       "aplicantes": [
         "PRINCIPAL (si está dentro de Canadá)"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5983": {
+    "imm5983": {
       "aplicantes": [
         "EMPLEADOR"
       ]
     }
   },
   "HOME CHILD CARE PROVIDER (Direct to Permanent Residence category)": {
-    "IMM0008": {
+    "imm0008": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5669": {
+    "imm5669": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5982": {
+    "imm5982": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5910": {
+    "imm5910": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5406": {
+    "imm5406": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     }
   },
   "HOME SUPPORT WORKER PILOT": {
-    "IMM0008": {
+    "imm0008": {
       "aplicantes": [
         "PRINCIPAL (Información de todos los aplicantes)"
       ]
     },
-    "IMM5669": {
+    "imm5669": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5982": {
+    "imm5982": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5406": {
+    "imm5406": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA",
         "DEPENDIENTES MAYORES DE 18"
       ]
     },
-    "IMM5710": {
+    "imm5710": {
       "aplicantes": [
         "PRINCIPAL (si está dentro de Canadá)"
       ]
     },
-    "IMM1295E": {
+    "imm1295E": {
       "aplicantes": [
         "PRINCIPAL (si está fuera de Canadá)"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5983": {
+    "imm5983": {
       "aplicantes": [
         "EMPLEADOR"
       ]
@@ -358,72 +358,72 @@
     }
   },
   "PARENTS AND GRANDPARENTS SPONSORSHIP": {
-    "IMM1344": {
+    "imm1344": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA"
       ]
     },
-    "IMM5768": {
+    "imm5768": {
       "aplicantes": [
         "SPONSOR"
       ]
     },
-    "IMM5409": {
+    "imm5409": {
       "aplicantes": [
         "SPONSOR (si el sponsor tiene una pareja en common-law)"
       ]
     },
-    "IMM0008": {
+    "imm0008": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5406": {
+    "imm5406": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
       ]
     },
-    "IMM5669": {
+    "imm5669": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     }
   },
   "POST GRADUATION WORK PERMIT": {
-    "IMM5709e": {
+    "imm5709e": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5713e": {
+    "imm5713e": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5710e": {
+    "imm5710e": {
       "aplicantes": [
         "PRINCIPAL / PAREJA"
       ]
     },
-    "IMM5708e": {
+    "imm5708e": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
@@ -432,22 +432,22 @@
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - ALBERTA": {},
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - MANITOBA": {},
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - NEW BRUNSWICK": {
-    "NBPNP-004": {
+    "nbpnp-004": {
       "aplicantes": [
         "EMPLEADOR"
       ]
     },
-    "NB-005": {
+    "nb-005": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "NB-007": {
+    "nb-007": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "NB-008": {
+    "nb-008": {
       "aplicantes": [
         "PRINCIPAL",
         "PAREJA"
@@ -455,36 +455,36 @@
     }
   },
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - NOVA SCOTIA": {
-    "NSNP 200": {
+    "nsnp 200": {
       "aplicantes": [
         "EMPLEADOR"
       ]
     },
-    "NSNP 50": {
+    "nsnp 50": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     }
   },
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - ONTARIO": {
-    "ON00240E": {
+    "on00240e": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "0233E": {
+    "0233e": {
       "aplicantes": [
         "EMPLEADOR"
       ]
     }
   },
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - PRINCE EDWARD ISLAND": {
-    "PEIW-02": {
+    "peiw-02": {
       "aplicantes": [
         "EMPLEADOR"
       ]
     },
-    "PEIW-03": {
+    "peiw-03": {
       "aplicantes": [
         "PRINCIPAL"
       ]
@@ -499,193 +499,193 @@
     }
   },
   "SPOUSE SPONSORSHIP": {
-    "IMM0008": {
+    "imm0008": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5406": {
+    "imm5406": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5532": {
+    "imm5532": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM1283": {
+    "imm1283": {
       "aplicantes": [
         "SECUNDARIO (Solo en caso de que los dependientes del auspiciado tengan dependientes)"
       ]
     },
-    "IMM5669": {
+    "imm5669": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
       ]
     },
-    "IMM1344": {
+    "imm1344": {
       "aplicantes": [
         "SPONSOR"
       ]
     },
-    "IMM5562": {
+    "imm5562": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     }
   },
   "SPOUSAL OPEN WORK PERMIT": {
-    "IMM1295E": {
+    "imm1295E": {
       "aplicantes": [
         "PRINCIPAL (Aplicación fuera de Canadá)"
       ]
     },
-    "IMM5710E": {
+    "imm5710E": {
       "aplicantes": [
         "DEPENDIENTE (Aplicación dentro de Canadá)"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5713e": {
+    "imm5713e": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5645E": {
+    "imm5645E": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
     }
   },
   "STUDY PERMIT": {
-    "IMM1294E": [
-      "PRINCIPAL / DEPENDIENTES",
-      "PRINCIPAL / DEPENDIENTES"
+    "imm1294E": [
+      "PRINCIPAL",
+      "DEPENDIENTES"
     ],
-    "IMM5645E": [
-      "PRINCIPAL / DEPENDIENTES"
+    "imm5645E": [
+      "PRINCIPAL", "DEPENDIENTES"
     ],
-    "IMM5713e": [
+    "imm5713e": [
       "PRINCIPAL"
     ],
-    "IMM5476": [
+    "imm5476": [
       "TODOS"
     ],
-    "IMM1295E": [
+    "imm1295E": [
       "PAREJA"
     ],
-    "IMM5257E": [
-      "PAREJA / DEPENDIENTES"
+    "imm5257E": [
+      "PAREJA", "DEPENDIENTES"
     ]
   },
   "SUPERVISA": {
-    "IMM5713e": {
+    "imm5713e": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5257e": {
+    "imm5257e": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5645E": {
+    "imm5645E": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     }
   },
   "TEMPORARY RESIDENT VISA": {
-    "IMM5257e": {
+    "imm5257e": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5645E": {
+    "imm5645E": {
       "aplicantes": [
         "TODOS"
       ]
     }
   },
   "VISITOR RECORD": {
-    "IMM5708e": {
+    "imm5708e": {
       "aplicantes": [
         "AL QUE APLIQUE"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "AL QUE APLIQUE"
       ]
     }
   },
   "VISITOR VISA": {
-    "IMM5257e": {
+    "imm5257e": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5713e": {
+    "imm5713e": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5645E": {
+    "imm5645E": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     }
   },
   "WORK PERMIT": {
-    "IMM1295E": {
+    "imm1295E": {
       "aplicantes": [
         "PRINCIPAL (Aplicación fuera de Canadá)",
         "PAREJA"
       ]
     },
-    "IMM1294E": {
+    "imm1294E": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
     },
-    "IMM5476": {
+    "imm5476": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "IMM5713e": {
+    "imm5713e": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "IMM5645E": {
+    "imm5645E": {
       "aplicantes": [
         "TODOS"
       ]
