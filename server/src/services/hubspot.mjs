@@ -40,13 +40,13 @@ export const getTicket = async (id) => {
     }
 };
 
-export const createFolder = async (name) => {
+export const createFolder = async (name, idFolder = "145506339115") => {
     const myHeaders = new Headers();
     myHeaders.append("content-type", "application/json");
     myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
 
     const raw = JSON.stringify({
-        "parentFolderId": "145506339115",
+        "parentFolderId": idFolder,
         "name": name
     });
 
