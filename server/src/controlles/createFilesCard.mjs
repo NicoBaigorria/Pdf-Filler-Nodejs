@@ -7,9 +7,12 @@ import {
     updateProperty,
 } from "../services/hubspot.mjs";
 
-/*
-const checkFiles = async (folder, programas) => {
-    const url = `https://api.hubapi.com/files/v3/files/search?parentFolderId=${folder}`;
+
+const checkFiles = async (folder, programas, hs_object, aplicantes) => {
+    const urlFiles = `https://api.hubapi.com/files/v3/files/search?parentFolderId=`;
+    const urlFolder = `https://api.hubapi.com/files/v3/folders/PDF-Gobierno_de_Canada/PDF-API/${hs_object}`;
+
+    console.log("dfghfdhdhgfhgf", urlFolder)
 
     const accessToken = "pat-na1-31886066-9adb-4992-930a-91cd28f192ff";
 
@@ -17,7 +20,7 @@ const checkFiles = async (folder, programas) => {
         Authorization: `Bearer ${accessToken}`,
     });
 
-    const response = await fetch(url, {
+    const response = await fetch(urlFolder, {
         method: "GET",
         headers: headers,
     });
@@ -30,6 +33,7 @@ const checkFiles = async (folder, programas) => {
 
     console.log("carpetas hubspot", responseData)
 
+    
     let programasRequeridos = programas.split(";");
 
     //console.log(programasRequqeridos)
@@ -40,8 +44,33 @@ const checkFiles = async (folder, programas) => {
 
     //console.log(planesLista)
 
-    const listaPdfs = [];
+    const listaPdfs = {};
 
+    let aplicantesList = aplicantes.split(";");
+
+    await aplicantesList.map(async aplicante => {
+
+        await fetch(urlFolder+"/"+aplicante, {
+            method: "GET",
+            headers: headers,
+        }).then(async response =>{
+
+            const responseAplicanteFolder = await response.json()
+
+            const parentFolderId = responseAplicanteFolder.id
+
+            const filesAplicante = await fetch(urlFolder+parentFolderId, {
+                method: "GET",
+                headers: headers,
+            })
+
+            console.log("vbnvbnbvn", filesAplicante)
+
+        }).catch(e => console.log("carpeta de aplicante " + aplicante + " no encontrado" , e));
+
+    })
+
+/*
     responseData.results.map((file) => listaPdfs.push(file.name));
 
     //console.log(listaPdfs)
@@ -65,8 +94,10 @@ const checkFiles = async (folder, programas) => {
     //console.log(pdfsPendientes)
 
     return pdfsPendientes;
+    */
+
 };
-*/
+
 
 const createFillFolder = async (folder, subCarpeta, file) => {
     const path = folder + "/" + subCarpeta;
@@ -112,7 +143,7 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
         const processingPromises = [];
 
         let programasRequeridos = programas.split(";");
-        let aplicantesList = aplicantes.split(";");
+       // let aplicantesList = aplicantes.split(";");
 
         await Promise.all(programasRequeridos.map(async (programa) => {
             for (let pdf in listaProgramas[programa]) {
@@ -124,9 +155,12 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 
         await Promise.all(processingPromises);
 
-        await deleteFolder(folderID);
-
-        const folderId = await createFolder(hs_object);
+       // await deleteFolder(folderID);
+       let folderId = folderID;
+       
+        if(!folderID){
+           folderId = await createFolder(hs_object);
+        }
 
         const jsonPropsTicket = {
             id_folder: folderId,
@@ -202,9 +236,10 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
     const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
 
-    //const checkList = await checkFiles(folder, programa);
-
     const cardFilesList = await subirPdfs(hs_object, folder, programas, aplicantes);
+
+    
+    await checkFiles(folder, programas, hs_object, aplicantes)
 
 
     const bodyCard = {

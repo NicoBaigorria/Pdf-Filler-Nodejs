@@ -261,8 +261,6 @@ const postPdf = async (req, res) => {
 
     await Promise.all(processingPromises);
 
-    // Borrar carpeta en Hubpsot si existe.
-    await deleteFolder(ticketProperties.id_folder);
 
     // Crear una carpeta en Hubspot.
 

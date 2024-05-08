@@ -82,7 +82,8 @@ export const createFile = async (folder, name, folderId) => {
         "ttl": "P2W",
         "overwrite": false,
         "duplicateValidationStrategy": "NONE",
-        "duplicateValidationScope": "EXACT_FOLDER"
+        "duplicateValidationScope": "EXACT_FOLDER",
+        "overwrite":true
     }));
 
     const requestOptions = {
