@@ -104,7 +104,7 @@
     }
   },
   "EXTENSIONES": {
-    "imm5709e": {
+    "imm5709": {
       "aplicantes": [
         "PRINCIPAL / DEPENDIENTES"
       ]
@@ -114,7 +114,7 @@
         "TODOS"
       ]
     },
-    "imm5713e": {
+    "imm5713": {
       "aplicantes": [
         "PRINCIPAL"
       ]
@@ -131,7 +131,7 @@
     }
   },
   "FAMILY CLASS-SPOUSES, PARTNERS AND DEPENDENT CHILDREN (OUTSIDE CANADA)": {
-    "imm1294e": {
+    "imm1294": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
@@ -139,7 +139,7 @@
     }
   },
   "FEDERAL - APPLY FOR A CITIZENSHIP CERTIFICATE (OR REPLACEMENT)": {
-    "imm1294e": {
+    "imm1294": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
@@ -147,7 +147,7 @@
     }
   },
   "FEDERAL - VERIFICATION OF STATUS OR REPLACEMENT": {
-    "imm1294e": {
+    "imm1294": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
@@ -325,7 +325,7 @@
         "PRINCIPAL (si está dentro de Canadá)"
       ]
     },
-    "imm1295E": {
+    "imm1295": {
       "aplicantes": [
         "PRINCIPAL (si está fuera de Canadá)"
       ]
@@ -342,7 +342,7 @@
     }
   },
   "LMIA - EMPLOYER DRIVEN": {
-    "imm1294e": {
+    "imm1294": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
@@ -350,7 +350,7 @@
     }
   },
   "OPEN WORK PERMIT": {
-    "imm1294e": {
+    "imm1294": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
@@ -403,7 +403,7 @@
     }
   },
   "POST GRADUATION WORK PERMIT": {
-    "imm5709e": {
+    "imm5709": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
@@ -413,17 +413,17 @@
         "TODOS"
       ]
     },
-    "imm5713e": {
+    "imm5713": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "imm5710e": {
+    "imm5710": {
       "aplicantes": [
         "PRINCIPAL / PAREJA"
       ]
     },
-    "imm5708e": {
+    "imm5708": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
@@ -467,12 +467,12 @@
     }
   },
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - ONTARIO": {
-    "on00240e": {
+    "on00240": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "0233e": {
+    "0233": {
       "aplicantes": [
         "EMPLEADOR"
       ]
@@ -491,7 +491,7 @@
     }
   },
   "PROGRAMA DE NOMINACIÓN PROVINCIAL - SASKATCHEWAN": {
-    "imm1294e": {
+    "imm1294": {
       "aplicantes": [
         "PRINCIPAL",
         "DEPENDIENTES"
@@ -543,12 +543,12 @@
     }
   },
   "SPOUSAL OPEN WORK PERMIT": {
-    "imm1295E": {
+    "imm1295": {
       "aplicantes": [
         "PRINCIPAL (Aplicación fuera de Canadá)"
       ]
     },
-    "imm5710E": {
+    "imm5710": {
       "aplicantes": [
         "DEPENDIENTE (Aplicación dentro de Canadá)"
       ]
@@ -563,45 +563,45 @@
         "PRINCIPAL"
       ]
     },
-    "imm5645E": {
+    "imm5645": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
     }
   },
   "STUDY PERMIT": {
-    "imm1294e": [
+    "imm1294": [
       "PRINCIPAL",
       "DEPENDIENTES"
     ],
-    "imm5645E": [
+    "imm5645": [
       "PRINCIPAL", "DEPENDIENTES"
     ],
-    "imm5713e": [
+    "imm5713": [
       "PRINCIPAL"
     ],
     "imm5476": [
       "TODOS"
     ],
-    "imm1295E": [
+    "imm1295": [
       "PAREJA"
     ],
-    "imm5257E": [
+    "imm5257": [
       "PAREJA", "DEPENDIENTES"
     ]
   },
   "SUPERVISA": {
-    "imm5713e": {
+    "imm5713": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "imm5257e": {
+    "imm5257": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "imm5645E": {
+    "imm5645": {
       "aplicantes": [
         "TODOS"
       ]
@@ -613,7 +613,7 @@
     }
   },
   "TEMPORARY RESIDENT VISA": {
-    "imm5257e": {
+    "imm5257": {
       "aplicantes": [
         "TODOS"
       ]
@@ -623,14 +623,14 @@
         "TODOS"
       ]
     },
-    "imm5645E": {
+    "imm5645": {
       "aplicantes": [
         "TODOS"
       ]
     }
   },
   "VISITOR RECORD": {
-    "imm5708e": {
+    "imm5708": {
       "aplicantes": [
         "AL QUE APLIQUE"
       ]
@@ -642,17 +642,17 @@
     }
   },
   "VISITOR VISA": {
-    "imm5257e": {
+    "imm5257": {
       "aplicantes": [
         "TODOS"
       ]
     },
-    "imm5713e": {
+    "imm5713": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "imm5645E": {
+    "imm5645": {
       "aplicantes": [
         "TODOS"
       ]
@@ -664,13 +664,13 @@
     }
   },
   "WORK PERMIT": {
-    "imm1295E": {
+    "imm1295": {
       "aplicantes": [
         "PRINCIPAL (Aplicación fuera de Canadá)",
         "PAREJA"
       ]
     },
-    "imm1294e": {
+    "imm1294": {
       "aplicantes": [
         "DEPENDIENTES"
       ]
@@ -680,12 +680,12 @@
         "TODOS"
       ]
     },
-    "imm5713e": {
+    "imm5713": {
       "aplicantes": [
         "PRINCIPAL"
       ]
     },
-    "imm5645E": {
+    "imm5645": {
       "aplicantes": [
         "TODOS"
       ]

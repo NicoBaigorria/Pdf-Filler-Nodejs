@@ -9,7 +9,6 @@ import {
 
 
 const checkFiles = async (folder, programas, hs_object, aplicantes) => {
-    const urlFiles = `https://api.hubapi.com/files/v3/files/search?parentFolderId=`;
     const urlFolder = `https://api.hubapi.com/files/v3/folders/PDF-Gobierno_de_Canada/PDF-API/${hs_object}`;
 
     console.log("dfghfdhdhgfhgf", urlFolder)
@@ -32,19 +31,6 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
     const responseData = await response.json();
 
     console.log("carpetas hubspot", responseData)
-
-    
-    let programasRequeridos = programas.split(";");
-
-    //console.log(programasRequqeridos)
-
-    const planesListaPath = "./src/Jsons/planesForm.json";
-
-    const planesLista = await JSON.parse(fs.readFileSync(planesListaPath));
-
-    //console.log(planesLista)
-
-    const listaPdfs = {};
 
     let aplicantesList = aplicantes.split(";");
 
@@ -69,32 +55,6 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
         }).catch(e => console.log("carpeta de aplicante " + aplicante + " no encontrado" , e));
 
     })
-
-/*
-    responseData.results.map((file) => listaPdfs.push(file.name));
-
-    //console.log(listaPdfs)
-
-    let pdfsPendientes = {};
-
-    programasRequeridos.map((programa) => {
-        pdfsPendientes[programa] = {};
-
-        console.log("gfdg", planesLista[programa], programa);
-        if (planesLista[programa]) {
-            const pdfs = planesLista[programa];
-            for (const pdf in pdfs) {
-                listaPdfs.includes(pdf)
-                    ? (pdfsPendientes[programa][pdf] = true)
-                    : (pdfsPendientes[programa][pdf] = false);
-            }
-        }
-    });
-
-    //console.log(pdfsPendientes)
-
-    return pdfsPendientes;
-    */
 
 };
 
@@ -142,14 +102,20 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 
         const processingPromises = [];
 
+        programas = programas.replace("+", " ")
+
         let programasRequeridos = programas.split(";");
        // let aplicantesList = aplicantes.split(";");
 
         await Promise.all(programasRequeridos.map(async (programa) => {
             for (let pdf in listaProgramas[programa]) {
+                try{
                 await Promise.all(listaProgramas[programa][pdf].aplicantes.map(async (aplicante) => {
                     processingPromises.push(await createFillFolder(folder, aplicante, pdf));
                 }));
+                } catch (e){
+                    console.log("error al agregar folder : ",e)
+                }
             }
         }));
 
@@ -236,61 +202,68 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
     const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
 
-    const cardFilesList = await subirPdfs(hs_object, folder, programas, aplicantes);
+    const bodyCardResult = await subirPdfs(hs_object, folder, programas, aplicantes).then(async (cardFilesList)=>{
 
+        await checkFiles(folder, programas, hs_object, aplicantes)
+
+
+        const bodyCard = {
+            results: [
+                {
+                    objectId: 245,
+                    title: "Listado de formularios",
+                    created: "2016-09-15",
+                    priority: "HIGH",
+                    project: "API",
+                    reported_by: "msmith@hubspot.com",
+                    description:
+                        "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reporter_type: "Account Manager",
+                    status: "In Progress",
+                    ticket_type: "Bug",
+                    updated: "2016-09-28",
+                    propertyGroups: cardFilesList,
+                },
+                {
+                    objectId: 245,
+                    title: "Link a carpeta",
+                    link: url,
+                    created: "2016-09-15",
+                    priority: "HIGH",
+                    project: "API",
+                    reported_by: "msmith@hubspot.com",
+                    description:
+                        "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reporter_type: "Account Manager",
+                    status: "In Progress",
+                    ticket_type: "Bug",
+                    updated: "2016-09-28",
+                },
+            ],
+        };
     
-    await checkFiles(folder, programas, hs_object, aplicantes)
+        console.log(bodyCard);
+    
+        return bodyCard;
 
+    }) 
 
-    const bodyCard = {
-        results: [
-            {
-                objectId: 245,
-                title: "Listado de formularios",
-                created: "2016-09-15",
-                priority: "HIGH",
-                project: "API",
-                reported_by: "msmith@hubspot.com",
-                description:
-                    "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
-                reporter_type: "Account Manager",
-                status: "In Progress",
-                ticket_type: "Bug",
-                updated: "2016-09-28",
-                propertyGroups: cardFilesList,
-            },
-            {
-                objectId: 245,
-                title: "Link a carpeta",
-                link: url,
-                created: "2016-09-15",
-                priority: "HIGH",
-                project: "API",
-                reported_by: "msmith@hubspot.com",
-                description:
-                    "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
-                reporter_type: "Account Manager",
-                status: "In Progress",
-                ticket_type: "Bug",
-                updated: "2016-09-28",
-            },
-        ],
-    };
+    return bodyCardResult;
 
-    console.log(bodyCard);
-
-    return bodyCard;
 };
 
 const createFilesCard = async (req, res) => {
-    const folderId = req.query.id_folder ? req.query.id_folder : null;
-    const programas = req.query.programa_formularios
-        ? req.query.programa_formularios
+    const programas = req.query.proceso_migratorio
+        ? req.query.proceso_migratorio
         : null;
     const aplicantes = req.query.aplicantes_relacionados
         ? req.query.aplicantes_relacionados
         : null;
     const hs_object = req.query.hs_object_id ? req.query.hs_object_id : null;
+    const folderId = req.query.id_folder ? req.query.id_folder : await createFolder(hs_object);
+
+    console.log(folderId)
+
     if (folderId && programas) {
         const result = await createLinkPdfs(
             hs_object,
