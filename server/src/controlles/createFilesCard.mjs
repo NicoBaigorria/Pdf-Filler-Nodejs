@@ -9,7 +9,6 @@ import {
 
 
 const checkFiles = async (folder, programas, hs_object, aplicantes) => {
-    const urlFiles = `https://api.hubapi.com/files/v3/files/search?parentFolderId=`;
     const urlFolder = `https://api.hubapi.com/files/v3/folders/PDF-Gobierno_de_Canada/PDF-API/${hs_object}`;
 
     console.log("dfghfdhdhgfhgf", urlFolder)
@@ -33,6 +32,7 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
 
    // console.log("carpetas hubspot", responseData)
 
+<<<<<<< HEAD
     //console.log(planesLista)
 
     let aplicantesList = aplicantes.split(";");
@@ -96,6 +96,29 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
 
     //POR CADA PROGRAMA REQUERIDO REVISAR PlanesLista Y REVISAR SI EL FORMULARIO SE ENCUENTRA EN CADA APLICANTES CONTENIDO Y USAR ESE VALOR PARA NAVEGAR POR
     // listaPdfs y si coinciden agregar a result con propiedad como el nombre de del formulario y un true de valor sino un false 
+=======
+    let aplicantesList = aplicantes.split(";");
+
+    await aplicantesList.map(async aplicante => {
+
+        await fetch(urlFolder+"/"+aplicante, {
+            method: "GET",
+            headers: headers,
+        }).then(async response =>{
+
+            const responseAplicanteFolder = await response.json()
+
+            const parentFolderId = responseAplicanteFolder.id
+
+            const filesAplicante = await fetch(urlFolder+parentFolderId, {
+                method: "GET",
+                headers: headers,
+            })
+
+            console.log("vbnvbnbvn", filesAplicante)
+
+        }).catch(e => console.log("carpeta de aplicante " + aplicante + " no encontrado" , e));
+>>>>>>> 0be03c8274211c9a04f78004538adcb731351de2
 
     programasRequeridos.map(programa => {
        for( let form in planesLista[programa]){
@@ -111,6 +134,7 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
        }
     })
 
+<<<<<<< HEAD
     //console.log("resultresultresult",result)
 
 
@@ -148,6 +172,8 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
         console.error("Error:", error);
     }
 
+=======
+>>>>>>> 0be03c8274211c9a04f78004538adcb731351de2
 };
 
 
@@ -194,14 +220,20 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 
         const processingPromises = [];
 
+        programas = programas.replace("+", " ")
+
         let programasRequeridos = programas.split(";");
        // let aplicantesList = aplicantes.split(";");
 
         await Promise.all(programasRequeridos.map(async (programa) => {
             for (let pdf in listaProgramas[programa]) {
+                try{
                 await Promise.all(listaProgramas[programa][pdf].aplicantes.map(async (aplicante) => {
                     processingPromises.push(await createFillFolder(folder, aplicante, pdf));
                 }));
+                } catch (e){
+                    console.log("error al agregar folder : ",e)
+                }
             }
         }));
 
@@ -288,12 +320,61 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
     const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
 
+<<<<<<< HEAD
     //const cardFilesList = await subirPdfs(hs_object, folder, programas, aplicantes);
+=======
+    const bodyCardResult = await subirPdfs(hs_object, folder, programas, aplicantes).then(async (cardFilesList)=>{
+>>>>>>> 0be03c8274211c9a04f78004538adcb731351de2
 
+        await checkFiles(folder, programas, hs_object, aplicantes)
+
+
+        const bodyCard = {
+            results: [
+                {
+                    objectId: 245,
+                    title: "Listado de formularios",
+                    created: "2016-09-15",
+                    priority: "HIGH",
+                    project: "API",
+                    reported_by: "msmith@hubspot.com",
+                    description:
+                        "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reporter_type: "Account Manager",
+                    status: "In Progress",
+                    ticket_type: "Bug",
+                    updated: "2016-09-28",
+                    propertyGroups: cardFilesList,
+                },
+                {
+                    objectId: 245,
+                    title: "Link a carpeta",
+                    link: url,
+                    created: "2016-09-15",
+                    priority: "HIGH",
+                    project: "API",
+                    reported_by: "msmith@hubspot.com",
+                    description:
+                        "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reporter_type: "Account Manager",
+                    status: "In Progress",
+                    ticket_type: "Bug",
+                    updated: "2016-09-28",
+                },
+            ],
+        };
     
+<<<<<<< HEAD
     const result = await checkFiles(folder, programas, hs_object, aplicantes)
+=======
+        console.log(bodyCard);
+    
+        return bodyCard;
+>>>>>>> 0be03c8274211c9a04f78004538adcb731351de2
 
+    }) 
 
+<<<<<<< HEAD
     const bodyCard = {
         results: [
             {
@@ -328,21 +409,24 @@ const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
             },
         ],
     };
+=======
+    return bodyCardResult;
+>>>>>>> 0be03c8274211c9a04f78004538adcb731351de2
 
-    console.log(bodyCard);
-
-    return bodyCard;
 };
 
 const createFilesCard = async (req, res) => {
-    const folderId = req.query.id_folder ? req.query.id_folder : null;
-    const programas = req.query.programa_formularios
-        ? req.query.programa_formularios
+    const programas = req.query.proceso_migratorio
+        ? req.query.proceso_migratorio
         : null;
     const aplicantes = req.query.aplicantes_relacionados
         ? req.query.aplicantes_relacionados
         : null;
     const hs_object = req.query.hs_object_id ? req.query.hs_object_id : null;
+    const folderId = req.query.id_folder ? req.query.id_folder : await createFolder(hs_object);
+
+    console.log(folderId)
+
     if (folderId && programas) {
         const result = await createLinkPdfs(
             hs_object,
