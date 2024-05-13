@@ -31,8 +31,56 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
 
     const responseData = await response.json();
 
-    console.log("carpetas hubspot", responseData)
+   // console.log("carpetas hubspot", responseData)
 
+    //console.log(planesLista)
+
+    let aplicantesList = aplicantes.split(";");
+
+    // Recorro la lista de aplicantes de la consulta
+
+    const listaPdfs = {};
+
+    try {
+        const resultados = await Promise.all(aplicantesList.map(async aplicante => {
+            try {
+                const responseAplicanteFolder = await fetch(urlFolder + "/" + aplicante, {
+                    method: "GET",
+                    headers: headers,
+                });
+                if (!responseAplicanteFolder.ok) {
+                    throw new Error(`Folder for aplicante ${aplicante} not found!`);
+                }
+    
+                const responseAplicanteFolderData = await responseAplicanteFolder.json();
+                const parentFolderId = responseAplicanteFolderData.id;
+    
+                const filesAplicante = await fetch(urlFiles + parentFolderId, {
+                    method: "GET",
+                    headers: headers,
+                });
+    
+                if (!filesAplicante.ok) {
+                    throw new Error(`Error fetching files for aplicante ${aplicante}`);
+                }
+    
+                const filesAplicanteData = await filesAplicante.json();
+                const resultadoData = filesAplicanteData.results;
+    
+                return resultadoData.map(file => file.name);
+            } catch (e) {
+                console.log("Error processing aplicante:", aplicante, e);
+                return []; // Return an empty array in case of error
+            }
+        }));
+    
+        resultados.forEach((result, index) => {
+            listaPdfs[aplicantesList[index]] = result;
+        });
+    
+        //console.log("fghjghjg", listaPdfs);
+
+        
     
     let programasRequeridos = programas.split(";");
 
@@ -42,59 +90,63 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
 
     const planesLista = await JSON.parse(fs.readFileSync(planesListaPath));
 
-    //console.log(planesLista)
+    //RECORRO LISTA DE PROGRAMAS SOLICITADOS
 
-    const listaPdfs = {};
+    let result = {};
 
-    let aplicantesList = aplicantes.split(";");
+    //POR CADA PROGRAMA REQUERIDO REVISAR PlanesLista Y REVISAR SI EL FORMULARIO SE ENCUENTRA EN CADA APLICANTES CONTENIDO Y USAR ESE VALOR PARA NAVEGAR POR
+    // listaPdfs y si coinciden agregar a result con propiedad como el nombre de del formulario y un true de valor sino un false 
 
-    await aplicantesList.map(async aplicante => {
-
-        await fetch(urlFolder+"/"+aplicante, {
-            method: "GET",
-            headers: headers,
-        }).then(async response =>{
-
-            const responseAplicanteFolder = await response.json()
-
-            const parentFolderId = responseAplicanteFolder.id
-
-            const filesAplicante = await fetch(urlFolder+parentFolderId, {
-                method: "GET",
-                headers: headers,
-            })
-
-            console.log("vbnvbnbvn", filesAplicante)
-
-        }).catch(e => console.log("carpeta de aplicante " + aplicante + " no encontrado" , e));
-
+    programasRequeridos.map(programa => {
+       for( let form in planesLista[programa]){
+        //console.log("check",planesLista[programa][form].aplicantes)
+        planesLista[programa][form].aplicantes.map( aplicante =>{
+            if(listaPdfs[aplicante]){
+                if(!result[aplicante]) result[aplicante] = {}
+                listaPdfs[aplicante].includes(form)
+                    ? result[aplicante][form]= true 
+                    : result[aplicante][form]= false
+            }
+        })
+       }
     })
 
-/*
-    responseData.results.map((file) => listaPdfs.push(file.name));
+    //console.log("resultresultresult",result)
 
-    //console.log(listaPdfs)
 
-    let pdfsPendientes = {};
+    const cardFilesList = [];
 
-    programasRequeridos.map((programa) => {
-        pdfsPendientes[programa] = {};
+        for (let aplicante in result) {
+            const properties = []
+            for (let file in result[aplicante]) {
+                const property = {
+                    "label": result[aplicante][file],
+                    "dataType": "STATUS",
+                    "value": result[aplicante][file] ? "completado" : "No hay propiedades",
+                    "optionType": result[aplicante][file] ? "SUCCESS" : "DANGER"
+                }
 
-        console.log("gfdg", planesLista[programa], programa);
-        if (planesLista[programa]) {
-            const pdfs = planesLista[programa];
-            for (const pdf in pdfs) {
-                listaPdfs.includes(pdf)
-                    ? (pdfsPendientes[programa][pdf] = true)
-                    : (pdfsPendientes[programa][pdf] = false);
+                properties.push(
+                    {
+                        "name": aplicante,
+                        "properties": property
+                    })
             }
+
+            cardFilesList.push(
+                {
+                    "name": aplicante,
+                    "properties": properties
+                })
         }
-    });
 
-    //console.log(pdfsPendientes)
+        console.log("cardFilesList",cardFilesList)
 
-    return pdfsPendientes;
-    */
+    return cardFilesList
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
 
 };
 
@@ -236,10 +288,10 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
     const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
 
-    const cardFilesList = await subirPdfs(hs_object, folder, programas, aplicantes);
+    //const cardFilesList = await subirPdfs(hs_object, folder, programas, aplicantes);
 
     
-    await checkFiles(folder, programas, hs_object, aplicantes)
+    const result = await checkFiles(folder, programas, hs_object, aplicantes)
 
 
     const bodyCard = {
@@ -257,7 +309,7 @@ const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
                 status: "In Progress",
                 ticket_type: "Bug",
                 updated: "2016-09-28",
-                propertyGroups: cardFilesList,
+                propertyGroups: result,
             },
             {
                 objectId: 245,
