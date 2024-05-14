@@ -262,7 +262,11 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
                             if (!filesUploaded[folderAplicante]) {
                                 filesUploaded[folderAplicante] = [];
                             }
-                            filesUploaded[folderAplicante].push(file);
+                            if(folderAplicante == "TODOS")
+                                filesUploaded[folderAplicante].push(file);
+                            else 
+                                // guardar files en una variable y agregarsela a los demas aplicantes al terminar el bucle
+                             filesUploaded["TODOS"].push(file);
                         })
                         .catch(error => {
                             console.error("An error occurred while creating file:", error);
@@ -321,8 +325,9 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
     const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
         const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
 
-        const result = await checkFiles(folder, programas, hs_object, aplicantes)
+        await subirPdfs(hs_object, folder, programas, aplicantes)
 
+        const result = await checkFiles(folder, programas, hs_object, aplicantes)
 
         const bodyCard = {
             results: [
