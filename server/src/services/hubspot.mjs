@@ -59,7 +59,10 @@ export const createFolder = async (name, idFolder = "145506339115") => {
 
     const idNewFolder = await fetch("https://api.hubapi.com/files/v3/folders", requestOptions)
         .then((response) => response.text())
-        .then((result) => { return (JSON.parse(result).id) })
+        .then((result) => {
+            console.log("gjkhjkfghdfgsd", JSON.parse(result).id)
+             return (JSON.parse(result).id)
+             })
         .catch((error) => console.error(error));
 
     return idNewFolder;

@@ -127,215 +127,26 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
 
         console.log("resultresultresult", result)
 
-        
+
         const cardFilesList = [];
 
-            for(let aplicante in result) {
-                const properties = []
-                for (let file in result[aplicante]) {
-                    const property = {
-                        "label": result[aplicante][file],
-                        "dataType": "STATUS",
-                        "value": result[aplicante][file] ? "completado" : "No hay propiedades",
-                        "optionType": result[aplicante][file] ? "SUCCESS" : "DANGER"
-                    }
-
-                    properties.push(property)
+        for (let aplicante in result) {
+            const properties = []
+            for (let file in result[aplicante]) {
+                const property = {
+                    "label": result[aplicante][file],
+                    "dataType": "STATUS",
+                    "value": result[aplicante][file] ? "completado" : "No hay propiedades",
+                    "optionType": result[aplicante][file] ? "SUCCESS" : "DANGER"
                 }
 
-                cardFilesList.push(
-                    {
-                        objectId: 245,
-                        title: aplicante,
-                        created: "2016-09-15",
-                        priority: "HIGH",
-                        project: "API",
-                        reported_by: "msmith@hubspot.com",
-                        description: "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
-                        reporter_type: "Account Manager",
-                        status: "In Progress",
-                        ticket_type: "Bug",
-                        updated: "2016-09-28",
-                        properties: properties,
-                    },
-                )
+                properties.push(property)
             }
 
-        console.log("cardFilesList", cardFilesList)
-
-        return cardFilesList
-
-        } catch (error) {
-            console.error("Error:", error);
-        }
-
-    };
-
-    const createFillFolder = async (folder, subCarpeta, file) => {
-        const path = folder + "/" + subCarpeta;
-        const inputsFilesPath = "./src/InputFiles/";
-
-        if (fs.existsSync(path)) {
-            if (!fs.existsSync(path + "/" + file + ".pdf")) {
-                try {
-                    const dataPdf = await fs.readFileSync(inputsFilesPath + file + ".pdf");
-                    await fs.writeFileSync(path + "/" + file + ".pdf", dataPdf);
-                    console.log("File copied successfully!");
-                } catch (err) {
-                    console.error("Error:", err);
-                }
-            }
-        } else {
-            await fs.mkdir(path, { recursive: true }, async () => {
-                console.log("asdsadsagfdhgfgh");
-                try {
-                    const dataPdf = await fs.readFileSync(inputsFilesPath + file + ".pdf");
-                    await fs.writeFileSync(path + "/" + file + ".pdf", dataPdf);
-                    console.log("File copied successfully!");
-                } catch (err) {
-                    console.error("Error:", err);
-                }
-            });
-        }
-    };
-
-    const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
-        try {
-            const idTicket = folderID;
-            const folder = "./src/OutputFiles/Pdf/" + idTicket;
-
-            if (!fs.existsSync(folder)) {
-                fs.mkdirSync(folder, { recursive: true });
-            }
-
-            const listaProgramas = await JSON.parse(
-                fs.readFileSync("./src/Jsons/planesForm.json", "utf8")
-            );
-
-            const processingPromises = [];
-
-            programas = programas.replace("+", " ")
-
-            let programasRequeridos = programas.split(";");
-            // let aplicantesList = aplicantes.split(";");
-
-            await Promise.all(programasRequeridos.map(async (programa) => {
-                for (let pdf in listaProgramas[programa]) {
-                    try {
-                        await Promise.all(listaProgramas[programa][pdf].aplicantes.map(async (aplicante) => {
-                            processingPromises.push(await createFillFolder(folder, aplicante, pdf));
-                        }));
-                    } catch (e) {
-                        console.log("error al agregar folder : ", e)
-                    }
-                }
-            }));
-
-            await Promise.all(processingPromises);
-
-            // await deleteFolder(folderID);
-            let folderId = folderID;
-
-            if (!folderID) {
-                folderId = await createFolder(hs_object);
-            }
-
-            const jsonPropsTicket = {
-                id_folder: folderId,
-            };
-
-            await updateProperty(hs_object, jsonPropsTicket);
-
-            const foldersAplicantes = await fs.promises.readdir(folder);
-
-            let uploadPromises = [];
-
-            let filesUploaded = {};
-
-
-            await Promise.all(foldersAplicantes.map(async (folderAplicante) => {
-                const folders = await fs.promises.readdir(folder + "/" + folderAplicante);
-                await Promise.all(folders.map(async (file) => {
-                    const idFolderAplicante = await createFolder(folderAplicante, folderId);
-                    uploadPromises.push(createFile(folder + "/" + folderAplicante, file, idFolderAplicante)
-                        .then(() => {
-                            if (!filesUploaded[folderAplicante]) {
-                                filesUploaded[folderAplicante] = [];
-                            }
-                            if(folderAplicante == "TODOS")
-                                filesUploaded[folderAplicante].push(file);
-                            else 
-                                // guardar files en una variable y agregarsela a los demas aplicantes al terminar el bucle
-                             filesUploaded["TODOS"].push(file);
-                        })
-                        .catch(error => {
-                            console.error("An error occurred while creating file:", error);
-                        }));
-                }));
-            }));
-
-            await Promise.all(uploadPromises);
-
-            const cardFilesList = [];
-
-            for (let aplicante in filesUploaded) {
-                const properties = []
-                for (let file in filesUploaded[aplicante]) {
-                    const property = {
-                        "label": filesUploaded[aplicante][file],
-                        "dataType": "STATUS",
-                        "value": filesUploaded[aplicante][file] ? "completado" : "No hay propiedades",
-                        "optionType": filesUploaded[aplicante][file] ? "SUCCESS" : "DANGER"
-                    }
-
-                    properties.push(property)
-                }
-
-                cardFilesList.push(
-                    {
-                        objectId: 245,
-                        title: aplicante,
-                        created: "2016-09-15",
-                        priority: "HIGH",
-                        project: "API",
-                        reported_by: "msmith@hubspot.com",
-                        description: "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
-                        reporter_type: "Account Manager",
-                        status: "In Progress",
-                        ticket_type: "Bug",
-                        updated: "2016-09-28",
-                        properties: properties,
-                    },
-                )
-            }
-
-
-            console.log("filesUploaded", filesUploaded)
-
-            console.log("cardFilesList", JSON.stringify(cardFilesList));
-
-            return cardFilesList;
-
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-
-    const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
-        const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
-
-        await subirPdfs(hs_object, folder, programas, aplicantes)
-
-        const result = await checkFiles(folder, programas, hs_object, aplicantes)
-
-        const bodyCard = {
-            results: [
-                ...result,
+            cardFilesList.push(
                 {
                     objectId: 245,
-                    title: "Link a carpeta",
-                    link: url,
+                    title: aplicante,
                     created: "2016-09-15",
                     priority: "HIGH",
                     project: "API",
@@ -345,60 +156,276 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
                     status: "In Progress",
                     ticket_type: "Bug",
                     updated: "2016-09-28",
+                    properties: properties,
+                },
+            )
+        }
+
+        console.log("cardFilesList", cardFilesList)
+
+        return cardFilesList
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+
+};
+
+const createFillFolder = async (folder, subCarpeta, file) => {
+    const path = folder + "/" + subCarpeta;
+    const inputsFilesPath = "./src/InputFiles/";
+
+    if (fs.existsSync(path)) {
+        if (!fs.existsSync(path + "/" + file + ".pdf")) {
+            try {
+                const dataPdf = await fs.readFileSync(inputsFilesPath + file + ".pdf");
+                await fs.writeFileSync(path + "/" + file + ".pdf", dataPdf);
+                console.log("File copied successfully!");
+            } catch (err) {
+                console.error("Error:", err);
+            }
+        }
+    } else {
+        await fs.mkdir(path, { recursive: true }, async () => {
+            console.log("asdsadsagfdhgfgh");
+            try {
+                const dataPdf = await fs.readFileSync(inputsFilesPath + file + ".pdf");
+                await fs.writeFileSync(path + "/" + file + ".pdf", dataPdf);
+                console.log("File copied successfully!");
+            } catch (err) {
+                console.error("Error:", err);
+            }
+        });
+    }
+};
+
+const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
+    try {
+        const idTicket = folderID;
+        const folder = "./src/OutputFiles/Pdf/" + idTicket;
+
+        if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder, { recursive: true });
+        }
+
+        const listaProgramas = await JSON.parse(
+            fs.readFileSync("./src/Jsons/planesForm.json", "utf8")
+        );
+
+        const processingPromises = [];
+
+        programas = programas.replace("+", " ")
+
+        let programasRequeridos = programas.split(";");
+        // let aplicantesList = aplicantes.split(";");
+
+        await Promise.all(programasRequeridos.map(async (programa) => {
+            for (let pdf in listaProgramas[programa]) {
+                try {
+                    await Promise.all(listaProgramas[programa][pdf].aplicantes.map(async (aplicante) => {
+                        processingPromises.push(await createFillFolder(folder, aplicante, pdf));
+                    }));
+                } catch (e) {
+                    console.log("error al agregar folder : ", e)
+                }
+            }
+        }));
+
+        await Promise.all(processingPromises);
+
+        // await deleteFolder(folderID);
+        let folderId = folderID;
+
+        if (!folderID) {
+            folderId = await createFolder(hs_object);
+        }
+
+        const jsonPropsTicket = {
+            id_folder: folderId,
+        };
+
+        await updateProperty(hs_object, jsonPropsTicket);
+
+        const foldersAplicantes = await fs.promises.readdir(folder);
+
+        let uploadPromises = [];
+
+        let filesUploaded = {};
+
+        let HubspotFolders = {};
+
+        await Promise.all(foldersAplicantes.map(async (folderAplicante) => {
+            const idFolderAplicante = await createFolder(folderAplicante, folderId);
+            HubspotFolders[folderAplicante] = idFolderAplicante
+        }));
+
+        console.log("HubspotFolders", HubspotFolders)
+
+        await Promise.all(foldersAplicantes.map(async (folderAplicante) => {
+            const folders = await fs.promises.readdir(folder + "/" + folderAplicante);
+            await Promise.all(folders.map(async (file) => {
+                if (HubspotFolders[folderAplicante]) {
+                    const idFolderAplicante = HubspotFolders[folderAplicante];
+                    if (folderAplicante == "TODOS") {
+                        for (let aplicante in HubspotFolders) {
+                            if (aplicante !== "TODOS") {
+                                console.log("cvbcvnxcbcx", folder + "/" + folderAplicante, file, HubspotFolders[aplicante])
+                                uploadPromises.push(createFile(folder + "/" + folderAplicante, file, HubspotFolders[aplicante])
+                                    .then(() => {
+                                        if (!filesUploaded[aplicante]) {
+                                            filesUploaded[aplicante] = [];
+                                        }
+                                        filesUploaded[aplicante].push(file);
+                                    })
+                                    .catch(error => {
+                                        console.error("An error occurred while creating file:", error);
+                                    }));
+                            }
+                        }
+                    } else {
+                        uploadPromises.push(createFile(folder + "/" + folderAplicante, file, idFolderAplicante)
+                            .then(() => {
+                                if (!filesUploaded[folderAplicante]) {
+                                    filesUploaded[folderAplicante] = [];
+                                }
+                                filesUploaded[folderAplicante].push(file);
+
+                            })
+                            .catch(error => {
+                                console.error("An error occurred while creating file:", error);
+                            }));
+                    }
+                }
+            }));
+        }));
+
+        await Promise.all(uploadPromises);
+
+        console.log("filesUploaded",filesUploaded)
+
+        const cardFilesList = [];
+
+        for (let aplicante in filesUploaded) {
+            const properties = []
+            for (let file in filesUploaded[aplicante]) {
+                const property = {
+                    "label": filesUploaded[aplicante][file],
+                    "dataType": "STATUS",
+                    "value": filesUploaded[aplicante][file] ? "completado" : "No hay propiedades",
+                    "optionType": filesUploaded[aplicante][file] ? "SUCCESS" : "DANGER"
+                }
+
+                properties.push(property)
+            }
+
+            cardFilesList.push(
+                {
+                    objectId: 245,
+                    title: aplicante,
+                    created: "2016-09-15",
+                    priority: "HIGH",
+                    project: "API",
+                    reported_by: "msmith@hubspot.com",
+                    description: "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reporter_type: "Account Manager",
+                    status: "In Progress",
+                    ticket_type: "Bug",
+                    updated: "2016-09-28",
+                    properties: properties,
+                },
+            )
+        }
+
+
+        console.log("filesUploaded", filesUploaded)
+
+        console.log("cardFilesList", JSON.stringify(cardFilesList));
+
+        return cardFilesList;
+
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+
+const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
+    const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
+
+    await subirPdfs(hs_object, folder, programas, aplicantes)
+
+    const result = await checkFiles(folder, programas, hs_object, aplicantes)
+
+    const bodyCard = {
+        results: [
+            ...result,
+            {
+                objectId: 245,
+                title: "Link a carpeta",
+                link: url,
+                created: "2016-09-15",
+                priority: "HIGH",
+                project: "API",
+                reported_by: "msmith@hubspot.com",
+                description: "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                reporter_type: "Account Manager",
+                status: "In Progress",
+                ticket_type: "Bug",
+                updated: "2016-09-28",
+            },
+        ],
+    };
+
+    console.log(bodyCard);
+
+    return bodyCard;
+
+};
+
+const createFilesCard = async (req, res) => {
+    const programas = req.query.proceso_migratorio
+        ? req.query.proceso_migratorio
+        : null;
+    const aplicantes = req.query.aplicantes_relacionados
+        ? req.query.aplicantes_relacionados
+        : null;
+    const hs_object = req.query.hs_object_id ? req.query.hs_object_id : null;
+    const folderId = await createFolder(hs_object);
+
+    console.log("folderIdfolderId", folderId)
+
+    if (folderId && programas) {
+        const result = await createLinkPdfs(
+            hs_object,
+            folderId,
+            programas,
+            aplicantes
+        );
+
+        res.status(200);
+        res.send(JSON.stringify(result));
+    } else {
+        const result = {
+            results: [
+                {
+                    objectId: 245,
+                    title: "Faltan Parametros",
+                    created: "2016-09-15",
+                    priority: "HIGH",
+                    project: "API",
+                    reported_by: "msmith@hubspot.com",
+                    description: "Faltan Parametros",
+                    reporter_type: "Account Manager",
+                    status: "In Progress",
+                    ticket_type: "Bug",
+                    updated: "2016-09-28",
                 },
             ],
         };
 
-        console.log(bodyCard);
+        res.status(200);
+        res.send(result);
+    }
+};
 
-        return bodyCard;
-
-    };
-
-    const createFilesCard = async (req, res) => {
-        const programas = req.query.proceso_migratorio
-            ? req.query.proceso_migratorio
-            : null;
-        const aplicantes = req.query.aplicantes_relacionados
-            ? req.query.aplicantes_relacionados
-            : null;
-        const hs_object = req.query.hs_object_id ? req.query.hs_object_id : null;
-        const folderId = req.query.id_folder ? req.query.id_folder : await createFolder(hs_object);
-
-        console.log(folderId)
-
-        if (folderId && programas) {
-            const result = await createLinkPdfs(
-                hs_object,
-                folderId,
-                programas,
-                aplicantes
-            );
-
-            res.status(200);
-            res.send(JSON.stringify(result));
-        } else {
-            const result = {
-                results: [
-                    {
-                        objectId: 245,
-                        title: "Faltan Parametros",
-                        created: "2016-09-15",
-                        priority: "HIGH",
-                        project: "API",
-                        reported_by: "msmith@hubspot.com",
-                        description: "Faltan Parametros",
-                        reporter_type: "Account Manager",
-                        status: "In Progress",
-                        ticket_type: "Bug",
-                        updated: "2016-09-28",
-                    },
-                ],
-            };
-
-            res.status(200);
-            res.send(result);
-        }
-    };
-
-    export default createFilesCard;
+export default createFilesCard;
