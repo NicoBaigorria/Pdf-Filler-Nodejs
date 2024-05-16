@@ -1,9 +1,9 @@
 import app from "express";
-import createFilesCard from "../controlles/createFilesCard.mjs";
+import getCard from "../controlles/createFilesCard.mjs";
 
 const router = app.Router();
 
-router.get("/", createFilesCard);
+router.get("/", getCard);
 
 router.get("*", (req, res) => {
   res.status(404);

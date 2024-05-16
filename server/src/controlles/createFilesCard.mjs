@@ -261,43 +261,39 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 
         console.log("HubspotFolders", HubspotFolders)
 
+        async function processFolder(folder, folderAplicante, file, idFolderAplicante) {
+            console.log("cvbcvnxcbcx", `${folder}/${folderAplicante}`, file, idFolderAplicante);
+            try {
+                await createFile(`${folder}/${folderAplicante}`, file, idFolderAplicante);
+                if (!filesUploaded[folderAplicante]) {
+                    filesUploaded[folderAplicante] = [];
+                }
+                filesUploaded[folderAplicante].push(file);
+            } catch (error) {
+                console.error("An error occurred while creating file:", error);
+            }
+        }
+        
         await Promise.all(foldersAplicantes.map(async (folderAplicante) => {
-            const folders = await fs.promises.readdir(folder + "/" + folderAplicante);
+            const folders = await fs.promises.readdir(`${folder}/${folderAplicante}`);
             await Promise.all(folders.map(async (file) => {
                 if (HubspotFolders[folderAplicante]) {
                     const idFolderAplicante = HubspotFolders[folderAplicante];
                     if (folderAplicante == "TODOS") {
-                        for (let aplicante in HubspotFolders) {
+                        Object.keys(HubspotFolders).forEach((aplicante) => {
                             if (aplicante !== "TODOS") {
-                                console.log("cvbcvnxcbcx", folder + "/" + folderAplicante, file, HubspotFolders[aplicante])
-                                uploadPromises.push(createFile(folder + "/" + folderAplicante, file, HubspotFolders[aplicante])
-                                    .then(() => {
-                                        if (!filesUploaded[aplicante]) {
-                                            filesUploaded[aplicante] = [];
-                                        }
-                                        filesUploaded[aplicante].push(file);
-                                    })
-                                    .catch(error => {
-                                        console.error("An error occurred while creating file:", error);
-                                    }));
+                                uploadPromises.push(processFolder(folder, folderAplicante, file, HubspotFolders[aplicante]));
                             }
-                        }
+                        });
+                    }else if (folderAplicante == "PRINCIPAL (si tiene una pareja en common-law)" && aplicantes.includes("PAREJA")) {
+                        uploadPromises.push(processFolder(folder, folderAplicante, file, HubspotFolders[aplicante]));
                     } else {
-                        uploadPromises.push(createFile(folder + "/" + folderAplicante, file, idFolderAplicante)
-                            .then(() => {
-                                if (!filesUploaded[folderAplicante]) {
-                                    filesUploaded[folderAplicante] = [];
-                                }
-                                filesUploaded[folderAplicante].push(file);
-
-                            })
-                            .catch(error => {
-                                console.error("An error occurred while creating file:", error);
-                            }));
+                        uploadPromises.push(processFolder(folder, folderAplicante, file, idFolderAplicante));
                     }
                 }
             }));
         }));
+        
 
         await Promise.all(uploadPromises);
 
