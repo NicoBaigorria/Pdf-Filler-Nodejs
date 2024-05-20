@@ -12,6 +12,8 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
     const urlFolder = `https://api.hubapi.com/files/v3/folders/PDF-Gobierno_de_Canada/PDF-API/${hs_object}`;
     const urlFiles = `https://api.hubapi.com/files/v3/files/search?parentFolderId=`;
 
+    const date = DateNow()
+
     console.log("dfghfdhdhgfhgf", urlFolder)
 
     const accessToken = "pat-na1-31886066-9adb-4992-930a-91cd28f192ff";
@@ -134,7 +136,7 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
             const properties = []
             for (let file in result[aplicante]) {
                 const property = {
-                    "label": result[aplicante][file],
+                    "label": file,
                     "dataType": "STATUS",
                     "value": result[aplicante][file] ? "completado" : "No hay propiedades",
                     "optionType": result[aplicante][file] ? "SUCCESS" : "DANGER"
@@ -147,15 +149,15 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
                 {
                     objectId: 245,
                     title: aplicante,
-                    created: "2016-09-15",
+                    created: date,
                     priority: "HIGH",
                     project: "API",
-                    reported_by: "msmith@hubspot.com",
-                    description: "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reported_by: "PDF-Api",
+                    description: "Estado archivo",
                     reporter_type: "Account Manager",
                     status: "In Progress",
                     ticket_type: "Bug",
-                    updated: "2016-09-28",
+                    updated: date,
                     properties: properties,
                 },
             )
@@ -200,6 +202,9 @@ const createFillFolder = async (folder, subCarpeta, file) => {
 };
 
 const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
+
+    const date = DateNow();
+
     try {
         const idTicket = folderID;
         const folder = "./src/OutputFiles/Pdf/" + idTicket;
@@ -305,7 +310,7 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
             const properties = []
             for (let file in filesUploaded[aplicante]) {
                 const property = {
-                    "label": filesUploaded[aplicante][file],
+                    "label": file,
                     "dataType": "STATUS",
                     "value": filesUploaded[aplicante][file] ? "completado" : "No hay propiedades",
                     "optionType": filesUploaded[aplicante][file] ? "SUCCESS" : "DANGER"
@@ -318,15 +323,15 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
                 {
                     objectId: 245,
                     title: aplicante,
-                    created: "2016-09-15",
+                    created: date,
                     priority: "HIGH",
                     project: "API",
-                    reported_by: "msmith@hubspot.com",
-                    description: "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reported_by: "PDF-Api",
+                    description: "Estado archivo",
                     reporter_type: "Account Manager",
                     status: "In Progress",
                     ticket_type: "Bug",
-                    updated: "2016-09-28",
+                    updated: date,
                     properties: properties,
                 },
             )
@@ -345,6 +350,22 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 };
 
 
+const DateNow = ()=>{
+    // Get the current date
+const today = new Date();
+
+// Extract the year, month, and day
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0');
+const day = String(today.getDate()).padStart(2, '0');
+
+// Format the date as YYYY-MM-DD
+const formattedDate = `${year}-${month}-${day}`;
+
+return(formattedDate);
+
+}
+
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
     const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
 
@@ -352,23 +373,25 @@ const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
 
     const result = await checkFiles(folder, programas, hs_object, aplicantes)
 
+    const date = DateNow();
+
     const bodyCard = {
         results: [
-            ...result,
             {
                 objectId: 245,
-                title: "Link a carpeta",
+                title: "Link a carpeta en Hubspot",
                 link: url,
-                created: "2016-09-15",
+                created: date,
                 priority: "HIGH",
                 project: "API",
-                reported_by: "msmith@hubspot.com",
-                description: "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                reported_by: "Pdf Api",
+                description: "Link a carpeta en Hubspot",
                 reporter_type: "Account Manager",
                 status: "In Progress",
                 ticket_type: "Bug",
-                updated: "2016-09-28",
+                updated: date,
             },
+            ...result,
         ],
     };
 

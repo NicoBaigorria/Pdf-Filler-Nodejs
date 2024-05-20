@@ -44,6 +44,37 @@ async function procesarCampo(
   }
 }
 
+async function procesarCampoNoXfa(
+  pdfdata,
+  ticketProperties
+) {
+
+  const regex = /\.([^\.]+)\[0\]$/;
+
+  // Get the AcroForm (fillable form) fields
+  await pdfdata.getFieldObjects().then(async (inputs) => {
+    for (let input in inputs) {
+
+      const match = input.match(regex);
+
+      const lastWord = match ? match[1] : null;
+
+      const value = ticketProperties[lastWord];
+
+      console.log("fghgfdjhgfkgh", input, lastWord)
+
+      /*
+      if (inputs[input][0].type == "text") {
+        console.log("bvmnbvmbvnvb", lastWord, value)
+        await pdfdata.annotationStorage.setValue(inputs[input][0].id, {
+          value: value,
+        });
+      }
+      */
+    }
+  });
+}
+
 /**
  * Procesar pdf para rellenar.
  *
@@ -62,24 +93,26 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
     await pdf.promise.then(async function (pdfdata) {
       console.log("PDF loaded: " + pdfInput);
 
+      const fileNameWithoutExtension = path.parse(pdfInput).name;
+
+      console.log(
+        "qweqwe",
+        "./src/Jsons/matchPropsForms/" + fileNameWithoutExtension + ".json"
+      );
+
+      const matchPropiedades = await JSON.parse(
+        fs.readFileSync(
+          "./src/Jsons/matchPropsForms/" + fileNameWithoutExtension + ".json",
+          "utf8"
+        )
+      );
+
+      
+      let logs = false;
+
       const xfa = await pdfdata.allXfaHtml;
       //-----------------SI NO ES XFA------------------
       if (xfa) {
-        const fileNameWithoutExtension = path.parse(pdfInput).name;
-
-        console.log(
-          "qweqwe",
-          "./src/Jsons/matchPropsForms/" + fileNameWithoutExtension + ".json"
-        );
-
-        const matchPropiedades = await JSON.parse(
-          fs.readFileSync(
-            "./src/Jsons/matchPropsForms/" + fileNameWithoutExtension + ".json",
-            "utf8"
-          )
-        );
-
-        let logs = false;
 
         if (fileNameWithoutExtension == "imm1294e") logs = true;
 
@@ -126,18 +159,13 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
         //-----------------SI NO ES UN XFA------------------
         console.log("Not have xfa " + pdfInput);
 
-        // Get the AcroForm (fillable form) fields
-        await pdfdata.getFieldObjects().then(async (inputs) => {
-          for (let input in inputs) {
-            if (inputs[input][0].type == "text") {
-              await pdfdata.annotationStorage.setValue(inputs[input][0].id, {
-                value: "value",
-              });
-            }
-          }
-        });
+        await procesarCampo(
+          pdfdata,
+          matchPropiedades,
+          ticketProperties
+        ).then(async()=>{
 
-        // Guardar PDF.
+           // Guardar PDF.
         try {
           const newpdf = await pdfdata.saveDocument();
           const outputPath = path.join(folder, pdfInput);
@@ -146,13 +174,16 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
         } catch (writeError) {
           console.error("Error writing PDF:", writeError);
         }
+          
+        })
+
       }
 
       // Close the PDF document
       await pdfdata.destroy();
     });
   } catch (error) {
-    console.log("ERROR READING PDF: " + pdfInput);
+    console.log("ERROR READING PDF: " + pdfInput, error);
   }
 };
 
@@ -284,7 +315,7 @@ const postPdf = async (req, res) => {
 
     // Borrar carpeta en la app.
 
-    await fs.promises.rmdir(folder, { recursive: true });
+    //await fs.promises.rmdir(folder, { recursive: true });
 
     res.send("PDF generated and saved successfully!");
   } catch (postPdfError) {

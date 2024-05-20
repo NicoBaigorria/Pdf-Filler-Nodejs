@@ -7,6 +7,23 @@ const PORT = process.env.PORT || 3002;
 
 app.use(express.json());
 
+const DateNow = ()=>{
+    // Get the current date
+const today = new Date();
+
+// Extract the year, month, and day
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0');
+const day = String(today.getDate()).padStart(2, '0');
+
+// Format the date as YYYY-MM-DD
+const formattedDate = `${year}-${month}-${day}`;
+
+return(formattedDate);
+
+}
+
+const date = DateNow();
 
 const createFile = async (folder, name, folderId) => {
     const fileUrl =  folder + "/" + name;
@@ -112,8 +129,13 @@ const createFolder = async (name, idFolder = "145506339115") => {
 
     const idNewFolder = await fetch("https://api.hubapi.com/files/v3/folders", requestOptions)
         .then((response) => response.text())
-        .then((result) => { return (JSON.parse(result).id) })
+        .then(async (result) => { 
+            console.log("cvbcvxbcvb", await JSON.parse(result).id)
+            return (await JSON.parse(result).id)
+         })
         .catch((error) => console.error(error));
+
+        console.log("ghfjfghfgh", idNewFolder)
 
     return idNewFolder;
 }
@@ -245,24 +267,31 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
             const properties = []
             for (let file in result[aplicante]) {
                 const property = {
-                    "label": result[aplicante][file],
+                    "label": file,
                     "dataType": "STATUS",
                     "value": result[aplicante][file] ? "completado" : "No hay propiedades",
                     "optionType": result[aplicante][file] ? "SUCCESS" : "DANGER"
                 }
 
-                properties.push(
-                    {
-                        "name": aplicante,
-                        "properties": property
-                    })
+                properties.push(property)
             }
 
             cardFilesList.push(
                 {
-                    "name": aplicante,
-                    "properties": properties
-                })
+                    objectId: 245,
+                    title: aplicante,
+                    created: date,
+                    priority: "HIGH",
+                    project: "API",
+                    reported_by: "PDF-Api",
+                    description: "Estado archivo",
+                    reporter_type: "Account Manager",
+                    status: "In Progress",
+                    ticket_type: "Bug",
+                    updated: date,
+                    properties: properties,
+                },
+            )
         }
 
         console.log("cardFilesList", cardFilesList)
@@ -279,6 +308,7 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
     const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
 
+    console.log("ghjgjghjgh", folder)
 
        const result = await checkFiles(folder, programas, hs_object, aplicantes)
 
@@ -287,34 +317,20 @@ const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
             results: [
                 {
                     objectId: 245,
-                    title: "Listado de formularios",
-                    created: "2016-09-15",
-                    priority: "HIGH",
-                    project: "API",
-                    reported_by: "msmith@hubspot.com",
-                    description:
-                        "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
-                    reporter_type: "Account Manager",
-                    status: "In Progress",
-                    ticket_type: "Bug",
-                    updated: "2016-09-28",
-                    propertyGroups: result,
-                },
-                {
-                    objectId: 245,
                     title: "Link a carpeta",
                     link: url,
-                    created: "2016-09-15",
+                    created: date,
                     priority: "HIGH",
                     project: "API",
-                    reported_by: "msmith@hubspot.com",
-                    description:
-                        "Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+                    reported_by: "PDF Api",
+                    description: "Estado Archivo",
                     reporter_type: "Account Manager",
                     status: "In Progress",
                     ticket_type: "Bug",
-                    updated: "2016-09-28",
+                    updated: date,
                 },
+                ...result
+                
             ],
         };
     
@@ -334,7 +350,7 @@ const createFilesCard = async (req, res) => {
     const hs_object = req.query.hs_object_id ? req.query.hs_object_id : null;
     const folderId = req.query.id_folder ? req.query.id_folder : await createFolder(hs_object);
 
-    console.log(folderId)
+    console.log("bnmbnmbn",folderId)
 
     if (folderId && programas) {
         const result = await createLinkPdfs(
@@ -352,15 +368,15 @@ const createFilesCard = async (req, res) => {
                 {
                     objectId: 245,
                     title: "Faltan Parametros",
-                    created: "2016-09-15",
+                    created: date,
                     priority: "HIGH",
                     project: "API",
-                    reported_by: "msmith@hubspot.com",
+                    reported_by: "PDF Api",
                     description: "Faltan Parametros",
                     reporter_type: "Account Manager",
                     status: "In Progress",
                     ticket_type: "Bug",
-                    updated: "2016-09-28",
+                    updated: date,
                 },
             ],
         };
@@ -393,15 +409,15 @@ app.get('/exampleCard', (req, res) => {
       {
          "objectId":245,
          "title":"PRINCIPAL",
-         "created":"2016-09-15",
+         "created": date,
          "priority":"HIGH",
          "project":"API",
-         "reported_by":"msmith@hubspot.com",
-         "description":"Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+         "reported_by":"PDF API",
+         "description":"Estado Archivo",
          "reporter_type":"Account Manager",
          "status":"In Progress",
          "ticket_type":"Bug",
-         "updated":"2016-09-28",
+         "updated": date,
          "properties":[
             {
                "label":true,
@@ -415,15 +431,15 @@ app.get('/exampleCard', (req, res) => {
          "objectId":245,
          "title":"Link a carpeta",
          "link":"https://app.hubspot.com/files/21669225/?folderId=167248674705",
-         "created":"2016-09-15",
+         "created": date,
          "priority":"HIGH",
          "project":"API",
-         "reported_by":"msmith@hubspot.com",
-         "description":"Customer reported that the APIs are just running too fast. This is causing a problem in that they're so happy.",
+         "reported_by":"PDF API",
+         "description":"Estado Archivo",
          "reporter_type":"Account Manager",
          "status":"In Progress",
          "ticket_type":"Bug",
-         "updated":"2016-09-28"
+         "updated": date
       }
    ]
 }
@@ -563,7 +579,7 @@ const subirPdfs = async (hs_object, folderID, programas, aplicantes) => {
 
         console.log("filesUploaded",filesUploaded)
     
-        return("okey")
+        return(filesUploaded)
 
     } catch (e) {
         console.log(e);
@@ -586,9 +602,9 @@ const updatePdfs = async (req, res) => {
    if (folderId && programas && aplicantes) {
    
    try{
-        await subirPdfs(hs_object, folderId, programas, aplicantes)
+        const result = await subirPdfs(hs_object, folderId, programas, aplicantes)
     
-        res.status(200).send("okey");
+        res.status(200).send(result);
    }catch(e){
        res.status(460).send(e);
    }
