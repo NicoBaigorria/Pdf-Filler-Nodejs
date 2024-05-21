@@ -85,11 +85,11 @@
     },
     "327R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0].city[0]",
-        "hubspotProperty": "ciudad_de_nacimiento_"
+        "hubspotProperty": "nombre"
     },
     "328R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0].province[0]",
-        "hubspotProperty": ""
+        "hubspotProperty": "nombre"
     },
     "329R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0].postalCode[0]",
@@ -105,11 +105,11 @@
     },
     "331R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0].city[0]",
-        "hubspotProperty": "ciudad_de_nacimiento_"
+        "hubspotProperty": "nombre"
     },
     "332R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0].province[0]",
-        "hubspotProperty": ""
+        "hubspotProperty": "nombre"
     },
     "333R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0].postalCode[0]",

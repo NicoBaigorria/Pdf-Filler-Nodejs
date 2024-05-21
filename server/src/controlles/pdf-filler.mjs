@@ -32,12 +32,19 @@ async function procesarCampo(
   for (let tipo in matchPropiedades) {
     for (let campo in matchPropiedades[tipo]) {
       const InternalName = matchPropiedades[tipo][campo].hubspotProperty;
-      if(InternalName){
+      if (InternalName) {
         const value = ticketProperties[InternalName];
         //  console.log("familyname", ticketProperties.familyname)
-        console.log("campo: " + matchPropiedades[tipo][campo] + " llenado con " + InternalName, value);
+        console.log(
+          "campo: " +
+            matchPropiedades[tipo][campo] +
+            " llenado con " +
+            InternalName,
+          value
+        );
         try {
-          if (value) await pdfdata.annotationStorage.setValue(campo, { value: value });
+          if (value)
+            await pdfdata.annotationStorage.setValue(campo, { value: value });
         } catch (e) {
           console.log("Error al llenar campo: " + campo);
         }
@@ -48,31 +55,28 @@ async function procesarCampo(
 
 async function procesarCampoNoXfa(
   pdfdata,
+  matchPropiedades,
   ticketProperties
 ) {
-
-  const regex = /\.([^\.]+)\[0\]$/;
 
   // Get the AcroForm (fillable form) fields
   await pdfdata.getFieldObjects().then(async (inputs) => {
     for (let input in inputs) {
+      
+      const idForm = inputs[input][0].id;
 
-      const match = input.match(regex);
+      const idHubspot = matchPropiedades[idForm].hubspotProperty;
 
-      const lastWord = match ? match[1] : null;
+      const value = ticketProperties[idHubspot] ? ticketProperties[idHubspot] : null
 
-      const value = ticketProperties[lastWord];
+      if (inputs[input][0].type == "text" ) {
+      console.log("fghghjhgjg",idForm, idHubspot, value)
 
-      console.log("fghgfdjhgfkgh", input, lastWord)
-
-      /*
-      if (inputs[input][0].type == "text") {
-        console.log("bvmnbvmbvnvb", lastWord, value)
         await pdfdata.annotationStorage.setValue(inputs[input][0].id, {
-          value: value,
+          value: "value",
         });
       }
-      */
+      
     }
   });
 }
@@ -111,13 +115,11 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
         )
       );
 
-      
       let logs = false;
 
       const xfa = await pdfdata.allXfaHtml;
       //-----------------SI NO ES XFA------------------
       if (xfa) {
-
         if (fileNameWithoutExtension == "imm1294e") logs = true;
 
         try {
@@ -130,30 +132,35 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
           ).then(async () => {
             try {
               // Guardar PDF.
-              if (fileNameWithoutExtension == "imm1294e") console.log("fghgfhgf", await pdfdata.annotationStorage.getAll());
+              if (fileNameWithoutExtension == "imm1294e")
+                console.log(
+                  "fghgfhgf",
+                  await pdfdata.annotationStorage.getAll()
+                );
               await pdfdata.saveDocument().then(async (newpdf) => {
                 const outputPath = path.join(folder, pdfInput);
-                await fs.promises.writeFile(outputPath, Buffer.from(newpdf)).then(async () => {
-                  if (fileNameWithoutExtension == "imm1294e") {
-                    try {
-                      const pdff = await pdfjs.getDocument({
-                        url: outputPath,
-                        enableXfa: true,
-                      });
+                await fs.promises
+                  .writeFile(outputPath, Buffer.from(newpdf))
+                  .then(async () => {
+                    if (fileNameWithoutExtension == "imm1294e") {
+                      try {
+                        const pdff = await pdfjs.getDocument({
+                          url: outputPath,
+                          enableXfa: true,
+                        });
 
-                      await pdff.promise.then(async function (pdfdataa) {
-                       // console.log("cvbcvbcv", await pdfdataa.annotationStorage.getAll());
-                      })
-                    } catch (e) {
-                      //console.log(e)
+                        await pdff.promise.then(async function (pdfdataa) {
+                          // console.log("cvbcvbcv", await pdfdataa.annotationStorage.getAll());
+                        });
+                      } catch (e) {
+                        //console.log(e)
+                      }
                     }
-                  }
-                });
+                  });
                 console.log("PDF saved successfully!");
               });
-
             } catch (err) {
-             // console.log("PDF Error!", err);
+              // console.log("PDF Error!", err);
             }
           });
         } catch (error) {
@@ -163,26 +170,28 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
         //-----------------SI NO ES UN XFA------------------
         console.log("Not have xfa " + pdfInput);
 
-        if(fileNameWithoutExtension == "imm0157"){
-        await procesarCampo(
-          pdfdata,
-          matchPropiedades,
-          ticketProperties
-        ).then(async()=>{
-
-           // Guardar PDF.
-        try {
-          const newpdf = await pdfdata.saveDocument();
-          const outputPath = path.join(folder, pdfInput);
-          await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
-          console.log("PDF saved successfully!" + pdfInput);
-        } catch (writeError) {
-          console.error("Error writing PDF:", writeError);
-        }
-          
-        })
-      }
-
+        
+         // Get the AcroForm (fillable form) fields
+         await pdfdata.getFieldObjects().then(async (inputs) => {
+          for (let input in inputs) {
+            if (inputs[input][0].type == "text") {
+              await pdfdata.annotationStorage.setValue(inputs[input][0].id, {
+                value: "value",
+              });
+            }
+          }
+        }).then(async () => {
+          // Guardar PDF.
+          try {
+            const newpdf = await pdfdata.saveDocument();
+            const outputPath = path.join(folder, pdfInput);
+            await fs.promises.writeFile(outputPath, Buffer.from(newpdf));
+            console.log("PDF saved successfully!" + pdfInput);
+          } catch (writeError) {
+            console.error("Error writing PDF:", writeError);
+          }
+        });
+        
       }
 
       // Close the PDF document
@@ -223,7 +232,6 @@ const postPdf = async (req, res) => {
     const listaProgramas = await JSON.parse(
       fs.readFileSync("./src/Jsons/planesForm.json", "utf8")
     );
-
 
     //const programas = ticketProperties.programa_formularios.split(";");
 
@@ -297,7 +305,6 @@ const postPdf = async (req, res) => {
     }
 
     await Promise.all(processingPromises);
-
 
     // Crear una carpeta en Hubspot.
 
