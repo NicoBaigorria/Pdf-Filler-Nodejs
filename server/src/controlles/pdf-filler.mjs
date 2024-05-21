@@ -35,7 +35,7 @@ async function procesarCampo(
       if(InternalName){
         const value = ticketProperties[InternalName];
         //  console.log("familyname", ticketProperties.familyname)
-        console.log("campo: " + matchPropiedades[tipo][campo] + " llenado con " + InternalName, value, ticketProperties);
+        console.log("campo: " + matchPropiedades[tipo][campo] + " llenado con " + InternalName, value);
         try {
           if (value) await pdfdata.annotationStorage.setValue(campo, { value: value });
         } catch (e) {
@@ -97,10 +97,12 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
 
       const fileNameWithoutExtension = path.parse(pdfInput).name;
 
+      /*
       console.log(
         "qweqwe",
         "./src/Jsons/matchPropsForms/" + fileNameWithoutExtension + ".json"
       );
+      */
 
       const matchPropiedades = await JSON.parse(
         fs.readFileSync(
@@ -140,10 +142,10 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
                       });
 
                       await pdff.promise.then(async function (pdfdataa) {
-                        console.log("cvbcvbcv", await pdfdataa.annotationStorage.getAll());
+                       // console.log("cvbcvbcv", await pdfdataa.annotationStorage.getAll());
                       })
                     } catch (e) {
-                      console.log(e)
+                      //console.log(e)
                     }
                   }
                 });
@@ -151,7 +153,7 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
               });
 
             } catch (err) {
-              console.log("PDF Error!", err);
+             // console.log("PDF Error!", err);
             }
           });
         } catch (error) {
@@ -161,6 +163,7 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
         //-----------------SI NO ES UN XFA------------------
         console.log("Not have xfa " + pdfInput);
 
+        if(fileNameWithoutExtension == "imm0157"){
         await procesarCampo(
           pdfdata,
           matchPropiedades,
@@ -178,6 +181,7 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
         }
           
         })
+      }
 
       }
 
@@ -212,7 +216,7 @@ const postPdf = async (req, res) => {
     const ticketData = await getTicket(idTicket);
     const ticketProperties = ticketData.properties;
 
-    console.log(ticketProperties);
+    //console.log(ticketProperties);
 
     // Selecciono los Formularios segun el plan
 
