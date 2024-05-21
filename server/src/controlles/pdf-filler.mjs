@@ -32,13 +32,15 @@ async function procesarCampo(
   for (let tipo in matchPropiedades) {
     for (let campo in matchPropiedades[tipo]) {
       const InternalName = matchPropiedades[tipo][campo].hubspotProperty;
-      const value = ticketProperties[InternalName];
-      //  console.log("familyname", ticketProperties.familyname)
-      //  if (logs) console.log("campo: " + campo + " llenado con " + value);
-      try {
-        if (value) await pdfdata.annotationStorage.setValue(campo, { value: value });
-      } catch (e) {
-        console.log("Error al llenar campo: " + campo);
+      if(InternalName){
+        const value = ticketProperties[InternalName];
+        //  console.log("familyname", ticketProperties.familyname)
+        console.log("campo: " + matchPropiedades[tipo][campo] + " llenado con " + InternalName, value, ticketProperties);
+        try {
+          if (value) await pdfdata.annotationStorage.setValue(campo, { value: value });
+        } catch (e) {
+          console.log("Error al llenar campo: " + campo);
+        }
       }
     }
   }
