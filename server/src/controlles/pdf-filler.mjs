@@ -29,6 +29,7 @@ async function procesarCampo(
   ticketProperties,
   logs
 ) {
+
   for (let tipo in matchPropiedades) {
     for (let campo in matchPropiedades[tipo]) {
       const InternalName = matchPropiedades[tipo][campo].hubspotProperty;
@@ -51,6 +52,7 @@ async function procesarCampo(
       }
     }
   }
+  
 }
 
 async function procesarCampoNoXfa(
@@ -121,7 +123,8 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
       if (xfa) {
         if (fileNameWithoutExtension == "imm1294e") logs = true;
 
-        try {
+        if (fileNameWithoutExtension == "imm1294e"){
+          try {
           // Esperar a que todas las promesas se resuelvan
           await procesarCampo(
             pdfdata,
@@ -131,7 +134,7 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
           ).then(async () => {
             try {
               // Guardar PDF.
-              if (fileNameWithoutExtension == "imm1294e")
+
                 console.log(
                   "fghgfhgf",
                   await pdfdata.annotationStorage.getAll()
@@ -162,8 +165,9 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
               // console.log("PDF Error!", err);
             }
           });
-        } catch (error) {
-          console.error("Error:", error);
+          } catch (error) {
+            console.error("Error:", error);
+          }
         }
       } else {
         //-----------------SI NO ES UN XFA------------------
