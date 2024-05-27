@@ -22,13 +22,15 @@ export const getTicket = async (id) => {
 
         const url = `https://api.hubapi.com/crm/v3/objects/tickets/${id}?${properties}archived=false`;
 
+        console.log("datos consulta tickets ", url )
+
         const response = await fetch(url, {
             method: 'GET',
             headers: headers,
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`HTTP error! Status: ${response.status}`, response);
         }
 
         const dataTicket = await response.json();

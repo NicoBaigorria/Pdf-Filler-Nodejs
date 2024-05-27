@@ -65,11 +65,11 @@
     },
     "323R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].operatingName[0]",
-        "hubspotProperty": "nombre"
+        "hubspotProperty": "familyname"
     },
     "324R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].legalName[0]",
-        "hubspotProperty": "nombre"
+        "hubspotProperty": "familyname"
     },
     "325R": {
         "seccion": "IMM_0157[0].Page1[0].Section1[0].telephone[0]",

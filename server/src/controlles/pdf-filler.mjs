@@ -58,27 +58,26 @@ async function procesarCampoNoXfa(
   matchPropiedades,
   ticketProperties
 ) {
-
-  // Get the AcroForm (fillable form) fields
-  await pdfdata.getFieldObjects().then(async (inputs) => {
-    for (let input in inputs) {
-      
-      const idForm = inputs[input][0].id;
-
-      const idHubspot = matchPropiedades[idForm].hubspotProperty;
-
-      const value = ticketProperties[idHubspot] ? ticketProperties[idHubspot] : null
-
-      if (inputs[input][0].type == "text" ) {
-      console.log("fghghjhgjg",idForm, idHubspot, value)
-
-        await pdfdata.annotationStorage.setValue(inputs[input][0].id, {
-          value: "value",
-        });
+  for (let campo in matchPropiedades) {
+    const InternalName = matchPropiedades[campo].hubspotProperty;
+    if (InternalName) {
+      const value = ticketProperties[InternalName];
+      //  console.log("familyname", ticketProperties.familyname)
+      console.log(
+        "campo no xfa: " +
+          campo +
+          " llenado con " +
+          InternalName,
+        value
+      );
+      try {
+        if (value)
+          await pdfdata.annotationStorage.setValue(campo, { value: value });
+      } catch (e) {
+        console.log("Error al llenar campo: " + campo);
       }
-      
     }
-  });
+  }
 }
 
 /**
@@ -171,16 +170,23 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
         console.log("Not have xfa " + pdfInput);
 
         
+        /*
          // Get the AcroForm (fillable form) fields
          await pdfdata.getFieldObjects().then(async (inputs) => {
           for (let input in inputs) {
             if (inputs[input][0].type == "text") {
+              console.log(inputs[input][0].id)
               await pdfdata.annotationStorage.setValue(inputs[input][0].id, {
                 value: "value",
               });
             }
           }
-        }).then(async () => {
+        })*/
+        
+        await procesarCampoNoXfa( pdfdata,
+          matchPropiedades,
+          ticketProperties,
+          logs).then(async () => {
           // Guardar PDF.
           try {
             const newpdf = await pdfdata.saveDocument();
