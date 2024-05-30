@@ -13,6 +13,10 @@ import {
   updateProperty,
 } from "../services/hubspot.mjs";
 import internal from "stream";
+import { Buffer } from "buffer";
+
+
+pdfjs.GlobalWorkerOptions.workerSrc = 'pdfjs-dist/build/pdf.worker.min.mjs';
 
 /**
  * Procesar lista de campos busca su equivalente en hubspot y lo rellena.
@@ -121,9 +125,8 @@ const procesarPdf = async (pdfInput, folder, ticketProperties) => {
       const xfa = await pdfdata.allXfaHtml;
       //-----------------SI NO ES XFA------------------
       if (xfa) {
-        if (fileNameWithoutExtension == "imm1294e") logs = true;
-
         if (fileNameWithoutExtension == "imm1294e"){
+          logs = true;
           try {
           // Esperar a que todas las promesas se resuelvan
           await procesarCampo(
