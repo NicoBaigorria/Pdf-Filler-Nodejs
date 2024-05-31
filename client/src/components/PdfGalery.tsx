@@ -1,8 +1,26 @@
 import React, { useState } from 'react';
 // @ts-ignore
 import * as pdfjs from 'pdfjs-dist/build/pdf';
-import Modal from './components/Modal';
+import Modal from './Modal';
 import { Buffer } from "buffer";
+const fs = require('fs');
+const path = require('path');
+
+const directoryPath = path.join(__dirname, 'public', 'pdfInputs');
+
+fs.readdir(directoryPath, (err: NodeJS.ErrnoException | null, files: string[]) => {
+  if (err) {
+    return console.log('Unable to scan directory: ' + err);
+  } 
+
+  // Filter out only PDF files
+  const pdfFiles = files.filter(file => path.extname(file).toLowerCase() === '.pdf');
+
+  // Log the file names
+  pdfFiles.forEach(file => {
+    console.log(file);
+  });
+});
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
@@ -87,7 +105,7 @@ function InputObjTableRow({ input, i }: { input: InputObj; i: number }) {
   );
 }
 
-function App() {
+function PdfSelector() {
   const [url, setUrl] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -402,4 +420,4 @@ function App() {
   );
 }
 
-export default App;
+export default PdfSelector;
