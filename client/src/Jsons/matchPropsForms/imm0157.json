@@ -1,0 +1,576 @@
+{
+    "217R": {
+        "seccion": "IMM_0157[0]",
+        "hubspotProperty": ""
+    },
+    "218R": {
+        "seccion": "IMM_0157[0].Master[0]",
+        "hubspotProperty": ""
+    },
+    "243R": {
+        "seccion": "IMM_0157[0].Master[0].frontPage[0]",
+        "hubspotProperty": ""
+    },
+    "318R": {
+        "seccion": "IMM_0157[0].Master[0].frontPage[0].SaveButton1[0]",
+        "hubspotProperty": ""
+    },
+    "321R": {
+        "seccion": "IMM_0157[0].Master[0].frontPage[0].ResetButton1[0]",
+        "hubspotProperty": ""
+    },
+    "322R": {
+        "seccion": "IMM_0157[0].Master[0].frontPage[0].PrintButton1[0]",
+        "hubspotProperty": ""
+    },
+    "244R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[0]",
+        "hubspotProperty": ""
+    },
+    "182R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[0].SaveButton2[0]",
+        "hubspotProperty": ""
+    },
+    "181R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[0].ResetButton2[0]",
+        "hubspotProperty": ""
+    },
+    "180R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[0].PrintButton2[0]",
+        "hubspotProperty": ""
+    },
+    "245R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[1]",
+        "hubspotProperty": ""
+    },
+    "216R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[1].SaveButton2[0]",
+        "hubspotProperty": ""
+    },
+    "215R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[1].ResetButton2[0]",
+        "hubspotProperty": ""
+    },
+    "214R": {
+        "seccion": "IMM_0157[0].Master[0].overflowPage[1].PrintButton2[0]",
+        "hubspotProperty": ""
+    },
+    "219R": {
+        "seccion": "IMM_0157[0].Page1[0]",
+        "hubspotProperty": ""
+    },
+    "220R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0]",
+        "hubspotProperty": ""
+    },
+    "323R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].operatingName[0]",
+        "hubspotProperty": "familyname"
+    },
+    "324R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].legalName[0]",
+        "hubspotProperty": "familyname"
+    },
+    "325R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].telephone[0]",
+        "hubspotProperty": "phone"
+    },
+    "238R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0]",
+        "hubspotProperty": ""
+    },
+    "326R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0].streetNumber[0]",
+        "hubspotProperty": ""
+    },
+    "327R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0].city[0]",
+        "hubspotProperty": "nombre"
+    },
+    "328R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0].province[0]",
+        "hubspotProperty": "nombre"
+    },
+    "329R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].mailingAddress[0].postalCode[0]",
+        "hubspotProperty": ""
+    },
+    "239R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0]",
+        "hubspotProperty": ""
+    },
+    "330R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0].streetNumber[0]",
+        "hubspotProperty": ""
+    },
+    "331R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0].city[0]",
+        "hubspotProperty": "nombre"
+    },
+    "332R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0].province[0]",
+        "hubspotProperty": "nombre"
+    },
+    "333R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].businessAddress[0].postalCode[0]",
+        "hubspotProperty": ""
+    },
+    "334R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].NAICS[0]",
+        "hubspotProperty": ""
+    },
+    "335R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].website[0]",
+        "hubspotProperty": ""
+    },
+    "336R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].establishment[0]",
+        "hubspotProperty": ""
+    },
+    "240R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].sizeBusiness[0]",
+        "hubspotProperty": ""
+    },
+    "241R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].sizeBusiness[0].employees[0]",
+        "hubspotProperty": ""
+    },
+    "242R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].sizeBusiness[0].income[0]",
+        "hubspotProperty": ""
+    },
+    "343R": {
+        "seccion": "IMM_0157[0].Page1[0].Section1[0].businessActivity[0]",
+        "hubspotProperty": ""
+    },
+    "221R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0]",
+        "hubspotProperty": ""
+    },
+    "344R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0].familyName[0]",
+        "hubspotProperty": ""
+    },
+    "345R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0].givenName[0]",
+        "hubspotProperty": ""
+    },
+    "346R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0].jobTitle[0]",
+        "hubspotProperty": ""
+    },
+    "347R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0].telephone[0]",
+        "hubspotProperty": ""
+    },
+    "348R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0].extension[0]",
+        "hubspotProperty": ""
+    },
+    "349R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0].facsimilie[0]",
+        "hubspotProperty": ""
+    },
+    "350R": {
+        "seccion": "IMM_0157[0].Page1[0].Section2[0].email[0]",
+        "hubspotProperty": ""
+    },
+    "222R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0]",
+        "hubspotProperty": ""
+    },
+    "351R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].jobTitle[0]",
+        "hubspotProperty": ""
+    },
+    "352R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].NOCCode[0]",
+        "hubspotProperty": ""
+    },
+    "228R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].jobReuirements[0]",
+        "hubspotProperty": ""
+    },
+    "353R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].jobReuirements[0].fullTime[0]",
+        "hubspotProperty": ""
+    },
+    "354R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].jobReuirements[0].nonSeasonal[0]",
+        "hubspotProperty": ""
+    },
+    "355R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].jobReuirements[0].genuine[0]",
+        "hubspotProperty": ""
+    },
+    "356R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].jobReuirements[0].atlantic[0]",
+        "hubspotProperty": ""
+    },
+    "237R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].jobReuirements[0].income[0]",
+        "hubspotProperty": ""
+    },
+    "229R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].businessAddress[0]",
+        "hubspotProperty": ""
+    },
+    "359R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].businessAddress[0].streetNumber[0]",
+        "hubspotProperty": ""
+    },
+    "360R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].businessAddress[0].city[0]",
+        "hubspotProperty": ""
+    },
+    "361R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].businessAddress[0].province[0]",
+        "hubspotProperty": ""
+    },
+    "362R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].businessAddress[0].postalCode[0]",
+        "hubspotProperty": ""
+    },
+    "363R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].startDate[0]",
+        "hubspotProperty": ""
+    },
+    "364R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].endDate[0]",
+        "hubspotProperty": ""
+    },
+    "365R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].duties[0]",
+        "hubspotProperty": ""
+    },
+    "230R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].education[0]",
+        "hubspotProperty": ""
+    },
+    "235R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].education[0].educationChoices[0]",
+        "hubspotProperty": ""
+    },
+    "236R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].education[0].educationChoices[0].choice[0]",
+        "hubspotProperty": ""
+    },
+    "170R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].education[0].language[0]",
+        "hubspotProperty": ""
+    },
+    "169R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].education[0].websitelink[0]",
+        "hubspotProperty": ""
+    },
+    "168R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].additional[0]",
+        "hubspotProperty": ""
+    },
+    "167R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].experience[0]",
+        "hubspotProperty": ""
+    },
+    "231R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].certificationLicensing[0]",
+        "hubspotProperty": ""
+    },
+    "234R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].certificationLicensing[0].choice[0]",
+        "hubspotProperty": ""
+    },
+    "164R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].certificationLicensing[0].certificate[0]",
+        "hubspotProperty": ""
+    },
+    "232R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0]",
+        "hubspotProperty": ""
+    },
+    "163R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].perHour[0]",
+        "hubspotProperty": ""
+    },
+    "162R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].perYear[0]",
+        "hubspotProperty": ""
+    },
+    "161R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].hoursDay[0]",
+        "hubspotProperty": ""
+    },
+    "160R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].hoursWeek[0]",
+        "hubspotProperty": ""
+    },
+    "159R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].hoursMonth[0]",
+        "hubspotProperty": ""
+    },
+    "158R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].OTRate[0]",
+        "hubspotProperty": ""
+    },
+    "157R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].hours[0]",
+        "hubspotProperty": ""
+    },
+    "156R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].wages[0].describe[0]",
+        "hubspotProperty": ""
+    },
+    "233R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0]",
+        "hubspotProperty": ""
+    },
+    "155R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].disability[0]",
+        "hubspotProperty": ""
+    },
+    "154R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].dental[0]",
+        "hubspotProperty": ""
+    },
+    "153R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].pension[0]",
+        "hubspotProperty": ""
+    },
+    "152R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].extendedMedical[0]",
+        "hubspotProperty": ""
+    },
+    "151R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].vacation[0]",
+        "hubspotProperty": ""
+    },
+    "150R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].vacationiDays[0]",
+        "hubspotProperty": ""
+    },
+    "149R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].percentage[0]",
+        "hubspotProperty": ""
+    },
+    "148R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].otherBenefits[0]",
+        "hubspotProperty": ""
+    },
+    "147R": {
+        "seccion": "IMM_0157[0].Page1[0].Section3[0].benefits[0].specify[0]",
+        "hubspotProperty": ""
+    },
+    "223R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0]",
+        "hubspotProperty": ""
+    },
+    "146R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].familyName[0]",
+        "hubspotProperty": ""
+    },
+    "145R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].givenName[0]",
+        "hubspotProperty": ""
+    },
+    "144R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].gender[0]",
+        "hubspotProperty": "",
+        "options": [
+            {
+                "exportValue": "F - Female",
+                "displayValue": "F - Female"
+            },
+            {
+                "exportValue": "M - Male",
+                "displayValue": "M - Male"
+            },
+            {
+                "exportValue": "X - Another gender",
+                "displayValue": "X - Another gender"
+            }
+        ]
+    },
+    "143R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].DOB[0]",
+        "hubspotProperty": ""
+    },
+    "142R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].UCI[0]",
+        "hubspotProperty": ""
+    },
+    "141R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].countryBirth[0]",
+        "hubspotProperty": ""
+    },
+    "140R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].coutnryResidence[0]",
+        "hubspotProperty": ""
+    },
+    "139R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].citizenship[0]",
+        "hubspotProperty": ""
+    },
+    "138R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].passportNumber[0]",
+        "hubspotProperty": ""
+    },
+    "137R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].maritalStatus[0]",
+        "hubspotProperty": ""
+    },
+    "136R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].accompanying[0]",
+        "hubspotProperty": ""
+    },
+    "227R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].mailingAddress[0]",
+        "hubspotProperty": ""
+    },
+    "135R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].mailingAddress[0].POBox[0]",
+        "hubspotProperty": ""
+    },
+    "134R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].mailingAddress[0].apartment[0]",
+        "hubspotProperty": ""
+    },
+    "133R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].mailingAddress[0].streetNumber[0]",
+        "hubspotProperty": ""
+    },
+    "132R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].mailingAddress[0].streetName[0]",
+        "hubspotProperty": ""
+    },
+    "131R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].mailingAddress[0].city[0]",
+        "hubspotProperty": ""
+    },
+    "188R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].country[0]",
+        "hubspotProperty": ""
+    },
+    "187R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].province[0]",
+        "hubspotProperty": ""
+    },
+    "186R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].postalCode[0]",
+        "hubspotProperty": ""
+    },
+    "185R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].district[0]",
+        "hubspotProperty": ""
+    },
+    "184R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].email[0]",
+        "hubspotProperty": ""
+    },
+    "183R": {
+        "seccion": "IMM_0157[0].Page1[0].Section4[0].telephone[0]",
+        "hubspotProperty": ""
+    },
+    "224R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0]",
+        "hubspotProperty": ""
+    },
+    "213R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox1[0]",
+        "hubspotProperty": ""
+    },
+    "212R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox2[0]",
+        "hubspotProperty": ""
+    },
+    "211R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox3[0]",
+        "hubspotProperty": ""
+    },
+    "210R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox4[0]",
+        "hubspotProperty": ""
+    },
+    "209R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox5[0]",
+        "hubspotProperty": ""
+    },
+    "208R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox6[0]",
+        "hubspotProperty": ""
+    },
+    "207R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox7[0]",
+        "hubspotProperty": ""
+    },
+    "206R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox8[0]",
+        "hubspotProperty": ""
+    },
+    "205R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].CheckBox9[0]",
+        "hubspotProperty": ""
+    },
+    "204R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].employerName[0]",
+        "hubspotProperty": ""
+    },
+    "203R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].employerSignature[0]",
+        "hubspotProperty": ""
+    },
+    "202R": {
+        "seccion": "IMM_0157[0].Page1[0].Section5[0].dateSigned[0]",
+        "hubspotProperty": ""
+    },
+    "225R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0]",
+        "hubspotProperty": ""
+    },
+    "201R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].CheckBox10[0]",
+        "hubspotProperty": ""
+    },
+    "200R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].CheckBox11[0]",
+        "hubspotProperty": ""
+    },
+    "199R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].CheckBox12[0]",
+        "hubspotProperty": ""
+    },
+    "198R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].CheckBox13[0]",
+        "hubspotProperty": ""
+    },
+    "197R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].CheckBox14[0]",
+        "hubspotProperty": ""
+    },
+    "196R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].CheckBox15[0]",
+        "hubspotProperty": ""
+    },
+    "195R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].CheckBox16[0]",
+        "hubspotProperty": ""
+    },
+    "194R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].employeeName[0]",
+        "hubspotProperty": ""
+    },
+    "193R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].employeeSignature[0]",
+        "hubspotProperty": ""
+    },
+    "192R": {
+        "seccion": "IMM_0157[0].Page1[0].Section6[0].dateSigned[0]",
+        "hubspotProperty": ""
+    },
+    "226R": {
+        "seccion": "IMM_0157[0].Page1[0].disclaimer[0]",
+        "hubspotProperty": ""
+    },
+    "191R": {
+        "seccion": "IMM_0157[0].Page1[0].disclaimer[0].websitelink[0]",
+        "hubspotProperty": ""
+    }
+}
