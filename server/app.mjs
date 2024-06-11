@@ -20,6 +20,8 @@ app.use('/getEstructura', routePdfEstructura)
 
 app.use('/extractData', routeExtractData)
 
+app.use('/contactInfo', contact)
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
