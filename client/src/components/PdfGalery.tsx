@@ -347,6 +347,7 @@ function PdfGalery() {
       <>
       {
         Object.keys(formulariosRequeridos).map((aplicante: string) => (
+
           <div>
             {aplicante}
             <div className="flex flex-col space-y-2 bg-white p-4 shadow-lg rounded-lg">
@@ -361,6 +362,7 @@ function PdfGalery() {
           ))}
         </div>
           </div>
+
         ))
       }
         <div className="text-center w-full">
