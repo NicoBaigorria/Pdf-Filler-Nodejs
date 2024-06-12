@@ -44,7 +44,8 @@
       "padre___fecha_de_nacimiento",
       "padre___direccion",
       "sex",
-      "aplicantes_relacionados"
+      "aplicantes_relacionados",
+      "proceso_migratorio"
     ]
   }
    

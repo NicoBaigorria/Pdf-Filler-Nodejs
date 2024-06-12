@@ -70,6 +70,7 @@ export const createFolder = async (name, idFolder = "145506339115") => {
     return idNewFolder;
 }
 
+
 export const createFile = async (folder, name, folderId) => {
     const fileUrl = path.join(folder, name);
     const myHeaders = new Headers();

@@ -72,24 +72,14 @@ interface PdfHubspotMapField {
 const getTicket = async (id:string) => {
   const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
 
-  let properties = "";
-
   const headers = new Headers({
       'Authorization': `Bearer ${accessToken}`
   });
 
-  const jsonFilePath: string = '../Jsons/ticketProps.json';
 
   try {
-      const jsonProps = fileProps.props;
 
-      console.log(jsonProps);
-
-      jsonProps.forEach((element: any) => {
-          properties += "properties=" + element + "&";
-      });
-
-      const url = `https://api.hubapi.com/crm/v3/objects/tickets/${id}?${properties}archived=false`;
+      const url = `http://localhost:3600/consultaPdfs?ticketId=${id}`;
 
       console.log("datos consulta tickets ", url )
 
@@ -103,7 +93,7 @@ const getTicket = async (id:string) => {
       }
 
       const dataTicket = await response.json();
-      console.log(JSON.stringify(dataTicket));
+      console.log("ticket data",JSON.stringify(dataTicket));
 
       return dataTicket;
   } catch (error) {
@@ -177,8 +167,9 @@ function PdfGalery() {
   const [inputs, setInputs] = useState<InputObj[]>([]);
   const [formType, setFormType] = useState("");
   const [pdfList, setPdfList] = useState<{ [key: string]: any }>({});
-  const [contactId, setContactId] = useState<string | null>(null);
-  const [form, setForm] = useState<string | null>(null); 
+  const [ticketId, setTicketId] = useState<string | null>(null);
+  const [propiedadesTicket, setPropiedadesTicket] = useState<{ [key: string]: any }>({});
+  const [formulariosRequeridos, setFormulariosRequeridos] = useState<{ [key: string]: [string] }>({})
 
   const location = useLocation();
 
@@ -189,33 +180,35 @@ function PdfGalery() {
 
     const queryParams = new URLSearchParams(location.search);
   
-    const contactIdParam = queryParams.get('contactId');
-    const formParam = queryParams.get('form');
+    const ticketIdParam = queryParams.get('ticketId');
 
-    setForm(formParam)
-    setContactId(contactIdParam)
+    setTicketId(ticketIdParam)
   
-    console.log(contactIdParam, formParam)
+    console.log(ticketIdParam)
   }, [location]);
 
 
   useEffect(()=> {
     const fetchTicketData = async (Id: string) => {
       try {
-        const ticketData = await getTicket(Id);
-        const ticketProperties = ticketData.properties;
+        const PdfsData = await getTicket(Id);
+        const ticketProperties = PdfsData.ticketInfo.properties;
 
-        console.log("sdgsdfsd", ticketProperties)
+        console.log("propiedades de ticket", ticketProperties)
+        console.log("pdfs requeridos", PdfsData.formulariosRequeridos)
+
+        setPropiedadesTicket(ticketProperties)
+        setFormulariosRequeridos(PdfsData.formulariosRequeridos)
         // Do something with ticketProperties
       } catch (error) {
         console.error('Error fetching ticket data:', error);
       }
     };
   
-    if(contactId){
-      fetchTicketData(contactId);
+    if(ticketId){
+      fetchTicketData(ticketId);
     }
-  },[contactId, form])
+  },[ticketId])
 
   async function loadPdf(pdfUrl: string | Uint8Array) {
     setLoading(true);
@@ -352,20 +345,27 @@ function PdfGalery() {
   <div className="w-full px-4 flex items-start space-x-8">
     {!loading && !output && pdfList ? (
       <>
-         <div className="flex flex-col space-y-2 bg-white p-4 shadow-lg rounded-lg">
-          {Object.keys(pdfList).map((key: string) => (
+      {
+        Object.keys(formulariosRequeridos).map((aplicante: string) => (
+          <div>
+            {aplicante}
+            <div className="flex flex-col space-y-2 bg-white p-4 shadow-lg rounded-lg">
+          {formulariosRequeridos[aplicante].map((pdf: string) => (
             <button
-              key={key}
+              key={pdf}
               className="bg-gray-200 p-2 rounded shadow hover:bg-gray-300 transition duration-200"
-              onClick={() => loadPdf(pdfList[key])}
+              onClick={() => loadPdf(pdf)}
             >
-              {key}
+              {pdf}
             </button>
           ))}
         </div>
+          </div>
+        ))
+      }
         <div className="text-center w-full">
           <div className="text-lg font-semibold">
-            ID: {contactId}, Formulario: {form}
+            ID: {ticketId}
           </div>
         </div>
       </>

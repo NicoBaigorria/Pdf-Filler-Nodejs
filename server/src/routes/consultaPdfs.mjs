@@ -1,9 +1,9 @@
 import app from "express";
-import { getContact } from "../controlles/contact.mjs";
+import consultaPdfs from "../controlles/consultaPdfs.mjs";
 
 const router = app.Router();
 
-router.get("/", getContact);
+router.get("/", consultaPdfs);
 
 router.get("*", (req, res) => {
   res.status(404);
