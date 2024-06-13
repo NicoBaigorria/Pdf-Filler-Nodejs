@@ -111,8 +111,7 @@ function InputObjTableRow({ input, i }: { input: InputObj; i: number }) {
           {input.dataId}
         </td>
         <td className="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-          <input type="text">
-            {input.textContent}
+          <input type="text" value={input.textContent}>
           </input>
         </td>
         <td className="px-3 py-2 text-sm text-gray-500">
@@ -211,6 +210,9 @@ function PdfGalery() {
   },[ticketId])
 
   async function loadPdf(pdfUrl: string | Uint8Array) {
+
+    console.log("pdfUrl",pdfUrl)
+
     setLoading(true);
 
     try {
@@ -355,7 +357,7 @@ function PdfGalery() {
             <button
               key={pdf}
               className="bg-gray-200 p-2 rounded shadow hover:bg-gray-300 transition duration-200"
-              onClick={() => loadPdf(pdf)}
+              onClick={() => loadPdf("https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/ARCHIVOS_PRIVADOS/PDF_CANADA/TICKETS_SERVICIOS/"+ ticketId +"/"+ aplicante +"/"+ pdf +".pdf")}
             >
               {pdf}
             </button>
