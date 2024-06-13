@@ -39,6 +39,7 @@ interface InputObj {
   options?: Array<{ label: string; value: string }>;
   textContent?: string;
   value?: string;
+  selected?: boolean;
 }
 
 interface XfaNode {
@@ -50,6 +51,7 @@ interface XfaNode {
     xfaOn?: string;
     value?: string;
     textContent?: string;
+    selected?: boolean;
   };
   children?: XfaNode[];
 }
@@ -111,20 +113,20 @@ function InputObjTableRow({ input, i }: { input: InputObj; i: number }) {
           {input.dataId}
         </td>
         <td className="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-          <input type="text" value={input.textContent}>
-          </input>
+          {input.name === "select" ?
+            <select>
+              {input.options?.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              )) || <option value="">No options available</option>}
+            </select>
+            : input.xfaOn ?
+              <input type="checkbox" value={input.value} />
+            :
+            <input type="text" value={input.textContent} />
+          }
         </td>
         <td className="px-3 py-2 text-sm text-gray-500">
-          {input.name === "select" ? (
-            <>
-              <button
-                className={"text-indigo-600 hover:text-indigo-800"}
-                onClick={() => setModal(true)}
-              >
-                {input.name}
-              </button>
-            </>
-          ) : input.xfaOn ? (
+          { input.xfaOn ? (
             `toggle (${input.xfaOn})`
           ) : (
             input.name
@@ -305,6 +307,7 @@ function PdfGalery() {
     const inputNodes = ["input", "textarea", "select"];
     const result: InputObj[] = [];
     if (inputNodes.includes(node.name)) {
+      console.log("nodenodenodenode",node)
       const item: InputObj = {
         name: node.name,
         dataId: node.attributes.dataId,
@@ -314,11 +317,20 @@ function PdfGalery() {
         xfaOn: node.attributes.xfaOn,
       };
       if (node.name === "select") {
-        item.options =
-          node.children?.map((child) => ({
+        let selected = false;
+        item.options = [];
+          node.children?.map((child) => {
+            item.options?.push(
+            {
             label: child.value!,
             value: child.attributes.value!,
-          })) || [];
+          }
+        )
+          child.attributes.selected? selected = true: selected= false
+      });
+        
+        item.selected = selected
+
       }
       result.push(item);
     }
@@ -387,35 +399,6 @@ function PdfGalery() {
 
         {output && (
           <>
-            <div
-              className={"max-w-xl mx-auto bg-white p-4 rounded-md shadow-md"}
-            >
-              <div className="flex items-center space-x-2">
-                <button
-                  type="button"
-                  className="inline-flex items-center rounded-md border border-transparent bg-indigo-100 px-3 py-2 text-sm font-medium leading-4 text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  onClick={() => navigator.clipboard.writeText(output)}
-                >
-                  Copy Output
-                </button>
-
-                <button
-                  type="button"
-                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 leading-4 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  onClick={() => setShowOutput(!showOutput)}
-                >
-                  {showOutput ? "Hide Output" : "Show Output"}
-                </button>
-              </div>
-
-              <code
-                className={`block ${
-                  showOutput ? "" : "max-h-[400px] overflow-hidden"
-                } mt-6 bg-gray-100 p-2`}
-              >
-                <pre>{output}</pre>
-              </code>
-            </div>
 
             <div
               className={
