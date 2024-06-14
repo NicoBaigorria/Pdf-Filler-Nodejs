@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEventHandler } from "react";
 import { useLocation } from 'react-router-dom';
 // @ts-ignore
 import * as pdfjs from "pdfjs-dist/build/pdf";
@@ -62,11 +62,12 @@ interface AcroNode {
   name: string;
 }
 
-interface PdfHubspotMapField {
-  type: object;
+interface PropsMapItem {
   dataId: string;
-  hubspotPropName: string;
-  value?: any;
+  seccion: string;
+  hubspotProperty: string;
+  value: string;
+  options?: any[]; // Adjust the type as per your actual data
 }
 
 
@@ -103,7 +104,7 @@ const getTicket = async (id:string) => {
   }
 };
 
-function InputObjTableRow({ input, i }: { input: InputObj; i: number }) {
+function InputObjTableRow({ input, i, changeHandler }: { input: InputObj; i: number, changeHandler: ChangeEventHandler }) {
   const [modal, setModal] = useState(false);
 
   return (
@@ -134,7 +135,7 @@ function InputObjTableRow({ input, i }: { input: InputObj; i: number }) {
         </td>
         <td className="px-3 py-2 text-sm text-gray-500">{input.ariaLabel}</td>
         <td className="px-3 py-2 text-sm text-gray-500">
-          <input type="text"></input>
+          <input type="text" onChange={changeHandler}></input>
         </td>
       </tr>
 
@@ -171,6 +172,7 @@ function PdfGalery() {
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [propiedadesTicket, setPropiedadesTicket] = useState<{ [key: string]: any }>({});
   const [formulariosRequeridos, setFormulariosRequeridos] = useState<{ [key: string]: [string] }>({})
+  const [propsMapHubspot, setPropsMapHubspot] = useState<{ [key: string]: PropsMapItem }>({})
 
   const location = useLocation();
 
@@ -211,7 +213,7 @@ function PdfGalery() {
     }
   },[ticketId])
 
-  async function loadPdf(pdfUrl: string | Uint8Array) {
+  async function loadPdf(pdfUrl: string | Uint8Array, filename : string) {
 
     console.log("pdfUrl",pdfUrl)
 
@@ -227,8 +229,30 @@ function PdfGalery() {
 
       if (pdfDocument.allXfaHtml) {
         setFormType("xfa");
-        setInputs(getAllInputs(pdfDocument.allXfaHtml));
-        setOutput(JSON.stringify(pdfDocument.allXfaHtml, null, 2));
+        const inputsList = getAllInputs(pdfDocument.allXfaHtml)
+        setInputs(inputsList);
+        setOutput(JSON.stringify(inputsList, null, 2));
+
+        console.log("inputsList", inputsList)
+
+        let hubspotProperty = "";
+
+        let propsMaps : { [key: string]: PropsMapItem } = {};
+
+        inputsList.map(input =>{
+          propsMaps[input.dataId] = {
+            dataId: input.dataId,
+            seccion: input.ariaLabel,
+            hubspotProperty: "",
+            value: input.value?input.value:""
+          }
+
+          if (input.name === "select") propsMaps[input.dataId].options = input.options; 
+        })
+
+        console.log("propsMaps", propsMaps)
+
+        setPropsMapHubspot(propsMaps)
 
         // TODO: move to a different function
         // Filler test IMM1294e
@@ -260,7 +284,7 @@ function PdfGalery() {
       const downloadLink = document.createElement("a");
       downloadLink.href = PdfUrl;
       downloadLink.innerHTML = "Descargar";
-      downloadLink.download = "downloaded.pdf"; // Specify the desired filename
+      downloadLink.download = filename + ".pdf"; // Specify the desired filename
 
       downloadLink.className = "fixed top-0 right-0 m-4 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600";
 
@@ -269,7 +293,7 @@ function PdfGalery() {
       const meneratemapLink = document.createElement("a");
       meneratemapLink.href = PdfUrl;
       meneratemapLink.innerHTML = "Descargar Mapa Props";
-      meneratemapLink.download = "downloaded.pdf"; // Specify the desired filename
+      meneratemapLink.download = filename + ".json"; // Specify the desired filename
 
       meneratemapLink.className = "fixed bottom-0 right-0 m-4 inline-block px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600";
 
@@ -353,6 +377,10 @@ function PdfGalery() {
     );
   }
 
+  function changeHandlerPdfData(){
+    console.log("afas")
+  }
+
 
   return (
     <div className={"min-h-screen bg-blue-50 py-12 flex items-center justify-center"}>
@@ -369,7 +397,7 @@ function PdfGalery() {
             <button
               key={pdf}
               className="bg-gray-200 p-2 rounded shadow hover:bg-gray-300 transition duration-200"
-              onClick={() => loadPdf("https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/ARCHIVOS_PRIVADOS/PDF_CANADA/TICKETS_SERVICIOS/"+ ticketId +"/"+ aplicante +"/"+ pdf +".pdf")}
+              onClick={() => loadPdf("https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/ARCHIVOS_PRIVADOS/PDF_CANADA/TICKETS_SERVICIOS/"+ ticketId +"/"+ aplicante +"/"+ pdf +".pdf", pdf)}
             >
               {pdf}
             </button>
@@ -450,6 +478,7 @@ function PdfGalery() {
                       key={`${input.dataId}-${i}`}
                       input={input}
                       i={i}
+                      changeHandler={changeHandlerPdfData}
                     />
                   ))}
                 </tbody>
