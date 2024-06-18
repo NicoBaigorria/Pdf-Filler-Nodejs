@@ -265,20 +265,29 @@ function PdfGalery() {
         setPropsMapHubspot(propsMaps);
 
         // Rellenar datos segun json guardado en matchPropsForms
-   
-        /*
-        for(let prop in propsMaps){
-          
-          if(propsMaps[prop].type === "input" || propsMaps[prop].type === "textarea")
-          pdfDocument.annotationStorage.setValue(prop, {
-            value: propsMaps[prop].value
-          });
+
+        const schemaHubspotProps = await fetch("./matchPropsForms/" + filename + ".json").then( async resp => {
+          const schemaProps = await resp.json()
+          console.log("sschemaHubspotProps", schemaProps)
+          return schemaProps
+        })
+
+        pdfDocument.annotationStorage.setValue("FamilyName31626", {
+          value: "fasfasf",
+        });
+        
+        for (let prop in schemaHubspotProps) {
+
+            if (
+              schemaHubspotProps[prop].type === "textarea"
+            ){
+              pdfDocument.annotationStorage.setValue(prop, {
+                value: schemaHubspotProps[prop].value,
+              });
+            console.log("change", prop, schemaHubspotProps[prop].value);
+            }
           
         }
-        */
-
-        pdfDocument.annotationStorage.setValue("FamilyName31626", { value: "firstname" });
-
       } else {
         setFormType("acro");
         setInputs(getAllAcroInputs(await pdfDocument.getFieldObjects()));
@@ -306,7 +315,6 @@ function PdfGalery() {
 
       document.body.appendChild(downloadLink);
 
-
       const jsonString = JSON.stringify(propsMaps);
 
       const jsonBlob = new Blob([jsonString], { type: "application/json" });
@@ -321,8 +329,6 @@ function PdfGalery() {
         "fixed bottom-0 right-0 m-4 inline-block px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600";
 
       document.body.appendChild(meneratemapLink);
-      
-      
     } catch (e) {
       console.error(e);
       setError("Could not load pdf, please check browser console");
