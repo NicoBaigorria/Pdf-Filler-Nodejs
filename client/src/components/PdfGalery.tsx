@@ -1,10 +1,10 @@
 import React, { useState, useEffect, ChangeEventHandler } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 // @ts-ignore
 import * as pdfjs from "pdfjs-dist/build/pdf";
 import Modal from "./Modal";
 import { Buffer } from "buffer";
-import fileProps from '../Jsons/ticketProps.json'
+import fileProps from "../Jsons/ticketProps.json";
 
 function importAll(r: __WebpackModuleApi.RequireContext): {
   [key: string]: any;
@@ -67,44 +67,49 @@ interface PropsMapItem {
   seccion: string;
   hubspotProperty: string;
   value: string;
+  type: string;
   options?: any[]; // Adjust the type as per your actual data
 }
 
-
-
-const getTicket = async (id:string) => {
-  const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
+const getTicket = async (id: string) => {
+  const accessToken = "pat-na1-31886066-9adb-4992-930a-91cd28f192ff";
 
   const headers = new Headers({
-      'Authorization': `Bearer ${accessToken}`
+    Authorization: `Bearer ${accessToken}`,
   });
 
-
   try {
+    const url = `http://localhost:3600/consultaPdfs?ticketId=${id}`;
 
-      const url = `http://localhost:3600/consultaPdfs?ticketId=${id}`;
+    console.log("datos consulta tickets ", url);
 
-      console.log("datos consulta tickets ", url )
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers,
+    });
 
-      const response = await fetch(url, {
-          method: 'GET',
-          headers: headers,
-      });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-      if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+    const dataTicket = await response.json();
+    console.log("ticket data", JSON.stringify(dataTicket));
 
-      const dataTicket = await response.json();
-      console.log("ticket data",JSON.stringify(dataTicket));
-
-      return dataTicket;
+    return dataTicket;
   } catch (error) {
-      console.error(error);
+    console.error(error);
   }
 };
 
-function InputObjTableRow({ input, i, changeHandler }: { input: InputObj; i: number, changeHandler: ChangeEventHandler }) {
+function InputObjTableRow({
+  input,
+  i,
+  changeHandler,
+}: {
+  input: InputObj;
+  i: number;
+  changeHandler: ChangeEventHandler;
+}) {
   const [modal, setModal] = useState(false);
 
   return (
@@ -114,24 +119,22 @@ function InputObjTableRow({ input, i, changeHandler }: { input: InputObj; i: num
           {input.dataId}
         </td>
         <td className="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-          {input.name === "select" ?
+          {input.name === "select" ? (
             <select>
-              {input.options?.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
+              {input.options?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
               )) || <option value="">No options available</option>}
             </select>
-            : input.xfaOn ?
-              <input type="checkbox" value={input.value} />
-            :
+          ) : input.xfaOn ? (
+            <input type="checkbox" value={input.value} />
+          ) : (
             <input type="text" value={input.textContent} />
-          }
+          )}
         </td>
         <td className="px-3 py-2 text-sm text-gray-500">
-          { input.xfaOn ? (
-            `toggle (${input.xfaOn})`
-          ) : (
-            input.name
-          )}
+          {input.xfaOn ? `toggle (${input.xfaOn})` : input.name}
         </td>
         <td className="px-3 py-2 text-sm text-gray-500">{input.ariaLabel}</td>
         <td className="px-3 py-2 text-sm text-gray-500">
@@ -170,9 +173,15 @@ function PdfGalery() {
   const [formType, setFormType] = useState("");
   const [pdfList, setPdfList] = useState<{ [key: string]: any }>({});
   const [ticketId, setTicketId] = useState<string | null>(null);
-  const [propiedadesTicket, setPropiedadesTicket] = useState<{ [key: string]: any }>({});
-  const [formulariosRequeridos, setFormulariosRequeridos] = useState<{ [key: string]: [string] }>({})
-  const [propsMapHubspot, setPropsMapHubspot] = useState<{ [key: string]: PropsMapItem }>({})
+  const [propiedadesTicket, setPropiedadesTicket] = useState<{
+    [key: string]: any;
+  }>({});
+  const [formulariosRequeridos, setFormulariosRequeridos] = useState<{
+    [key: string]: [string];
+  }>({});
+  const [propsMapHubspot, setPropsMapHubspot] = useState<{
+    [key: string]: PropsMapItem;
+  }>({});
 
   const location = useLocation();
 
@@ -182,86 +191,93 @@ function PdfGalery() {
     setLoading(false);
 
     const queryParams = new URLSearchParams(location.search);
-  
-    const ticketIdParam = queryParams.get('ticketId');
 
-    setTicketId(ticketIdParam)
-  
-    console.log(ticketIdParam)
+    const ticketIdParam = queryParams.get("ticketId");
+
+    setTicketId(ticketIdParam);
+
+    console.log(ticketIdParam);
   }, [location]);
 
-
-  useEffect(()=> {
+  useEffect(() => {
     const fetchTicketData = async (Id: string) => {
       try {
         const PdfsData = await getTicket(Id);
         const ticketProperties = PdfsData.ticketInfo.properties;
 
-        console.log("propiedades de ticket", ticketProperties)
-        console.log("pdfs requeridos", PdfsData.formulariosRequeridos)
+        console.log("propiedades de ticket", ticketProperties);
+        console.log("pdfs requeridos", PdfsData.formulariosRequeridos);
 
-        setPropiedadesTicket(ticketProperties)
-        setFormulariosRequeridos(PdfsData.formulariosRequeridos)
+        setPropiedadesTicket(ticketProperties);
+        setFormulariosRequeridos(PdfsData.formulariosRequeridos);
         // Do something with ticketProperties
       } catch (error) {
-        console.error('Error fetching ticket data:', error);
+        console.error("Error fetching ticket data:", error);
       }
     };
-  
-    if(ticketId){
+
+    if (ticketId) {
       fetchTicketData(ticketId);
     }
-  },[ticketId])
+  }, [ticketId]);
 
-  async function loadPdf(pdfUrl: string | Uint8Array, filename : string) {
-
-    console.log("pdfUrl",pdfUrl)
+  async function loadPdf(pdfUrl: string | Uint8Array, filename: string) {
+    console.log("pdfUrl", pdfUrl);
 
     setLoading(true);
 
     try {
-      const source = typeof pdfUrl === "string" ? { url: pdfUrl } : { data: pdfUrl };
+      const source =
+        typeof pdfUrl === "string" ? { url: pdfUrl } : { data: pdfUrl };
 
       const pdfDocument = await pdfjs.getDocument({
         ...source,
         enableXfa: true,
       }).promise;
 
+      let propsMaps: { [key: string]: PropsMapItem } = {};
+
       if (pdfDocument.allXfaHtml) {
         setFormType("xfa");
-        const inputsList = getAllInputs(pdfDocument.allXfaHtml)
+        const inputsList = getAllInputs(pdfDocument.allXfaHtml);
         setInputs(inputsList);
         setOutput(JSON.stringify(inputsList, null, 2));
 
-        console.log("inputsList", inputsList)
+        console.log("inputsList", inputsList);
 
         let hubspotProperty = "";
 
-        let propsMaps : { [key: string]: PropsMapItem } = {};
-
-        inputsList.map(input =>{
+        inputsList.map((input) => {
           propsMaps[input.dataId] = {
             dataId: input.dataId,
             seccion: input.ariaLabel,
-            hubspotProperty: "",
-            value: input.value?input.value:""
-          }
+            hubspotProperty: hubspotProperty,
+            type: input.name,
+            value: input.value ? input.value : "",
+          };
 
-          if (input.name === "select") propsMaps[input.dataId].options = input.options; 
-        })
-
-        console.log("propsMaps", propsMaps)
-
-        setPropsMapHubspot(propsMaps)
-
-        // TODO: move to a different function
-        // Filler test IMM1294e
-        pdfDocument.annotationStorage.setValue("FamilyName31626", {
-          value: "Test Surname2",
+          if (input.name === "select")
+            propsMaps[input.dataId].options = input.options;
         });
-        pdfDocument.annotationStorage.setValue("GivenName31627", {
-          value: "TestName2",
-        });
+
+        console.log("propsMaps", propsMaps);
+
+        setPropsMapHubspot(propsMaps);
+
+        // Rellenar datos segun json guardado en matchPropsForms
+   
+        /*
+        for(let prop in propsMaps){
+          
+          if(propsMaps[prop].type === "input" || propsMaps[prop].type === "textarea")
+          pdfDocument.annotationStorage.setValue(prop, {
+            value: propsMaps[prop].value
+          });
+          
+        }
+        */
+
+        pdfDocument.annotationStorage.setValue("FamilyName31626", { value: "firstname" });
 
       } else {
         setFormType("acro");
@@ -275,7 +291,6 @@ function PdfGalery() {
         pdfDocument.annotationStorage.setValue("694R", { value: "TestName" });
       }
 
-      
       var result = await pdfDocument.saveDocument();
       var buffer = Buffer.from(result);
       const pdfBlob = new Blob([buffer], { type: "application/pdf" });
@@ -286,20 +301,27 @@ function PdfGalery() {
       downloadLink.innerHTML = "Descargar";
       downloadLink.download = filename + ".pdf"; // Specify the desired filename
 
-      downloadLink.className = "fixed top-0 right-0 m-4 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600";
+      downloadLink.className =
+        "fixed top-0 right-0 m-4 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600";
 
       document.body.appendChild(downloadLink);
 
+
+      const jsonString = JSON.stringify(propsMaps);
+
+      const jsonBlob = new Blob([jsonString], { type: "application/json" });
+      const jsonUrl = URL.createObjectURL(jsonBlob);
+
       const meneratemapLink = document.createElement("a");
-      meneratemapLink.href = PdfUrl;
+      meneratemapLink.href = jsonUrl;
       meneratemapLink.innerHTML = "Descargar Mapa Props";
       meneratemapLink.download = filename + ".json"; // Specify the desired filename
 
-      meneratemapLink.className = "fixed bottom-0 right-0 m-4 inline-block px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600";
+      meneratemapLink.className =
+        "fixed bottom-0 right-0 m-4 inline-block px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600";
 
       document.body.appendChild(meneratemapLink);
-
-      URL.revokeObjectURL(PdfUrl);
+      
       
     } catch (e) {
       console.error(e);
@@ -331,7 +353,7 @@ function PdfGalery() {
     const inputNodes = ["input", "textarea", "select"];
     const result: InputObj[] = [];
     if (inputNodes.includes(node.name)) {
-      console.log("nodenodenodenode",node)
+      console.log("nodenodenodenode", node);
       const item: InputObj = {
         name: node.name,
         dataId: node.attributes.dataId,
@@ -343,18 +365,15 @@ function PdfGalery() {
       if (node.name === "select") {
         let selected = false;
         item.options = [];
-          node.children?.map((child) => {
-            item.options?.push(
-            {
+        node.children?.map((child) => {
+          item.options?.push({
             label: child.value!,
             value: child.attributes.value!,
-          }
-        )
-          child.attributes.selected? selected = true: selected= false
-      });
-        
-        item.selected = selected
+          });
+          child.attributes.selected ? (selected = true) : (selected = false);
+        });
 
+        item.selected = selected;
       }
       result.push(item);
     }
@@ -377,42 +396,50 @@ function PdfGalery() {
     );
   }
 
-  function changeHandlerPdfData(){
-    console.log("afas")
+  function changeHandlerPdfData() {
+    console.log("afas");
   }
 
-
   return (
-    <div className={"min-h-screen bg-blue-50 py-12 flex items-center justify-center"}>
-  <div className="w-full px-4 flex items-start space-x-8">
-    {!loading && !output && pdfList ? (
-      <>
-      {
-        Object.keys(formulariosRequeridos).map((aplicante: string) => (
-
-          <div>
-            {aplicante}
-            <div className="flex flex-col space-y-2 bg-white p-4 shadow-lg rounded-lg">
-          {formulariosRequeridos[aplicante].map((pdf: string) => (
-            <button
-              key={pdf}
-              className="bg-gray-200 p-2 rounded shadow hover:bg-gray-300 transition duration-200"
-              onClick={() => loadPdf("https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/ARCHIVOS_PRIVADOS/PDF_CANADA/TICKETS_SERVICIOS/"+ ticketId +"/"+ aplicante +"/"+ pdf +".pdf", pdf)}
-            >
-              {pdf}
-            </button>
-          ))}
-        </div>
-          </div>
-
-        ))
+    <div
+      className={
+        "min-h-screen bg-blue-50 py-12 flex items-center justify-center"
       }
-        <div className="text-center w-full">
-          <div className="text-lg font-semibold">
-            ID: {ticketId}
-          </div>
-        </div>
-      </>
+    >
+      <div className="w-full px-4 flex items-start space-x-8">
+        {!loading && !output && pdfList ? (
+          <>
+            {Object.keys(formulariosRequeridos).map((aplicante: string) => (
+              <div>
+                {aplicante}
+                <div className="flex flex-col space-y-2 bg-white p-4 shadow-lg rounded-lg">
+                  {formulariosRequeridos[aplicante].map((pdf: string) => (
+                    <button
+                      key={pdf}
+                      className="bg-gray-200 p-2 rounded shadow hover:bg-gray-300 transition duration-200"
+                      onClick={() =>
+                        loadPdf(
+                          "https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/ARCHIVOS_PRIVADOS/PDF_CANADA/TICKETS_SERVICIOS/" +
+                            ticketId +
+                            "/" +
+                            aplicante +
+                            "/" +
+                            pdf +
+                            ".pdf",
+                          pdf
+                        )
+                      }
+                    >
+                      {pdf}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div className="text-center w-full">
+              <div className="text-lg font-semibold">ID: {ticketId}</div>
+            </div>
+          </>
         ) : null}
 
         {loading && (
@@ -427,7 +454,6 @@ function PdfGalery() {
 
         {output && (
           <>
-
             <div
               className={
                 "max-w-7xl mx-auto bg-white p-4 rounded-md shadow-md overflow-auto"
