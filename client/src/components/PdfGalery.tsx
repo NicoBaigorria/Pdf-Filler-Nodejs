@@ -281,10 +281,11 @@ function PdfGalery() {
             if (
               schemaHubspotProps[prop].type === "textarea"
             ){
+              const value = propiedadesTicket[schemaHubspotProps[prop].hubspotProperty];
               pdfDocument.annotationStorage.setValue(prop, {
-                value: schemaHubspotProps[prop].value,
+                value: value,
               });
-            console.log("change", prop, schemaHubspotProps[prop].value);
+            console.log("change", prop, value);
             }
           
         }
@@ -359,7 +360,7 @@ function PdfGalery() {
     const inputNodes = ["input", "textarea", "select"];
     const result: InputObj[] = [];
     if (inputNodes.includes(node.name)) {
-      console.log("nodenodenodenode", node);
+      //console.log("nodenodenodenode", node);
       const item: InputObj = {
         name: node.name,
         dataId: node.attributes.dataId,

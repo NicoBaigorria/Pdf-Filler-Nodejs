@@ -69,30 +69,30 @@
   "FamilyName31626": {
     "dataId": "FamilyName31626",
     "seccion": "Personal Details Section Question 1 Family name as shown on your passport or travel document",
-    "hubspotProperty": "",
+    "hubspotProperty": "apellido",
     "type": "textarea",
-    "value": "fasfasfsa"
+    "value": ""
   },
   "GivenName31627": {
     "dataId": "GivenName31627",
     "seccion": "Question 1 Given name or names as shown on your passport or travel document",
-    "hubspotProperty": "",
+    "hubspotProperty": "nombre",
     "type": "textarea",
-    "value": "safasfsaf"
+    "value": ""
   },
   "AliasFamilyName31629": {
     "dataId": "AliasFamilyName31629",
     "seccion": "Question 2 B If you answered yes to question 2 A, please give the family name.",
     "hubspotProperty": "",
     "type": "textarea",
-    "value": "bcvbcvbcv"
+    "value": ""
   },
   "AliasGivenName31630": {
     "dataId": "AliasGivenName31630",
     "seccion": "Question 2 B If you answered yes to question 2 A, please give the given name.",
     "hubspotProperty": "",
     "type": "textarea",
-    "value": "cvbcvbcv"
+    "value": ""
   },
   "AliasNameIndicator31632": {
     "dataId": "AliasNameIndicator31632",
