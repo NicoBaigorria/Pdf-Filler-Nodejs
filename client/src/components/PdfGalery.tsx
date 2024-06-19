@@ -60,6 +60,7 @@ interface AcroNode {
   type: string;
   id: string;
   name: string;
+  options?: any[];
 }
 
 interface PropsMapItem {
@@ -270,7 +271,7 @@ function PdfGalery() {
           const schemaProps = await resp.json()
           console.log("sschemaHubspotProps", schemaProps)
           return schemaProps
-        })
+        }).catch(e => console.log("error schema",e))
 
         pdfDocument.annotationStorage.setValue("FamilyName31626", {
           value: "fasfasf",
@@ -291,14 +292,55 @@ function PdfGalery() {
         }
       } else {
         setFormType("acro");
-        setInputs(getAllAcroInputs(await pdfDocument.getFieldObjects()));
+        const inputsList = getAllAcroInputs(await pdfDocument.getFieldObjects())
+        setInputs(inputsList);
         setOutput(JSON.stringify(await pdfDocument.getFieldObjects(), null, 2));
+        console.log("inputsList", inputsList);
 
-        // Filler test using IMM56456
-        pdfDocument.annotationStorage.setValue("691R", {
-          value: "Test Surname",
+        let hubspotProperty = "";
+
+        inputsList.map((input) => {
+          propsMaps[input.dataId] = {
+            dataId: input.dataId,
+            seccion: input.ariaLabel,
+            hubspotProperty: hubspotProperty,
+            type: input.name,
+            value: input.value ? input.value : "",
+          };
+
+          if (input.name === "select")
+            propsMaps[input.dataId].options = input.options;
         });
-        pdfDocument.annotationStorage.setValue("694R", { value: "TestName" });
+
+        console.log("propsMaps", propsMaps);
+
+        setPropsMapHubspot(propsMaps);
+
+        // Rellenar datos segun json guardado en matchPropsForms
+
+        const schemaHubspotProps = await fetch("./matchPropsForms/" + filename + ".json").then( async resp => {
+          const schemaProps = await resp.json()
+          console.log("sschemaHubspotProps", schemaProps)
+          return schemaProps
+        }).catch(e => console.log("error schema",e))
+
+        pdfDocument.annotationStorage.setValue("FamilyName31626", {
+          value: "fasfasf",
+        });
+        
+        for (let prop in schemaHubspotProps) {
+
+            if (
+              schemaHubspotProps[prop].type === "textarea"
+            ){
+              const value = propiedadesTicket[schemaHubspotProps[prop].hubspotProperty];
+              pdfDocument.annotationStorage.setValue(prop, {
+                value: value,
+              });
+            console.log("change", prop, value);
+            }
+          
+        }
       }
 
       var result = await pdfDocument.saveDocument();
@@ -349,7 +391,7 @@ function PdfGalery() {
           name: node.type,
           dataId: node.id,
           ariaLabel: node.name,
-          options: [],
+          options: node.options? node.options : [],
         });
       }
     }
