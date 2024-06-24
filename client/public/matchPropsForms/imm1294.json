@@ -104,7 +104,7 @@
   "Sex31634": {
     "dataId": "Sex31634",
     "seccion": "Question 3 What is your sex?",
-    "hubspotProperty": "",
+    "hubspotProperty": "sex",
     "type": "select",
     "value": "",
     "options": [

@@ -306,7 +306,7 @@ function PdfGalery() {
         for (let prop in schemaHubspotProps) {
 
             if (
-              schemaHubspotProps[prop].type === "textarea"
+              schemaHubspotProps[prop].type === "textarea" || schemaHubspotProps[prop].type === "select"
             ){
               const value = propiedadesTicket[schemaHubspotProps[prop].hubspotProperty];
               pdfDocument.annotationStorage.setValue(prop, {
@@ -360,7 +360,7 @@ function PdfGalery() {
         for (let prop in schemaHubspotProps) {
 
             if (
-              schemaHubspotProps[prop].type === "textarea"
+              schemaHubspotProps[prop].type === "textarea"|| schemaHubspotProps[prop].type === "select"
             ){
               const value = propiedadesTicket[schemaHubspotProps[prop].hubspotProperty];
               pdfDocument.annotationStorage.setValue(prop, {
@@ -372,6 +372,7 @@ function PdfGalery() {
         }
       }
 
+      //Guardar Pdf modificado
       var result = await pdfDocument.saveDocument();
       var buffer = Buffer.from(result);
       const pdfBlob = new Blob([buffer], { type: "application/pdf" });
