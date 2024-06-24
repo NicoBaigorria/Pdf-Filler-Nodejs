@@ -478,8 +478,8 @@ function PdfGalery() {
   }
 
   // Change handler para manejar campo HubspotPop en la tabla de información del Pdf
-  function changeHandlerPdfData() {
-    console.log("afas");
+  function changeHandlerPdfData(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log("hytrujtyu",event.target.value);
   }
 
   return (
