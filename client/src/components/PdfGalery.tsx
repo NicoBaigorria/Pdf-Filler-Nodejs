@@ -282,8 +282,7 @@ function PdfGalery() {
             value: input.value ? input.value : "",
           };
 
-          if (input.name === "select")
-            propsMaps[input.dataId].options = input.options;
+          if (input.name === "select") propsMaps[input.dataId].options = input.options;
         });
 
         console.log("propsMaps", propsMaps);
@@ -337,8 +336,7 @@ function PdfGalery() {
             value: input.value ? input.value : "",
           };
 
-          if (input.name === "select")
-            propsMaps[input.dataId].options = input.options;
+          if (input.name === "select") propsMaps[input.dataId].options = input.options;
         });
 
         console.log("propsMaps", propsMaps);
