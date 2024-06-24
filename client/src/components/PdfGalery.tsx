@@ -6,6 +6,9 @@ import Modal from "./Modal";
 import { Buffer } from "buffer";
 import fileProps from "../Jsons/ticketProps.json";
 
+
+
+// Traer lista de Pdf de la carpeta que esta en public
 function importAll(r: __WebpackModuleApi.RequireContext): {
   [key: string]: any;
 } {
@@ -31,6 +34,9 @@ const PdfList = (): Object => {
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
+// Defino Interfaces 
+
+// Para los campos Xfa
 interface InputObj {
   name: string;
   dataId: string;
@@ -42,6 +48,16 @@ interface InputObj {
   selected?: boolean;
 }
 
+
+// Para los campos AcroForms
+interface AcroNode {
+  type: string;
+  id: string;
+  name: string;
+  options?: any[];
+}
+
+// Para los nodos de xfa
 interface XfaNode {
   name: string;
   value?: string;
@@ -56,13 +72,8 @@ interface XfaNode {
   children?: XfaNode[];
 }
 
-interface AcroNode {
-  type: string;
-  id: string;
-  name: string;
-  options?: any[];
-}
 
+// Schema para crear json
 interface PropsMapItem {
   dataId: string;
   seccion: string;
@@ -72,6 +83,8 @@ interface PropsMapItem {
   options?: any[]; // Adjust the type as per your actual data
 }
 
+
+// Traer data del ticket de Hubspot
 const getTicket = async (id: string) => {
   const accessToken = "pat-na1-31886066-9adb-4992-930a-91cd28f192ff";
 
@@ -102,6 +115,8 @@ const getTicket = async (id: string) => {
   }
 };
 
+// Función para agregar filas a tabla que enlista los inputs (el changeHandler es necesario para posteriormente almacenar esos datos para inyectarlos en PdfGallery y modificar el
+// json a descargar o el pdf)
 function InputObjTableRow({
   input,
   i,
@@ -143,6 +158,7 @@ function InputObjTableRow({
         </td>
       </tr>
 
+        {/* El modal no es necesario actualmente pero util, este se usaba para mostrar las opciones disponibles de los campos select */}
       <Modal open={modal} onClose={() => setModal(false)}>
         <button
           type="button"
@@ -164,6 +180,8 @@ function InputObjTableRow({
   );
 }
 
+
+// La función principal
 function PdfGalery() {
   const [url, setUrl] = useState("");
   const [output, setOutput] = useState("");
@@ -186,6 +204,7 @@ function PdfGalery() {
 
   const location = useLocation();
 
+  // Cuando carga se toma el ID del ticket
   useEffect(() => {
     const files = PdfList();
     setPdfList(files);
@@ -200,6 +219,8 @@ function PdfGalery() {
     console.log(ticketIdParam);
   }, [location]);
 
+
+  // Cuando se cambia el ticketId se trae la información de Hubspot
   useEffect(() => {
     const fetchTicketData = async (Id: string) => {
       try {
@@ -222,22 +243,26 @@ function PdfGalery() {
     }
   }, [ticketId]);
 
+
+  //Función para leer Pdf
   async function loadPdf(pdfUrl: string | Uint8Array, filename: string) {
     console.log("pdfUrl", pdfUrl);
 
+    // Ya cargó el Pdf
     setLoading(true);
 
     try {
-      const source =
-        typeof pdfUrl === "string" ? { url: pdfUrl } : { data: pdfUrl };
+      const source = typeof pdfUrl === "string" ? { url: pdfUrl } : { data: pdfUrl };
 
       const pdfDocument = await pdfjs.getDocument({
         ...source,
         enableXfa: true,
       }).promise;
 
+      // Json a llenar con la info del Pdf y ticket
       let propsMaps: { [key: string]: PropsMapItem } = {};
 
+      // Si es un Xfa
       if (pdfDocument.allXfaHtml) {
         setFormType("xfa");
         const inputsList = getAllInputs(pdfDocument.allXfaHtml);
@@ -290,6 +315,8 @@ function PdfGalery() {
             }
           
         }
+
+        // Si es un acroForm
       } else {
         setFormType("acro");
         const inputsList = getAllAcroInputs(await pdfDocument.getFieldObjects())
@@ -351,7 +378,7 @@ function PdfGalery() {
       const downloadLink = document.createElement("a");
       downloadLink.href = PdfUrl;
       downloadLink.innerHTML = "Descargar";
-      downloadLink.download = filename + ".pdf"; // Specify the desired filename
+      downloadLink.download = filename + ".pdf"; // Nombre del pdf
 
       downloadLink.className =
         "fixed top-0 right-0 m-4 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600";
@@ -366,8 +393,7 @@ function PdfGalery() {
       const meneratemapLink = document.createElement("a");
       meneratemapLink.href = jsonUrl;
       meneratemapLink.innerHTML = "Descargar Mapa Props";
-      meneratemapLink.download = filename + ".json"; // Specify the desired filename
-
+      meneratemapLink.download = filename + ".json"; // Nombre del pdf
       meneratemapLink.className =
         "fixed bottom-0 right-0 m-4 inline-block px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600";
 
@@ -380,6 +406,8 @@ function PdfGalery() {
     setLoading(false);
   }
 
+
+  // Obtener todos los inputs de un AcroForm
   function getAllAcroInputs(baseObj: { [name: string]: AcroNode[] }) {
     const result: InputObj[] = [];
     for (const key in baseObj) {
@@ -398,6 +426,7 @@ function PdfGalery() {
     return result;
   }
 
+  // Obtener todos los inputs de un Xfa
   function getAllInputs(node: XfaNode) {
     const inputNodes = ["input", "textarea", "select"];
     const result: InputObj[] = [];
@@ -445,6 +474,7 @@ function PdfGalery() {
     );
   }
 
+  // Change handler para manejar campo HubspotPop en la tabla de información del Pdf
   function changeHandlerPdfData() {
     console.log("afas");
   }
@@ -467,6 +497,7 @@ function PdfGalery() {
                       key={pdf}
                       className="bg-gray-200 p-2 rounded shadow hover:bg-gray-300 transition duration-200"
                       onClick={() =>
+                        // Traer pdf del aplicante
                         loadPdf(
                           "https://21669225.fs1.hubspotusercontent-na1.net/hubfs/21669225/ARCHIVOS_PRIVADOS/PDF_CANADA/TICKETS_SERVICIOS/" +
                             ticketId +
