@@ -8,7 +8,7 @@ import fileProps from "../Jsons/ticketProps.json";
 
 
 
-// Traer lista de Pdf de la carpeta que esta en public
+// Traer lista de Pdf
 function importAll(r: __WebpackModuleApi.RequireContext): {
   [key: string]: any;
 } {
@@ -290,18 +290,20 @@ function PdfGalery() {
 
         setPropsMapHubspot(propsMaps);
 
-        // Rellenar datos segun json guardado en matchPropsForms
+        // Rellenar datos segun json guardado en matchPropsForms en public
 
         const schemaHubspotProps = await fetch("./matchPropsForms/" + filename + ".json").then( async resp => {
           const schemaProps = await resp.json()
           console.log("sschemaHubspotProps", schemaProps)
           return schemaProps
         }).catch(e => console.log("error schema",e))
+        
+        // Se agregan los datos al pdf usando annotationStorage
 
-        pdfDocument.annotationStorage.setValue("FamilyName31626", {
+        pdfDocument.annotationStorage.setValue("FamilyName31626", {   // Dato de Prueba
           value: "fasfasf",
         });
-        
+
         for (let prop in schemaHubspotProps) {
 
             if (
@@ -350,11 +352,13 @@ function PdfGalery() {
           console.log("sschemaHubspotProps", schemaProps)
           return schemaProps
         }).catch(e => console.log("error schema",e))
-
-        pdfDocument.annotationStorage.setValue("FamilyName31626", {
+        
+        // Se agregan los datos al pdf usando annotationStorage
+        
+        pdfDocument.annotationStorage.setValue("FamilyName31626", { // Dato de Prueba
           value: "fasfasf",
         });
-        
+
         for (let prop in schemaHubspotProps) {
 
             if (
