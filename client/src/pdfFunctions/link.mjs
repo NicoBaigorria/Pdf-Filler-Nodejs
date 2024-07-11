@@ -1,9 +1,9 @@
 import fs from "fs";
 
 const checkFiles = async (folder, programas) => {
-  const url = `https://api.hubapi.com/files/v3/files/search?parentFolderId=${folder}`
+  const urlFiles = `${process.env.REACT_APP_HUBSPOT_BASE_URL}files/search?parentFolderId=${folder}`;
 
-  const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
+  const accessToken = process.env.REACT_APP_HUBSPOT_API_KEY;
 
   const headers = new Headers({
     'Authorization': `Bearer ${accessToken}`
@@ -56,7 +56,8 @@ const checkFiles = async (folder, programas) => {
 }
 
 const createLinkPdfs = async (folder, programa) => {
-  const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
+  //const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
+  const url = `${process.env.REACT_APP_HUBSPOT_ACCOUNT_BASE_URL}?folderId=${folder}`;
 
   const checkList = await checkFiles(folder, programa);
 

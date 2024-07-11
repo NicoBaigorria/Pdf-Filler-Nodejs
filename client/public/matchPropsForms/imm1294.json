@@ -9,7 +9,7 @@
   "Age31614": {
     "dataId": "Age31614",
     "seccion": null,
-    "hubspotProperty": "edad_",
+    "hubspotProperty": "edad",
     "type": "input",
     "value": ""
   },
@@ -417,7 +417,7 @@
   "Citizenship31641": {
     "dataId": "Citizenship31641",
     "seccion": "Question 6 Citizenship",
-    "hubspotProperty": "pais_de_ciudadania",
+    "hubspotProperty": "pais_de_origen_",
     "type": "select",
     "value": "",
     "options": [
@@ -1227,7 +1227,7 @@
   "Status31662": {
     "dataId": "Status31662",
     "seccion": "Question 8 B Row 1 Status.  Your immigration status in your previous country or territory of residence",
-    "hubspotProperty": "",
+    "hubspotProperty": "immigration_status",
     "type": "select",
     "value": "",
     "options": [
@@ -1519,7 +1519,7 @@
   "Status31668": {
     "dataId": "Status31668",
     "seccion": "Question 8 B Row 2 Status.  Your immigration status in your previous country of residence",
-    "hubspotProperty": "",
+    "hubspotProperty": "immigration_status",
     "type": "select",
     "value": "",
     "options": [
@@ -1902,7 +1902,7 @@
   "Status31691": {
     "dataId": "Status31691",
     "seccion": "Question 9 B Status.  Your immigration status in the country from where you are applying.",
-    "hubspotProperty": "",
+    "hubspotProperty": "immigration_status",
     "type": "select",
     "value": "",
     "options": [
@@ -2051,7 +2051,7 @@
   "PrevMarriedIndicator31717": {
     "dataId": "PrevMarriedIndicator31717",
     "seccion": "Indicate YES to Question 11 A.  Have you previously been married or in a common law relationship?",
-    "hubspotProperty": "",
+    "hubspotProperty": "married",
     "type": "input",
     "value": ""
   },
@@ -2121,7 +2121,7 @@
   "TypeOfRelationship31730": {
     "dataId": "TypeOfRelationship31730",
     "seccion": "Question 11 C Type of Relationship.  If you replied Yes to question 11 A, please indicate if your status was married or common-law.",
-    "hubspotProperty": "",
+    "hubspotProperty": "tipo_de_relacion",
     "type": "select",
     "value": "",
     "options": [
@@ -3306,14 +3306,14 @@
   "CityTown31800": {
     "dataId": "CityTown31800",
     "seccion": "Question 1 Current mailing address city or town",
-    "hubspotProperty": "",
+    "hubspotProperty": "ciudad_de_residencia_",
     "type": "textarea",
     "value": ""
   },
   "Country31802": {
     "dataId": "Country31802",
     "seccion": "Question 1 Current mailing address country or territory",
-    "hubspotProperty": "",
+    "hubspotProperty": "pais_de_residencia_",
     "type": "select",
     "value": "",
     "options": [
@@ -3584,7 +3584,7 @@
   "ProvinceState31804": {
     "dataId": "ProvinceState31804",
     "seccion": "Question 1 Current mailing address province or state only if the country is Canada or the United States",
-    "hubspotProperty": "",
+    "hubspotProperty": "provincia_de_residencia_",
     "type": "select",
     "value": "",
     "options": [
@@ -3621,7 +3621,7 @@
   "SameAsMailingIndicator31808": {
     "dataId": "SameAsMailingIndicator31808",
     "seccion": "Indicate YES to Question 2  Is your residential address the same as your mailing address?",
-    "hubspotProperty": "",
+    "hubspotProperty": "sameasmailingindicator",
     "type": "input",
     "value": ""
   },
@@ -4186,7 +4186,7 @@
   "SchoolName31871": {
     "dataId": "SchoolName31871",
     "seccion": "Details of intended study in Canada section Question 1 A Name of School.  The name of educational institution to which you have been accepted",
-    "hubspotProperty": "",
+    "hubspotProperty": "nombre_escuela",
     "type": "textarea",
     "value": ""
   },

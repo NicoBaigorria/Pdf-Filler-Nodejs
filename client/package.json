@@ -12,7 +12,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "buffer": "^6.0.3",
-    "pdfjs-dist": "^2.10.377",
+    "pdfjs-dist": "^2.16.105",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
@@ -46,6 +46,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/pdfjs-dist": "^2.10.378",
     "@types/webpack-env": "^1.18.5"
   }
 }

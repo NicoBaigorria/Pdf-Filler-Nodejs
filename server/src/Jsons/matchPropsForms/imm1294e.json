@@ -36,7 +36,7 @@
         {
             "dataId": "PlaceBirthCountry240659",
             "seccion": "Question 5 B Place of Birth Country or Territory",
-            "hubspotProperty": "",
+            "hubspotProperty": "pais_de_nacimiento_",
             "options": [
                 "",
                 "Afghanistan",
@@ -4420,7 +4420,7 @@
         {
             "dataId": "Age240634",
             "seccion": null,
-            "hubspotProperty": "",
+            "hubspotProperty": "edad",
             "options": null
         },
         {
@@ -5422,12 +5422,6 @@
     ],
     "textareas": [
         {
-            "dataId": "FamilyName240646",
-            "seccion": "Personal Details Section Question 1 Family name as shown on your passport or travel document",
-            "hubspotProperty": "lastname",
-            "options": null
-        },
-        {
             "dataId": "GivenName240647",
             "seccion": "Question 1 Given name or names as shown on your passport or travel document",
             "hubspotProperty": "firstname",
@@ -5442,13 +5436,13 @@
         {
             "dataId": "AliasGivenName240650",
             "seccion": "Question 2 B If you answered yes to question 2 A, please give the given name.",
-            "hubspotProperty": "",
+            "hubspotProperty": "firstname",
             "options": null
         },
         {
             "dataId": "PlaceBirthCity240658",
             "seccion": "Question 5 A Place of Birth City or Town",
-            "hubspotProperty": "",
+            "hubspotProperty": "pais_de_nacimiento_",
             "options": null
         },
         {
@@ -5482,9 +5476,15 @@
             "options": null
         },
         {
+            "dataId": "FamilyName31626",
+            "seccion": "Question 10 C Family Name.  If you are married or in a common law relationship, please give the family name of your current spouse or common law partner.",
+            "hubspotProperty": "lastname",
+            "options": null
+        },
+        {
             "dataId": "GivenName240732",
             "seccion": "Question 10 C Given Name.  If you are married or in a common law relationship, please give the given name of your current spouse or common law partner.",
-            "hubspotProperty": "",
+            "hubspotProperty": "firstname",
             "options": null
         },
         {
@@ -5496,13 +5496,13 @@
         {
             "dataId": "PMGivenName240749",
             "seccion": "Question 11 B Given Name.  If you replied Yes to question 11 A, please give the given name of your previous spouse or common law partner.",
-            "hubspotProperty": "",
+            "hubspotProperty": "firstname",
             "options": null
         },
         {
             "dataId": "PassportNum240773",
             "seccion": "Passport Section Question 1. Your current passport number",
-            "hubspotProperty": "",
+            "hubspotProperty": "numero_de_pasaporte_",
             "options": null
         },
         {

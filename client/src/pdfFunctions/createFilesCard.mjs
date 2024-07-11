@@ -9,14 +9,15 @@ import {
 
 
 const checkFiles = async (folder, programas, hs_object, aplicantes) => {
-    const urlFolder = `https://api.hubapi.com/files/v3/folders/PDF-Gobierno_de_Canada/PDF-API/${hs_object}`;
-    const urlFiles = `https://api.hubapi.com/files/v3/files/search?parentFolderId=`;
+
+    const urlFolder = `${process.env.REACT_APP_HUBSPOT_BASE_URL}folders/PDF-Gobierno_de_Canada/PDF-API/${hs_object}`;
+    const urlFiles = `${process.env.REACT_APP_HUBSPOT_BASE_URL}files/search?parentFolderId=`;
 
     const date = DateNow()
 
     console.log("dfghfdhdhgfhgf", urlFolder)
 
-    const accessToken = "pat-na1-31886066-9adb-4992-930a-91cd28f192ff";
+    const accessToken = process.env.REACT_APP_HUBSPOT_API_KEY;
 
     const headers = new Headers({
         "Authorization": `Bearer ${accessToken}`,
@@ -367,7 +368,8 @@ return(formattedDate);
 }
 
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
-    const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
+    //const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
+    const url = `${process.env.REACT_APP_HUBSPOT_ACCOUNT_BASE_URL}?folderId=${folder}`;
 
     await subirPdfs(hs_object, folder, programas, aplicantes)
 

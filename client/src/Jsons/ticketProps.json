@@ -11,6 +11,7 @@
       "createdate",
       "familyname",
       "edad_",
+      "edad",
       "lastname",
       "firstname",
       "fecha_de_nacimiento_",

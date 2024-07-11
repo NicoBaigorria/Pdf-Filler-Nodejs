@@ -1,9 +1,9 @@
 {
   "age": {
-    "internalName": "edad_"
+    "internalName": "edad"
   },
   "FamilyName": {
-    "internalName": "familyname"
+    "internalName": "lastname"
   },
   "Edad..*": {
     "internalName": "edad_"
@@ -21,13 +21,13 @@
     "internalName": "fecha_de_nacimiento_"
   },
   "PlaceBirthCity": {
-    "internalName": "ciudad_de_nacimiento_"
+    "internalName": "pais_de_nacimiento_"
   },
   "PMFamilyName": {
-    "internalName": "spouse_last_name__c"
+    "internalName": "lastname"
   },
   "PMGivenName": {
-    "internalName": "spouse_first_name__c"
+    "internalName": "firstname"
   },
   "PassportNum": {
     "internalName": "numero_de_pasaporte_"

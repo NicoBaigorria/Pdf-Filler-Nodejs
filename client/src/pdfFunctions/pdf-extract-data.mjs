@@ -22,12 +22,12 @@ function buscarPropiedad(json, targetName) {
     function buscarRecursivamente(elemento) {
         if (elemento.name === targetName) {
 
-            console.log(elemento.attributes)
+            console.log("Atributos del elemento", elemento.attributes)
 
             const inputDetail = {
                 "dataId": elemento.attributes.dataId,
                 "seccion": elemento.attributes["aria-label"],
-                "value": targetName == "textarea"? elemento.attributes.textContent : elemento.attributes.value,
+                "value": targetName == "textarea" ? elemento.attributes.textContent : elemento.attributes.value,
                 "hubspotProperty": ""
             }
 
