@@ -1,8 +1,10 @@
 import fs from 'fs'
 import path from 'path';
+import 'dotenv/config';
+
+const accessToken = process.env.HUBSPOT_API_KEY;
 
 export const getTicket = async (id) => {
-    const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
 
     let properties = "";
 
@@ -45,7 +47,7 @@ export const getTicket = async (id) => {
 export const createFolder = async (name, idFolder = "145506339115") => {
     const myHeaders = new Headers();
     myHeaders.append("content-type", "application/json");
-    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+    myHeaders.append("Authorization", `Bearer ${accessToken}`);
 
     const raw = JSON.stringify({
         "parentFolderId": idFolder,
@@ -74,7 +76,7 @@ export const createFolder = async (name, idFolder = "145506339115") => {
 export const createFile = async (folder, name, folderId) => {
     const fileUrl = path.join(folder, name);
     const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+    myHeaders.append("Authorization", `Bearer ${accessToken}`);
 
     const fileBuffer = await fs.promises.readFile(fileUrl);
 
@@ -111,7 +113,7 @@ export const createFile = async (folder, name, folderId) => {
 export const deleteFolder = (idFolder) => {
 
     const myHeaders = new Headers();
-    myHeaders.append("authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+    myHeaders.append("authorization", `Bearer ${accessToken}`);
 
     const requestOptions = {
         method: "DELETE",
@@ -130,7 +132,7 @@ export const updateProperty = async (id, properties) => {
     const url = 'https://api.hubapi.com/crm/v3/objects/tickets/' + id;
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff'
+        'Authorization': `Bearer ${accessToken}`
     };
 
     const body = JSON.stringify({

@@ -1,5 +1,6 @@
 import fs from "fs";
 import { getTicket } from "../services/hubspot.mjs";
+import 'dotenv/config';
 
 const consultaPdfs = async (req, res) => {
   try {

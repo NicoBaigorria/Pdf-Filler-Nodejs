@@ -1,9 +1,10 @@
 const express = require("express");
 const fs = require("fs");
-
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3002;
+const accessToken = process.env.HUBSPOT_API_KEY;
 
 app.use(express.json());
 
@@ -28,7 +29,7 @@ const date = DateNow();
 const createFile = async (folder, name, folderId) => {
     const fileUrl =  folder + "/" + name;
     const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+    myHeaders.append("Authorization", `Bearer ${accessToken}`);
 
     const fileBuffer = await fs.promises.readFile(fileUrl);
 
@@ -65,7 +66,7 @@ const createFile = async (folder, name, folderId) => {
  const deleteFolder = (idFolder) => {
 
     const myHeaders = new Headers();
-    myHeaders.append("authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+    myHeaders.append("authorization", `Bearer ${accessToken}`);
 
     const requestOptions = {
         method: "DELETE",
@@ -84,7 +85,7 @@ const createFile = async (folder, name, folderId) => {
     const url = 'https://api.hubapi.com/crm/v3/objects/tickets/' + id;
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff'
+        'Authorization': `Bearer ${accessToken}`
     };
 
     const body = JSON.stringify({
@@ -113,7 +114,7 @@ const createFile = async (folder, name, folderId) => {
 const createFolder = async (name, idFolder = "145506339115") => {
     const myHeaders = new Headers();
     myHeaders.append("content-type", "application/json");
-    myHeaders.append("Authorization", "Bearer pat-na1-31886066-9adb-4992-930a-91cd28f192ff");
+    myHeaders.append("Authorization", `Bearer ${accessToken}`);
 
     const raw = JSON.stringify({
         "parentFolderId": idFolder,
@@ -146,8 +147,6 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
     const urlFiles = `https://api.hubapi.com/files/v3/files/search?parentFolderId=`;
 
     console.log("dfghfdhdhgfhgf", urlFolder)
-
-    const accessToken = "pat-na1-31886066-9adb-4992-930a-91cd28f192ff";
 
     const headers = new Headers({
         "Authorization": `Bearer ${accessToken}`,

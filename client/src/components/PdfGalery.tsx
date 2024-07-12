@@ -91,7 +91,6 @@ const getTicket = async (id: string) => {
 
   try {
     const url = `${process.env.REACT_APP_URL_DEV}${process.env.REACT_APP_SERVER_PORT}/consultaPdfs?ticketId=${id}`;
-    console.log(url)
     
     //console.log("datos consulta tickets ", url);
 

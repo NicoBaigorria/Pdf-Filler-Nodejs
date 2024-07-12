@@ -6,7 +6,9 @@ import {
     deleteFolder,
     updateProperty,
 } from "../services/hubspot.mjs";
+import 'dotenv/config';
 
+const accessToken = process.env.HUBSPOT_API_KEY;
 
 const checkFiles = async (folder, programas, hs_object, aplicantes) => {
     const urlFolder = `https://api.hubapi.com/files/v3/folders/PDF-Gobierno_de_Canada/PDF-API/${hs_object}`;
@@ -16,7 +18,6 @@ const checkFiles = async (folder, programas, hs_object, aplicantes) => {
 
     console.log("dfghfdhdhgfhgf", urlFolder)
 
-    const accessToken = "pat-na1-31886066-9adb-4992-930a-91cd28f192ff";
 
     const headers = new Headers({
         "Authorization": `Bearer ${accessToken}`,

@@ -1,9 +1,11 @@
 import fs from "fs";
+import 'dotenv/config';
+
+const accessToken = process.env.HUBSPOT_API_KEY;
 
 const checkFiles = async (folder, programas) => {
   const url = `https://api.hubapi.com/files/v3/files/search?parentFolderId=${folder}`
 
-  const accessToken = 'pat-na1-31886066-9adb-4992-930a-91cd28f192ff';
 
   const headers = new Headers({
     'Authorization': `Bearer ${accessToken}`
