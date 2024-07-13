@@ -7,6 +7,9 @@ import createFilesCard from "./src/routes/createFilesCard.mjs"
 import consultaPdfs from "./src/routes/consultaPdfs.mjs"
 import cors from 'cors';
 
+import 'dotenv/config';
+
+
 const app = express(),
 port = process.env.PORT || 3600;
 

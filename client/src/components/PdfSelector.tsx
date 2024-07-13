@@ -89,7 +89,9 @@ const getTicket = async (id: string) => {
   });
 
   try {
-    const url = `${process.env.REACT_APP_URL_DEV}${process.env.REACT_APP_URL_DEV}/consultaPdfs?ticketId=${id}`;
+    const url = `http://localhost:3100/consultaPdfs?ticketId=${id}`;
+    //const url = `${process.env.REACT_APP_URL_DEV}${process.env.REACT_APP_SERVER_PORT}/consultaPdfs?ticketId=${id}`;
+    //const url = `${process.env.REACT_APP_URL_PROD}${process.env.REACT_APP_PRODUCTION_PATH}/consultaPdfs?ticketId=${id}`;
 
     console.log("datos consulta tickets ", url);
 

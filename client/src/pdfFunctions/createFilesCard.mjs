@@ -368,7 +368,6 @@ return(formattedDate);
 }
 
 const createLinkPdfs = async (hs_object, folder, programas, aplicantes) => {
-    //const url = `https://app.hubspot.com/files/21669225/?folderId=${folder}`;
     const url = `${process.env.REACT_APP_HUBSPOT_ACCOUNT_BASE_URL}?folderId=${folder}`;
 
     await subirPdfs(hs_object, folder, programas, aplicantes)
